@@ -1,0 +1,43 @@
+/* src/index.css */
+
+/* --- FONT IMPORTS --- */
+@import url("https://fonts.cdnfonts.com/css/satoshi");
+@import url("https://fonts.googleapis.com/css2?family=Marcellus&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* --- YOUR CUSTOM REACT-SPECIFIC STYLES --- */
+@import "./styles/legacy.css";
+
+
+
+
+
+
+
+
+/* src/index.css */
+
+/* 
+@import url("https://fonts.cdnfonts.com/css/satoshi");
+@import url("https://fonts.googleapis.com/css2?family=Marcellus&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+
+
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+
+@import "/assets/css/animate.css";
+@import "/assets/css/magnific-popup.css";
+@import "/assets/css/meanmenu.css";
+@import "/assets/css/swiper-bundle.min.css";
+@import "/assets/css/nice-select.css";
+@import "/assets/css/color.css"; 
+@import "/assets/css/main.css";
+
+@import "./styles/legacy.css";
+ */

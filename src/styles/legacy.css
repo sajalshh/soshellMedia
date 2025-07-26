@@ -1,0 +1,307 @@
+/* Variables for buttons and theme colors */
+:root {
+  --tp-theme-primary: #3657d4;
+  --tp-theme-secondary: #ff7d6b;
+  --tp-heading-primary: #0b0c0c;
+  --tp-text-body: #656565;
+}
+
+/* -----------------------
+   Buttons
+------------------------ */
+
+.theme-btn {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 15px 40px;
+  background-color: var(--tp-theme-primary);
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.theme-btn:hover {
+  background-color: var(--tp-theme-secondary);
+  color: #fff;
+}
+
+.border-btn {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 15px 40px;
+  background-color: transparent;
+  border: 2px solid var(--tp-theme-primary);
+  color: var(--tp-theme-primary);
+  text-transform: uppercase;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.border-btn:hover {
+  background-color: var(--tp-theme-primary);
+  color: #fff;
+}
+
+.play-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: var(--tp-theme-primary);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+.play-btn:hover {
+  background: var(--tp-theme-secondary);
+}
+
+.play-btn-sm {
+  width: 50px;
+  height: 50px;
+  font-size: 14px;
+}
+
+/* -----------------------
+   Animations
+------------------------ */
+
+@keyframes moveleft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+
+@keyframes tp-slide-top {
+  0% {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes tp-slide-bottom {
+  0% {
+    transform: translateY(-80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes tp-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Add this to the bottom of the file */
+
+.search-wrap {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.search-wrap.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Custom Mouse Cursor Styles */
+.mouse-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 9999;
+  transition: transform 0.1s ease-out, opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.cursor-inner {
+  width: 10px;
+  height: 10px;
+  background-color: #EFFB53; /* Your site's primary color */
+  transform: translate(-50%, -50%);
+}
+
+.cursor-outer {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #EFFB53;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease-out, opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.cursor-inner.cursor-hover {
+  opacity: 0.5;
+}
+
+.cursor-outer.cursor-hover {
+  width: 60px;
+  height: 60px;
+  border-color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+/* Mobile Menu Styles */
+.header__hamburger .sidebar__toggle {
+  display: none; /* Hidden by default */
+}
+
+.main-menu .mobile-menu-close {
+  display: none; /* Hide close button on desktop */
+}
+
+/* Show hamburger and hide desktop menu on screens smaller than 1200px */
+@media (max-width: 1199px) {
+  .header__hamburger .sidebar__toggle {
+    display: block;
+    cursor: pointer;
+  }
+
+  .main-menu {
+    display: none; /* Hide desktop menu container */
+  }
+
+  /* Styles for the mobile menu panel */
+  #mobile-menu {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: #080D22; /* Dark background */
+    z-index: 9999;
+    padding: 80px 30px 30px;
+    transform: translateX(-105%);
+    transition: transform 0.4s ease;
+  }
+
+  #mobile-menu.mobile-menu-open {
+    transform: translateX(0);
+  }
+
+  /* Mobile menu links */
+  #mobile-menu ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #mobile-menu ul li {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  #mobile-menu ul li a {
+    display: block;
+    padding: 10px 0;
+    font-size: 18px;
+    color: #fff;
+  }
+
+  #mobile-menu ul .submenu {
+    display: none; /* Hiding submenus for simplicity for now */
+  }
+
+  /* Mobile menu close button */
+  .main-menu .mobile-menu-close {
+    display: block;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+  }
+}
+
+/* Definitive fix for the NewsPage hero slider */
+
+/* Ensure the slider can contain positioned elements */
+.news-hero-slider {
+  position: relative;
+}
+
+/* Hide the content of ALL slides by default and keep them on a low layer */
+.news-hero-slider .swiper-slide .hero-content {
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.6s ease;
+}
+
+/* ONLY show the content of the ACTIVE slide and bring it to the very front */
+.news-hero-slider .swiper-slide.swiper-slide-active .hero-content {
+  opacity: 1;
+  z-index: 5; /* A high number to ensure it's on top */
+}
+
+/* Show dropdown menu when controlled by React state */
+.main-menu ul li .submenu.show-dropdown {
+  opacity: 1;
+  visibility: visible;
+  top: 100%;
+}
+
+.hero-secton .hero-content {
+  max-width: none;
+  width: 100%;
+}
+
+/*
+  This second rule makes the heading text responsive, so it
+  shrinks on smaller screens to always fit correctly.
+*/
+.hero-secton .hero-content h1 {
+  font-size: clamp(40px, 8vw, 90px); /* Responsive font size */
+  width: 100%;
+}
+
+.hero-content h1 b {
+  margin-left: 0.2em; /* Use a small, normal-sized space instead of the large one */
+}
+
+.text-neon {
+  color: #EFFB53; /* This is your theme's primary neon color */
+}
+
+
+
+.hero-secton .hero-content .sub {
+  margin-top: 15px;
+  display: block;
+  max-width: 10000px; /* Give it a max-width so the line breaks nicely */
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  font-size: 20px; /* Force the text to center */
+}
+
+.about-items .about-content p,
+.about-items .about-content ul li {
+  font-size: 15px; /* Adjust this as needed, e.g., 12px or 13px */
+  line-height: 1.5;
+}
+
+.our_mission_title {
+  font-size: 20px;
+}
