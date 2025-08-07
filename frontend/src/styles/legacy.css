@@ -1518,7 +1518,7 @@ FINAL V2 - Responsive Styles for Header.jsx (Maximum Specificity)
 
   .offcanvas__info .mobile-menu nav#mobile-menu ul li {
     width: 100% !important;
-    margin: 1px !important;
+    margin: 0px !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
   
