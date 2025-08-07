@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaEye, FaHandshake, FaVideo } from "react-icons/fa";
 import { Fade } from "react-awesome-reveal";
 import Counter from "../components/Counter";
+import api from "../api/axiosConfig";
 import SeoHelmet from "../components/SeoHelmet";
 
 // Helper to map icon names from the database to actual components
