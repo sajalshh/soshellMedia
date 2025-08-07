@@ -995,3 +995,580 @@
   min-height: 200px; /* Ensures the editor has a decent default height */
   outline: none;     /* Removes the default browser outline, as our wrapper now handles the focus style */
 }
+
+
+/*
+==============================================
+Responsive Styles for AboutPage.jsx
+==============================================
+*/
+
+/* For Tablets and Smaller Devices (up to 991px) */
+@media (max-width: 991px) {
+  .breadcrumb-wrapper .section-title h2 {
+    font-size: 20px !important;
+  }
+
+  .about-section .about-content p {
+    font-size: 16px !important;
+  }
+
+  .counter-wrapper.counter-one {
+    margin-top: -40px;
+    gap: 20px !important;
+    justify-content: center !important;
+  }
+
+  .team-section .row {
+    justify-content: center !important;
+  }
+}
+
+/* For Mobile Devices (up to 767px) */
+@media (max-width: 767px) {
+  .breadcrumb-wrapper .section-title {
+    padding-top: 110px !important;
+    padding-bottom: 80px !important;
+  }
+
+  .breadcrumb-wrapper .section-title h2 {
+    font-size: 45px !important;
+    line-height: 1.2 !important;
+  }
+
+  .about-section.style-padding {
+    padding: 0px 0 !important;
+  }
+
+  .counter-wrapper.counter-one .counter-items {
+    flex-basis: 100% !important; /* Each counter takes full width */
+    justify-content: center !important;
+  }
+
+  .team-section .custom-section-title h2 {
+    font-size: 36px !important;
+  }
+}
+
+/* For Small Mobile Devices (up to 575px) */
+@media (max-width: 575px) {
+  .breadcrumb-wrapper .section-title h2 {
+    font-size: 52px !important;
+  }
+}
+
+
+/*
+==============================================
+Responsive Styles for StickyCardScroller.jsx
+==============================================
+*/
+
+/* For Tablets and Smaller Devices (up to 991px) */
+@media (max-width: 991px) {
+  .sticky-scroll-wrapper .section-title h2 {
+    font-size: 40px !important;
+  }
+
+  /* Give more scroll room as cards are now taller */
+  .sticky-scroll-container {
+    height: 550vh !important;
+  }
+
+  .sticky-card {
+    padding: 30px !important;
+    height: 85vh !important; /* Allow card to be taller */
+  }
+
+  .card-inner {
+    flex-direction: column !important;
+    gap: 25px !important;
+  }
+
+  .card-image-container,
+  .card-text {
+    width: 100% !important;
+  }
+
+  .card-image-container {
+    width: 100% !important;
+    height: 300px !important; /* Give the container a fixed height */
+    overflow: hidden !important; /* This is the KEY FIX: it clips the overflowing image */
+    border-radius: 20px !important; /* Ensures the corners are rounded */
+    position: relative !important; /* Constrain image height */
+  }
+  
+  .card-image {
+     width: 100% !important;
+    height: 100% !important; /* Make the image fill its container */
+    object-fit: cover !important;
+  }
+
+  .card-text {
+    text-align: center !important;
+  }
+
+  .card-text h2 {
+    font-size: 28px !important;
+  }
+  .card-text p, .card-bullets {
+    font-size: 16px !important;
+  }
+}
+
+/* For Mobile Devices (up to 767px) */
+@media (max-width: 767px) {
+  .sticky-scroll-wrapper .section-title h2 {
+    font-size: 42px !important;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  /* Increase scroll room even more for mobile */
+  .sticky-scroll-container {
+    height: 600vh !important;
+    margin-top: 100px;
+  }
+  
+  .sticky-card {
+    padding: 20px !important;
+    height: 90vh !important;
+  }
+  
+  .card-image {
+     width: 100% !important;
+    height: 100% !important; /* Make the image fill its container */
+    object-fit: cover !important;
+  }
+  .card-image-container {
+      max-height: 250px;
+       height: 250px !important;
+  }
+
+  .floating-box {
+    padding: 8px 12px !important;
+    left: 15px !important;
+    top: 10px !important;
+  }
+
+  .floating-time {
+    font-size: 14px !important;
+  }
+  
+  .floating-sub {
+    font-size: 10px !important;
+  }
+
+  .card-text h2 {
+    font-size: 24px !important;
+  }
+  
+  .explore-button {
+      float: none !important;
+      margin-top: 20px !important;
+  }
+}
+
+
+/*
+==========================================================================
+FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
+==========================================================================
+*/
+
+/* --- A. DESKTOP STYLES (Screens 992px and wider) --- */
+@media (min-width: 992px) {
+  /* This rule protects your desktop style, ensuring the title is 65px */
+  .project-wrapper .project-content h3 a {
+    font-size: 48px !important;
+  }
+}
+
+
+/* --- B. TABLET & MOBILE STYLES (Screens below 992px) --- */
+@media (max-width: 991px) {
+  /* FONT SIZES & SPACING */
+  .project-wrapper .project-title {
+    font-size: 85px !important;
+  }
+  .project-wrapper .project-content h3 a {
+    font-size: 48px !important; /* Tablet size */
+  }
+  .project-section .row > div {
+    margin-bottom: 20px !important;
+  }
+
+  /* RESET MARGINS & ALIGNMENT */
+  .project-wrapper .project-content {
+    margin-left: 0 !important;
+    text-align: center !important;
+    margin-top: 30px !important;
+  }
+  .project-wrapper .project-content .theme-btn {
+    margin: 0 auto !important;
+  }
+
+  /* RE-ORDER THE ALTERNATING LAYOUT */
+  .col-lg-6:has(.content-reversed) {
+    order: 2 !important;
+  }
+  .col-lg-6:has(.content-reversed) + .col-lg-6 {
+    order: 1 !important;
+  }
+}
+
+/* For Mobile Devices (up to 767px) */
+@media (max-width: 767px) {
+  .project-wrapper .project-title {
+    font-size: 70px !important;
+    margin-bottom: 0 !important;
+  }
+  .project-wrapper .project-title img {
+    max-width: 80px !important;
+  }
+  .project-wrapper .project-content h3 a {
+    font-size: 25px !important; /* Mobile size */
+  }
+}
+
+/* For Small Mobile Devices (up to 575px) */
+@media (max-width: 575px) {
+  .project-wrapper .project-title {
+    font-size: 55px !important;
+  }
+  .project-wrapper .project-content h3 a {
+    font-size: 25px !important; /* Small mobile size */
+  }
+}
+
+@media (max-width: 991px) {
+  .project-wrapper .project-content p {
+    /* This centers the paragraph block within its container */
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+
+
+/*
+==============================================
+Responsive Styles for Hero.jsx
+==============================================
+*/
+
+/* For Tablets and Smaller Devices (up to 991px) */
+@media (max-width: 991px) {
+  .hero-1 {
+    padding-top: 170px !important; /* Reduce top spacing */
+  }
+
+  .hero-content h1 {
+    font-size: 80px !important;
+    text-align: center !important;
+    line-height: 1.1 !important;
+  }
+
+  .hero-content h1 .text-2 {
+    font-size: 50px !important;
+  }
+
+  .hero-content p.sub {
+    /* This is a key fix: remove the large margin and center the text */
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 600px !important;
+    font-size: 20px !important;
+  }
+
+  .hero-video-bg {
+    margin-top: 60px !important;
+  }
+}
+
+/* For Mobile Devices (up to 767px) */
+@media (max-width: 767px) {
+  .hero-1 {
+    padding-top: 150px !important;
+  }
+
+  .hero-content h1 {
+    font-size: 60px !important;
+  }
+  
+  .hero-content h1 .text-2 {
+    font-size: 40px !important;
+  }
+
+  .hero-content p.sub {
+    font-size: 18px !important;
+     text-align: center !important;
+  }
+
+  /* This makes the video responsive */
+  .hero-video-bg iframe {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9 !important; /* Maintain video aspect ratio */
+  }
+}
+
+/* For Small Mobile Devices (up to 575px) */
+@media (max-width: 575px) {
+  .hero-content h1 {
+    font-size: 40px !important;
+  }
+  
+  .hero-content h1 .text-2 {
+    font-size: 32px !important;
+
+  }
+
+  .hero-content p.sub {
+    font-size: 16px !important;
+    text-align: center !important;
+  }
+}
+
+/*
+==============================================
+Responsive Styles for Counter Components
+==============================================
+*/
+
+/* For Tablets and Smaller Devices (up to 991px) */
+@media (max-width: 991px) {
+  .counter1 {
+    /* Reduce the negative top margin on smaller screens */
+    margin-top: -40px !important;
+  }
+
+  .counter-wrapper.counter-one {
+    /* This is the key change: stack the counters vertically */
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 40px !important;
+  }
+
+  .counter-items .content {
+    /* Remove the left border that separated items horizontally */
+    border-left: none !important;
+    padding-left: 0 !important;
+    text-align: center !important;
+  }
+
+  .counter-items .content h2 {
+    font-size: 50px !important;
+  }
+
+  .counter-items .content p {
+    font-size: 20px !important;
+  }
+}
+
+/* For Mobile Devices (up to 767px) */
+@media (max-width: 767px) {
+  .counter1 {
+    margin-top: -50px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .counter-items {
+    /* On mobile, stack the icon on top of the text */
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .counter-items .icon {
+    width: 80px !important;
+    height: 80px !important;
+    line-height: 80px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .counter-items .icon svg {
+    font-size: 32px !important;
+  }
+
+  .counter-items .content h2 {
+    font-size: 42px !important;
+  }
+}
+
+/*
+==============================================
+Responsive Styles for About.jsx (Homepage)
+==============================================
+*/
+
+/* For Tablets and Smaller Devices (up to 991px) */
+@media (max-width: 991px) {
+  .section-title.ml-200 {
+    margin-left: 50px !important;
+  }
+
+  .the-real h2 .the-real,
+  .the-real h2 .struggles {
+    font-size: 42px !important;
+  }
+
+  .about-wrapper .nav {
+    /* Make tabs horizontal and centered */
+    flex-direction: row !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important; /* Allow tabs to wrap on small screens */
+    gap: 10px !important;
+    padding-right: 0 !important;
+    border-right: none !important;
+    margin-bottom: 40px !important;
+  }
+
+  .about-wrapper .nav .nav-item .nav-link {
+    /* Make tab buttons smaller */
+    font-size: 16px !important;
+    padding: 12px 25px !important;
+  }
+
+  .about-items {
+    /* Stack image on top of text */
+    flex-direction: column-reverse !important;
+    gap: 30px !important;
+  }
+
+  .about-items .about-content {
+    text-align: center !important;
+  }
+
+  .about-items .about-content .list-items {
+    /* Adjust list alignment for centered text */
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left !important;
+  }
+  .about-button {
+    margin-left: 0 !important;
+  }
+}
+
+/* For Mobile Devices (up to 767px) */
+@media (max-width: 767px) {
+  .the-real h2 .the-real,
+  .the-real h2 .struggles {
+    font-size: 34px !important;
+    margin-right: 0 !important;
+  }
+
+  .about-wrapper .nav .nav-item .nav-link {
+    font-size: 14px !important;
+    padding: 10px 20px !important;
+  }
+
+  .about-items .about-content h3 {
+    font-size: 22px !important;
+  }
+  .about-items .about-content p,
+  .about-items .about-content ul li {
+    font-size: 16px !important;
+  }
+  @media (max-width: 991px) {
+  .the-real h2 div {
+    /* This removes the margin that was pushing the text to the left */
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+  .the-real h6 {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+}
+}
+
+
+/*
+===================================================================
+FINAL V2 - Responsive Styles for Header.jsx (Maximum Specificity)
+===================================================================
+*/
+
+/* On screens 1199px and smaller (tablets and mobile) */
+@media (max-width: 1199px) {
+  /* 1. Hide the desktop-only elements */
+  .header-1 .main-menu,
+  .header-1 .join-text {
+    display: none !important;
+  }
+
+  /* 2. Show the hamburger icon */
+  .header__hamburger .sidebar__toggle {
+    display: block !important;
+    font-size: 24px !important;
+    color: #fff !important;
+    cursor: pointer !important;
+  }
+
+  /* 3. Style the links inside the off-canvas menu to GUARANTEE visibility */
+  .offcanvas__info .mobile-menu nav#mobile-menu ul {
+    display: flex !important;
+    flex-direction: column !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .offcanvas__info .mobile-menu nav#mobile-menu ul li {
+    width: 100% !important;
+    margin: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  .offcanvas__info .mobile-menu nav#mobile-menu ul li:last-child {
+    border-bottom: none !important;
+  }
+
+  .offcanvas__info .mobile-menu nav#mobile-menu ul li a {
+    /* Force visibility */
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    
+    /* Style the text */
+    color: white !important;
+    background-color: transparent !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    padding: 15px 5px !important;
+    text-align: left !important;
+  }
+  
+  .offcanvas__info .mobile-menu nav#mobile-menu ul li a:hover {
+    color: var(--theme) !important;
+  }
+
+  /* Style the dropdown submenus for mobile */
+  .offcanvas__info .mobile-menu nav#mobile-menu .submenu {
+    position: static !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding-left: 20px !important;
+    padding-top: 5px !important;
+    padding-bottom: 10px !important;
+    min-width: unset !important;
+    width: 100% !important;
+  }
+
+  .offcanvas__info .mobile-menu nav#mobile-menu .submenu li {
+    border: none !important;
+  }
+
+  .offcanvas__info .mobile-menu nav#mobile-menu .submenu li a {
+    font-size: 16px !important;
+    color: #cdcdcd !important;
+  }
+}

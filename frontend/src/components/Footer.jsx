@@ -37,28 +37,22 @@ export default function Footer() {
                 </div>
                 <ul className="list-items">
                   <li>
-                    <a href="about.html">About us</a>
+                    <a href="/about">About us</a>
                   </li>
                   <li>
-                    <a href="contact.html">Opportunity</a>
+                    <a href="/contact">Opportunity</a>
                   </li>
                   <li>
-                    <a href="contact.html">Events</a>
+                    <a href="/contact">Consulting</a>
                   </li>
                   <li>
-                    <a href="contact.html">Consulting</a>
+                    <a href="/news">Our blog</a>
                   </li>
                   <li>
-                    <a href="news.html">Our blog</a>
+                    <a href="/contact">Contact us</a>
                   </li>
                   <li>
-                    <a href="contact.html">Contact us</a>
-                  </li>
-                  <li>
-                    <a href="contact.html">Careers</a>
-                  </li>
-                  <li>
-                    <a href="login.html">User login</a>
+                    <a href="/contact">Careers</a>
                   </li>
                 </ul>
               </div>
@@ -73,29 +67,18 @@ export default function Footer() {
                 </div>
                 <ul className="list-items">
                   <li>
-                    <a href="service.html">Graphic design</a>
+                    <a href="/service">Software Development</a>
                   </li>
                   <li>
-                    <a href="service.html">Marketing</a>
+                    <a href="/service">Marketing</a>
                   </li>
                   <li>
-                    <a href="service.html">Photography</a>
+                    <a href="/service">SEO and Optimization</a>
                   </li>
                   <li>
-                    <a href="service.html">Art generate</a>
+                    <a href="/service">Video Editing</a>
                   </li>
-                  <li>
-                    <a href="service.html">Face swap</a>
-                  </li>
-                  <li>
-                    <a href="service.html">Interior design</a>
-                  </li>
-                  <li>
-                    <a href="service.html">Face swap</a>
-                  </li>
-                  <li>
-                    <a href="service.html">Mockup create</a>
-                  </li>
+                
                 </ul>
               </div>
             </div>

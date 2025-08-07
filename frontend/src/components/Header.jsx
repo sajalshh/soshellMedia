@@ -1,17 +1,62 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-export default function Header() {
-  // State for the sticky header
-  const [isSticky, setIsSticky] = useState(false);
-  // State for the search popup
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  // State for the off-canvas sidebar
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  // State to manage which dropdown menu is open on hover
-  const [openDropdown, setOpenDropdown] = useState(null);
+// A reusable component for the navigation links
+// This prevents repeating code and makes updates easier
+const NavLinks = () => (
+  <nav id="mobile-menu">
+    <ul>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/about">About Us</Link>
+      </li>
+      <li className="has-dropdown">
+        <a href="/#" onClick={(e) => e.preventDefault()}>
+          Pages
+        </a>
+        <ul className="submenu">
+          <li>
+            <Link to="/service">Services</Link>
+          </li>
+          <li>
+            <Link to="/team">Team</Link>
+          </li>
+          <li>
+            <Link to="/project">Project</Link>
+          </li>
+          <li>
+            <Link to="/pricing">Pricing</Link>
+          </li>
+          <li>
+            <Link to="/faq">Our Faq</Link>
+          </li>
+          <li>
+            <Link to="/login">Login</Link>
+          </li>
+        </ul>
+      </li>
+      <li className="has-dropdown">
+        <Link to="/news">Blog</Link>
+        <ul className="submenu">
+          <li>
+            <Link to="/news">Blog</Link>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <Link to="/contact">Contact</Link>
+      </li>
+    </ul>
+  </nav>
+);
 
-  // Effect for handling the sticky header on scroll
+export default function Header() {
+  const [isSticky, setIsSticky] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsSticky(window.scrollY > 250);
@@ -24,43 +69,20 @@ export default function Header() {
 
   return (
     <>
-      {/* Offcanvas Area Start (controlled by isSidebarOpen state) */}
-      <div className="fix-area">
-        <div className={`offcanvas__info ${isSidebarOpen ? "info-open" : ""}`}>
-          <div className="offcanvas__wrapper">
-            <div className="offcanvas__content">
-              <div className="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
-                <div className="offcanvas__logo">
-                  <Link to="/">
-                    <img src="/assets/img/logo/white-logo.svg" alt="logo-img" />
-                  </Link>
-                </div>
-                <div className="offcanvas__close">
-                  <button onClick={() => setIsSidebarOpen(false)}>
-                    <i className="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <p className="text d-none d-xl-block">
-                Nullam dignissim, ante scelerisque the is euismod fermentum odio
-                sem semper the is erat, a feugiat leo urna eget eros. Duis
-                Aenean a imperdiet risus.
-              </p>
-              <div className="mobile-menu fix mb-3"></div>
-              <div className="offcanvas__contact">
-                <h4>Contact Info</h4>
-                {/* Contact info list can be populated here */}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* =====================================================
+        Off-Canvas Sidebar for Mobile Menu
+        =====================================================
+      */}
+      
       <div
         className={`offcanvas__overlay ${isSidebarOpen ? "overlay-open" : ""}`}
         onClick={() => setIsSidebarOpen(false)}
       ></div>
 
-      {/* Header Section Start (className is now dynamic for sticky effect) */}
+      {/* =====================================================
+        Main Header for Desktop
+        =====================================================
+      */}
       <header
         id="header-sticky"
         className={`header-1 ${isSticky ? "sticky" : ""}`}
@@ -73,82 +95,15 @@ export default function Header() {
                   <Link to="/" className="header-logo">
                     <img
                       src="/assets/img/logo/header.png"
-                      alt="header"
+                      alt="header-logo"
                       style={{ width: "184px", height: "68px" }}
                     />
                   </Link>
                 </div>
                 <div className="mean__menu-wrapper">
+                  {/* Desktop navigation links are rendered here */}
                   <div className="main-menu">
-                    <nav id="mobile-menu">
-                      <ul>
-                        <li
-                          className="has-dropdown"
-                          onMouseEnter={() => setOpenDropdown("home")}
-                          onMouseLeave={() => setOpenDropdown(null)}
-                        >
-                          <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                          <Link to="/about">About Us</Link>
-                        </li>
-                        <li
-                          className="has-dropdown"
-                          onMouseEnter={() => setOpenDropdown("pages")}
-                          onMouseLeave={() => setOpenDropdown(null)}
-                        >
-                          <a href="/#" onClick={(e) => e.preventDefault()}>
-                            Pages
-                          </a>
-                          <ul
-                            className={`submenu ${
-                              openDropdown === "pages" ? "show-dropdown" : ""
-                            }`}
-                          >
-                            <li>
-                              <Link to="/service">Services</Link>
-                            </li>
-                            <li>
-                              <Link to="/team">Team</Link>
-                            </li>
-                            <li>
-                              <Link to="/project">Project</Link>
-                            </li>
-                            <li>
-                              <Link to="/pricing">Pricing</Link>
-                            </li>
-                            <li>
-                              <Link to="/faq">Our Faq</Link>
-                            </li>
-                            <li>
-                              <Link to="/login">Login</Link>
-                            </li>
-                          </ul>
-                        </li>
-                        <li
-                          className="has-dropdown"
-                          onMouseEnter={() => setOpenDropdown("blog")}
-                          onMouseLeave={() => setOpenDropdown(null)}
-                        >
-                          <Link to="/news">Blog</Link>
-                          <ul
-                            className={`submenu ${
-                              openDropdown === "blog" ? "show-dropdown" : ""
-                            }`}
-                          >
-                            <li>
-                              <Link to="/news">Blog</Link>
-                            </li>
-                            <li>
-                              <Link to="/news-details/1">Blog Details</Link>
-                            </li>
-                          </ul>
-                        </li>
-                        <li>
-                          <Link to="/contact">Contact</Link>
-                        </li>
-                      </ul>
-                    </nav>
+                    <NavLinks />
                   </div>
                 </div>
               </div>
@@ -159,25 +114,26 @@ export default function Header() {
                 <a
                   href="#0"
                   className="search-trigger search-icon"
-                  onClick={() => setIsSearchOpen(true)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsSearchOpen(true);
+                  }}
                 >
                   <i className="fa-regular fa-magnifying-glass"></i>
                 </a>
-                <div className="header__hamburger d-xl-block my-auto">
-                  <div
-                    className="sidebar__toggle"
-                    onClick={() => setIsSidebarOpen(true)}
-                  >
-                    <i className="fas fa-bars"></i>
-                  </div>
-                </div>
+
+                {/* Hamburger Icon - only visible on mobile via CSS */}
+                
               </div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Search Area Start (className is dynamic for open/close) */}
+      {/* =====================================================
+        Search Popup Area
+        =====================================================
+      */}
       <div className={`search-wrap ${isSearchOpen ? "open" : ""}`}>
         <div className="search-inner">
           <i
