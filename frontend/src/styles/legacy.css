@@ -1,0 +1,997 @@
+/* Variables for buttons and theme colors */
+:root {
+  --tp-theme-primary: #00ffcc;
+  --tp-theme-secondary: #ff7d6b;
+  --tp-heading-primary: #0b0c0c;
+  --tp-text-body: #656565;
+}
+
+/* -----------------------
+   Buttons
+------------------------ */
+
+.theme-btn {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 15px 40px;
+  background-color: var(--tp-theme-primary);
+  color: #000000;
+  text-transform: uppercase;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.theme-btn:hover {
+  background-color: var(--tp-theme-secondary);
+  color: #000000;
+}
+
+.border-btn {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 15px 40px;
+  background-color: transparent;
+  border: 2px solid var(--tp-theme-primary);
+  color: var(--tp-theme-primary);
+  text-transform: uppercase;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.border-btn:hover {
+  background-color: var(--tp-theme-primary);
+  color: #000000;
+}
+
+.play-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: var(--tp-theme-primary);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+.play-btn:hover {
+  background: var(--tp-theme-secondary);
+}
+
+.play-btn-sm {
+  width: 50px;
+  height: 50px;
+  font-size: 14px;
+}
+
+/* -----------------------
+   Animations
+------------------------ */
+
+@keyframes moveleft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+
+@keyframes tp-slide-top {
+  0% {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes tp-slide-bottom {
+  0% {
+    transform: translateY(-80px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes tp-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Add this to the bottom of the file */
+
+.search-wrap {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.search-wrap.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Custom Mouse Cursor Styles */
+.mouse-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 9999;
+  transition: transform 0.1s ease-out, opacity 0.3s ease, width 0.3s ease,
+    height 0.3s ease;
+}
+
+.cursor-inner {
+  width: 10px;
+  height: 10px;
+  background-color: #007c73; /* Your site's primary color */
+  transform: translate(-50%, -50%);
+}
+
+.cursor-outer {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #007c73;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease-out, opacity 0.3s ease, width 0.3s ease,
+    height 0.3s ease;
+}
+
+.cursor-inner.cursor-hover {
+  opacity: 0.5;
+}
+
+.cursor-outer.cursor-hover {
+  width: 60px;
+  height: 60px;
+  border-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile Menu Styles */
+.header__hamburger .sidebar__toggle {
+  display: none; /* Hidden by default */
+}
+
+.main-menu .mobile-menu-close {
+  display: none; /* Hide close button on desktop */
+}
+
+/* Show hamburger and hide desktop menu on screens smaller than 1200px */
+@media (max-width: 1199px) {
+  .header__hamburger .sidebar__toggle {
+    display: block;
+    cursor: pointer;
+  }
+
+  .main-menu {
+    display: none; /* Hide desktop menu container */
+  }
+
+  /* Styles for the mobile menu panel */
+  #mobile-menu {
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: #080d22; /* Dark background */
+    z-index: 9999;
+    padding: 80px 30px 30px;
+    transform: translateX(-105%);
+    transition: transform 0.4s ease;
+  }
+
+  #mobile-menu.mobile-menu-open {
+    transform: translateX(0);
+  }
+
+  /* Mobile menu links */
+  #mobile-menu ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #mobile-menu ul li {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  #mobile-menu ul li a {
+    display: block;
+    padding: 10px 0;
+    font-size: 18px;
+    color: #fff;
+  }
+
+  #mobile-menu ul .submenu {
+    display: none; /* Hiding submenus for simplicity for now */
+  }
+
+  /* Mobile menu close button */
+  .main-menu .mobile-menu-close {
+    display: block;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+  }
+}
+
+.sub {
+  font-weight: 1000;
+}
+
+/* Definitive fix for the NewsPage hero slider */
+
+/* Ensure the slider can contain positioned elements */
+.news-hero-slider {
+  position: relative;
+}
+
+/* Hide the content of ALL slides by default and keep them on a low layer */
+.news-hero-slider .swiper-slide .hero-content {
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.6s ease;
+}
+
+/* ONLY show the content of the ACTIVE slide and bring it to the very front */
+.news-hero-slider .swiper-slide.swiper-slide-active .hero-content {
+  opacity: 1;
+  z-index: 5; /* A high number to ensure it's on top */
+}
+
+/* Show dropdown menu when controlled by React state */
+.main-menu ul li .submenu.show-dropdown {
+  opacity: 1;
+  visibility: visible;
+  top: 100%;
+}
+
+.hero-secton .hero-content {
+  max-width: none;
+  width: 100%;
+}
+
+/*
+  This second rule makes the heading text responsive, so it
+  shrinks on smaller screens to always fit correctly.
+*/
+.hero-secton .hero-content h1 {
+  font-size: clamp(40px, 8vw, 90px); /* Responsive font size */
+  width: 100%;
+}
+
+.hero-content h1 b {
+  margin-left: 0.2em; /* Use a small, normal-sized space instead of the large one */
+}
+
+.text-neon {
+  color: #03dcb0;
+}
+
+.neon {
+  color: #03dcb0;
+}
+
+.hero-secton .hero-content .sub {
+  margin-top: 15px;
+  display: block;
+  max-width: 10000px; /* Give it a max-width so the line breaks nicely */
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  font-size: 20px; /* Force the text to center */
+}
+
+.about-items .about-content p,
+.about-items .about-content ul li {
+  font-size: 15px; /* Adjust this as needed, e.g., 12px or 13px */
+  line-height: 1.5;
+
+}
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center; /* This centers all the text */
+}
+.hero-contact-btn {
+  margin-top: 30px;
+  color: #0b0c0c; /* Adds space above the button */
+}
+
+.hero-contact-btn:hover {
+  background-color: #007c73; /* A slightly darker neon */
+  color: #f7f7f7;
+}
+
+.our_mission_title {
+  font-size: 20px;
+}
+
+.teal-text {
+  color: #03dcb0;
+  /* text-shadow:
+    0 0 3px #39ff14,
+    0 0 7px #39ff14,
+    0 0 13px #0fa,
+    0 0 20px #0fa; */
+  font-weight: 700; /* or inherit */
+  font-family: inherit !important;
+}
+
+.what-to-post {
+  font-size: medium;
+  padding-bottom: 10px;
+}
+
+.content-ideas-pointers {
+  font-size: 15px;
+}
+
+.about-wrapper .about-items .about-content .list-items li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0px;
+}
+
+.about-wrapper .about-items .about-content .list-items li svg {
+  width: 18px;
+  height: 14px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+.about-button {
+  color: #080d22;
+  border-radius: 50px;
+  margin-left: 30px;
+  margin-top: -15px;
+}
+.about-button:hover {
+  color: #000000;
+}
+
+/* for cards animation */
+
+/* Styles for the Sticky Card Scroller */
+.sticky-scroll-container {
+  height: 420vh;
+  position: relative;
+  perspective: 1200px; /* Slight 3D effect */
+}
+
+.sticky-card-pinner {
+  height: 100vh;
+  position: sticky;
+  top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  margin-top: -80px; /* Important! */
+}
+
+.sticky-card {
+  position: absolute;
+  width: 95%;
+  max-width: 1000px;
+  height: 70vh;
+  background-color: #000000;
+  border-radius: 20px;
+  border: 1px solid rgb(96, 96, 96);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 40px;
+  transform-origin: center center;
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.card-content {
+  text-align: center;
+}
+
+.card-content h2 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.card-content p {
+  font-size: 20px;
+  color: #cdcdcd;
+  max-width: 600px;
+}
+
+.card-inner {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  width: 100%;
+}
+
+.card-image-container {
+  position: relative;
+  width: 50%;
+}
+
+.card-image {
+  width: 100%;
+  border-radius: 30px;
+  object-fit: cover;
+  height: 100%;
+}
+
+.floating-box {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(56, 255, 189, 0.2); /* Neon yellow with opacity */
+  color: #03dcb0; /* Text color neon */
+  padding: 10px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  backdrop-filter: blur(12px); /* Glass effect */
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(56, 255, 199, 0.3); /* Light border */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  animation: float 3s ease-in-out infinite;
+}
+
+.floating-box .icon {
+  font-size: 20px;
+}
+
+.floating-time {
+  font-weight: 700;
+  font-size: 16px;
+  color: #03dcb0; /* Stays bright */
+}
+
+.floating-sub {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7); /* Soft white */
+}
+
+.card-text {
+  width: 50%;
+}
+
+.card-text h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.card-text p {
+  font-size: 18px;
+  color: #cdcdcd;
+}
+
+/* Floating animation */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.card-bullets {
+  padding-left: 20px;
+  list-style-type: disc;
+  color: #cdcdcd;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.card-bullets li {
+  margin-bottom: 12px;
+}
+
+.card-bullets strong {
+  color: white;
+}
+
+.explore-button {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 10px 22px;
+  /* Neon Yellow */
+  color: #ffffff;
+  font-weight: medium;
+  border-radius: 10px;
+  border: #007c73;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  float: right;
+}
+
+.explore-button:hover {
+  color: #007c73;
+}
+
+.sticky-scroll-wrapper {
+  position: relative;
+  padding-top: 10px;
+}
+
+.services-heading {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 800;
+  color: #f5f5f5; /* use neon yellow or white or your theme color */
+  margin-bottom: 40px;
+}
+
+/* project section */
+
+.pro h3 a {
+  white-space: nowrap;
+  line-height: 1.2;
+  font-size: 48px; /* adjust as needed */
+  display: inline-block;
+}
+
+.pro h3 a line2-projects-heading {
+  display: block;
+  white-space: normal;
+}
+
+/* Style the new icons in the Work Process section */
+.work-process-items .icon svg {
+  font-size: 50px; /* Or any size you prefer */
+  color: #007c73; /* Your theme's neon color */
+}
+
+/* .showcase-section .section-title,
+.showcase-section .text-width {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+} */
+/* Fix for the About Page heading inside the banner */
+.breadcrumb-wrapper .section-title {
+  padding-top: 150px;
+  padding-bottom: 60px;
+}
+
+.breadcrumb-wrapper .section-title h6 {
+  color: #007c73;
+  font-size: 18px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.breadcrumb-wrapper .section-title h2 {
+  color: #ffffff;
+  font-size: 70px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.breadcrumb-wrapper .section-title h2 b {
+  color: #007c73;
+}
+
+.about-section {
+  padding-top: 10px !important; /* adjust this down */
+}
+
+@media (max-width: 1199px) {
+  .breadcrumb-wrapper .section-title {
+    padding-top: 100px;
+    padding-bottom: 60px;
+  }
+
+  .breadcrumb-wrapper .section-title h6 {
+    color: #007c73;
+    font-size: 18px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+
+  .breadcrumb-wrapper .section-title h2 {
+    color: #ffffff;
+    font-size: 70px;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1.2;
+  }
+
+  .breadcrumb-wrapper .section-title h2 b {
+    color: #007c73;
+  }
+
+  .about-section {
+    padding-top: 10px !important;
+    /* adjust this down */
+  }
+
+  .section-title {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+ 
+  }
+}
+
+.custom-section-title {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.custom-section-title h2 {
+  font-size: 42px;
+  line-height: 1.1;
+}
+
+.custom-section-title span {
+  font-size: 30px;
+  font-weight: bold;
+  color: #007c73; /* neon yellow for example */
+}
+
+.section-title h2 div {
+  margin-top: 10px;
+  display: block;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.section-title h2 {
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.section-title .block-heading {
+  display: inline-block; /* prevents line break */
+  font-size: 52px;
+  font-weight: 700;
+  white-space: nowrap; /* ⬅️ keeps the line together */
+}
+
+.we-build {
+  font-size: 40px;
+}
+
+.you-face {
+  font-size: 10px;
+}
+
+.center-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding-top: 0.5rem; /* Even tighter top padding */
+  padding-bottom: 1rem;
+  margin-top: -90px;
+}
+
+/* Heading with no top/bottom margin */
+.center-section h2 {
+  font-size: 52px;
+  line-height: 1.2;
+  color: #fff;
+  margin: -10px; /* remove default margin */
+}
+
+/* Subtitle closer to title */
+.subtitle-text {
+  max-width: none; /* Remove width restriction */
+  white-space: nowrap; /* Force one line */
+  overflow: visible; /* Optional: hides overflow if needed */
+  text-overflow: ellipsis; /* Optional: adds "..." if text overflows */
+  font-size: 18px;
+  margin-right: 40px;
+  text-align: center;
+  color: #cccccc;
+  margin-top: -15px;
+}
+
+.center-section {
+  text-align: center;
+}
+
+.counter1 {
+  margin-top: -80px;
+  margin-bottom: 30px;
+}
+
+.struggles {
+  font-size: 52px;
+}
+
+.the-real {
+  font-size: 52px !important; /* Adjust as needed */
+}
+
+
+
+.media-name {
+  color: #03dcb0 !important;
+  font-size: 52px; /* Replace with your desired color */
+}
+
+
+
+.the-real h2 div {
+  margin-top: 10px;
+  display: block;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  margin-right: 180px;
+}
+
+.the-real h6 {
+  margin-right: 180px;
+}
+
+.hero-video-bg {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 90px;
+  padding-bottom: 40px;
+  transition: transform 0.6s ease;
+}
+
+.hero-video-bg.scaled {
+  transform: scale(1.1);
+   /* scale up */
+}
+
+.hero-video-bg iframe {
+  width: 940px;
+  height: 530px;
+  max-width: 90%;
+  border: none;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.counter-one {
+  transform: scale(0.9); /* reduce size */
+  transform-origin: center;
+  
+}
+
+.login {
+  color: #000000;
+}
+
+/* Dashboard */
+
+/* src/styles/legacy.css */
+
+/* --- Professional Dashboard Redesign --- */
+
+/* Main Header: "Admin Dashboard" */
+.dashboard-header h2 {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Section titles like "Homepage Content" */
+.dashboard-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Remove default accordion borders and radius */
+.dashboard-accordion .accordion-item {
+  border: none;
+  border-bottom: 1px solid #e2e8f0; /* Use bottom borders for separation */
+  margin-bottom: 0.5rem;
+  background-color: #fff;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.dashboard-accordion .accordion-item:first-of-type,
+.dashboard-accordion .accordion-item:last-of-type {
+    border-radius: 8px !important;
+}
+
+/* Accordion button styling when collapsed */
+.dashboard-accordion .accordion-button {
+  font-weight: 600;
+  color: #2d3748;
+  background-color: #fff;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+/* Accordion button styling when expanded */
+.dashboard-accordion .accordion-button:not(.collapsed) {
+  color: #2b6cb0; /* A nice blue color for active state */
+  background-color: #ebf8ff;
+  border-bottom: 1px solid #bee3f8;
+}
+
+/* Custom accordion icon (plus/minus effect) */
+.dashboard-accordion .accordion-button::after {
+  content: '\002B'; /* Plus sign */
+  font-size: 1.5rem;
+  background-image: none; /* Remove default Bootstrap icon */
+  font-weight: 300;
+  transform: translateY(-4px);
+}
+
+.dashboard-accordion .accordion-button:not(.collapsed)::after {
+  content: '\2212'; /* Minus sign */
+  transform: translateY(-4px);
+}
+
+/* Accordion body styling */
+.dashboard-accordion .accordion-body {
+  padding: 1.5rem;
+  background-color: #f7fafc;
+}
+
+
+/* --- Status Message Styling (Loading/Success/Error) --- */
+.status-message {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Green for success */
+.status-message.success {
+  background-color: #c6f6d5;
+  color: #22543d;
+}
+
+/* Yellow/Orange for loading */
+.status-message.loading {
+  background-color: #feebc8;
+  color: #9c4221;
+}
+
+/* Red for error */
+.status-message.error {
+  background-color: #fed7d7;
+  color: #9b2c2c;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* --- Manage SEO Component Styling --- */
+
+/* Style for the main card container */
+.manage-seo-card .card-title {
+  color: #1a202c; /* A dark, near-black color for the main title */
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* Styling for each individual SEO editing block */
+.seo-entry {
+  background-color: #f7fafc; /* A very light grey background to separate entries */
+  border-color: #e2e8f0 !important; /* A light grey border */
+}
+
+/* Styling for the header of each entry (e.g., "Page: /") */
+.seo-entry .seo-header {
+  color: #2d3748;
+  font-weight: 600;
+}
+
+/* Styling for the `code` tag inside the header */
+.seo-entry .seo-header code {
+  color: #e53e3e; /* A reddish color for the page URL */
+  background-color: #fed7d7;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Styling for all form field labels */
+.seo-entry .form-label {
+  color: #2d3748; /* Dark grey for labels */
+  font-weight: 600; /* Bolder labels */
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Styling for all text inputs and textareas */
+.seo-entry .form-control {
+  color: #1a202c; /* Black text for input fields */
+  border-color: #cbd5e0;
+}
+
+/* A subtle effect when an input is focused */
+.seo-entry .form-control:focus {
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+/* Styling for the "Social Media / Open Graph" subtitle */
+.seo-entry .seo-section-subtitle {
+  color: #4a5568;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 1.5rem;
+}
+
+.tiptap-editor-wrapper {
+  border: 1px solid #cbd5e0;        /* Adds the missing border */
+  border-radius: 6px;              /* Rounds the corners to match other inputs */
+  padding: 0.5rem 0.75rem;         /* Adds some internal spacing for the text */
+  background-color: #fff;          /* Ensures a white background */
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* This adds the blue glow effect when you click inside to start typing */
+.tiptap-editor-wrapper:focus-within {
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+/* This targets the actual editable area inside the wrapper */
+.tiptap-editor-wrapper .ProseMirror {
+  min-height: 200px; /* Ensures the editor has a decent default height */
+  outline: none;     /* Removes the default browser outline, as our wrapper now handles the focus style */
+}
