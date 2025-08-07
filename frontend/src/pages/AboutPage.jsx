@@ -21,9 +21,7 @@ export default function AboutPage() {
     const fetchAboutPageContent = async () => {
       try {
         // This URL must match the endpoint on your Node.js server
-        const response = await axios.get(
-          "http://localhost:3001/api/content/about",
-        );
+        const response = await api.get("/content/about");
         setPageData(response.data);
       } catch (err) {
         console.error("Failed to fetch about page content:", err);
