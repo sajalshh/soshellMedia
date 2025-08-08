@@ -1238,6 +1238,38 @@ FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
 }
 
 /* For Small Mobile Devices (up to 575px) */
+@media (max-width: 575px) {
+  /*
+  ============================================
+    Projects Section Mobile Styles (575px)
+  ============================================
+  */
+  
+  /* 1. Adjust the main "Selected Projects" title size */
+  .project-wrapper .project-title {
+    font-size: 45px !important;
+  }
+
+  /* 2. Fine-tune the font sizes within each project card */
+  .project-wrapper .project-content h3 a {
+    font-size: 22px !important; /* Make project titles slightly smaller */
+    line-height: 1.3 !important; /* Add space if the title wraps to two lines */
+  }
+.project-wrapper .project-content h3 {
+  text-align: center !important;
+}
+  .project-wrapper .project-content p {
+    font-size: 15px !important; /* Ensure description text is a readable size */
+  }
+
+  /* 3. Adjust the "explore now" button for a better fit */
+  .project-wrapper .project-content .theme-btn {
+    padding: 12px 30px !important;
+    font-size: 14px !important;
+  }
+}
+
+/* For Small Mobile Devices (up to 575px) */
 /* @media (max-width: 575px) {
   .project-wrapper .project-title {
     font-size: 55px !important;
@@ -1255,17 +1287,7 @@ FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
   }
 }
 
-/* This new rule targets screens 420px and smaller */
-@media (max-width: 420px) {
-  .project-wrapper .project-content h3 a {
-    font-size: 22px !important; /* Further reduce font size */
-    line-height: 1.3 !important; /* Adjust line spacing for wrapped text */
-  }
 
-  .project-wrapper .project-content p {
-    font-size: 15px !important; /* Also slightly reduce the description text */
-  }
-}
 
 /*
 ==============================================
