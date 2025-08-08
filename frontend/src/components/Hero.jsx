@@ -3,10 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../api/axiosConfig"; // Using the public api instance
-import "../styles/legacy.css";
-import "animate.css";
-import WOW from "wow.js";
-
+import '../styles/legacy.css';
 // 1. Helper function to parse text with asterisks for neon styling
 const parseNeonText = (text) => {
   if (!text) return "";
@@ -38,7 +35,7 @@ export default function Hero() {
         setContent(response.data.data);
       } catch (error) {
         console.error("Failed to fetch hero content:", error);
-        // Fallback default content
+        // You can set a default content object here in case of an error
         setContent({
           headingLine1: "We *Don't* Just *Post*",
           headingLine2: "We Create *Content*",
@@ -55,9 +52,8 @@ export default function Hero() {
     fetchHeroContent();
   }, []);
 
-  // 4. Intersection observer + WOW.js init
   useEffect(() => {
-    // Intersection Observer logic for scaling video
+    // This is your existing Intersection Observer logic, it remains unchanged
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setIsScaled(true);
@@ -67,11 +63,6 @@ export default function Hero() {
     );
 
     if (videoRef.current) observer.observe(videoRef.current);
-
-    // Initialize WOW.js after DOM is ready
-    const wow = new WOW({ live: false });
-    wow.init();
-
     return () => {
       if (videoRef.current) observer.unobserve(videoRef.current);
     };
@@ -99,8 +90,7 @@ export default function Hero() {
               <div className="color-bg">
                 <img src="/assets/img/hero/color-bg.png" alt="img" />
               </div>
-
-              {/* Dynamic content */}
+              {/* 4. Use the dynamic content */}
               <h1
                 className="wow img-custom-anim-left"
                 data-wow-duration="1.5s"
@@ -115,7 +105,6 @@ export default function Hero() {
                   {parseNeonText(content.headingLine3)}
                 </span>
               </h1>
-
               <p className="sub">{content.subheading}</p>
               <div className="hero-button">
                 <Link

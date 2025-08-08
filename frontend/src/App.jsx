@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-
-// Animation imports
-import "animate.css";
-import WOW from "wow.js";
-
 import Layout from "./components/Layout";
 
 // Your existing page imports
@@ -36,10 +31,6 @@ export default function App() {
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000);
-
-    // Initialize WOW.js when component mounts
-    new WOW().init();
-
     return () => clearTimeout(timer);
   }, []);
 
