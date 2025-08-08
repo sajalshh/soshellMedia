@@ -2,12 +2,12 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import api from "../api/axiosConfig"; // Using the public api instance
+import api from "../api/axiosConfig";
 import '../styles/legacy.css';
-// 1. Helper function to parse text with asterisks for neon styling
+import "animate.css";
+
 const parseNeonText = (text) => {
   if (!text) return "";
-  // This splits the text by asterisks and wraps every second element in a span
   return text.split("*").map((part, index) =>
     index % 2 === 1 ? (
       <span key={index} className="text-neon">
@@ -23,11 +23,10 @@ export default function Hero() {
   const videoRef = useRef(null);
   const [isScaled, setIsScaled] = useState(false);
 
-  // 2. State for holding dynamic content and loading status
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 3. Fetch data when the component mounts
+
   useEffect(() => {
     const fetchHeroContent = async () => {
       try {
@@ -35,7 +34,7 @@ export default function Hero() {
         setContent(response.data.data);
       } catch (error) {
         console.error("Failed to fetch hero content:", error);
-        // You can set a default content object here in case of an error
+
         setContent({
           headingLine1: "We *Don't* Just *Post*",
           headingLine2: "We Create *Content*",
@@ -53,7 +52,6 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    // This is your existing Intersection Observer logic, it remains unchanged
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setIsScaled(true);
@@ -68,7 +66,7 @@ export default function Hero() {
     };
   }, []);
 
-  // Display a loading state while fetching data
+
   if (loading) {
     return (
       <section
@@ -90,7 +88,6 @@ export default function Hero() {
               <div className="color-bg">
                 <img src="/assets/img/hero/color-bg.png" alt="img" />
               </div>
-              {/* 4. Use the dynamic content */}
               <h1
                 className="wow img-custom-anim-left"
                 data-wow-duration="1.5s"
