@@ -774,7 +774,7 @@
 }
 
 .hero-video-bg.scaled {
-  transform: scale(1.1);
+  transform: scale(1.2);
    /* scale up */
 }
 
@@ -787,6 +787,7 @@
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
+
 
 .counter-one {
   transform: scale(0.9); /* reduce size */
@@ -1249,7 +1250,17 @@ FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
   }
 }
 
+/* This new rule targets screens 420px and smaller */
+@media (max-width: 420px) {
+  .project-wrapper .project-content h3 a {
+    font-size: 22px !important; /* Further reduce font size */
+    line-height: 1.3 !important; /* Adjust line spacing for wrapped text */
+  }
 
+  .project-wrapper .project-content p {
+    font-size: 15px !important; /* Also slightly reduce the description text */
+  }
+}
 
 /*
 ==============================================
@@ -1396,27 +1407,46 @@ Responsive Styles for Counter Components
 }
 
 /*
-==============================================
-Responsive Styles for About.jsx (Homepage)
-==============================================
+===================================================================
+FINAL - Responsive Styles for About.jsx (Mobile & Tablet Only)
+===================================================================
 */
 
-/* For Tablets and Smaller Devices (up to 991px) */
+/* --- For Tablets and Smaller (screens BELOW 992px) --- */
 @media (max-width: 991px) {
+
+  /* --- 1. Fix Main Title Alignment & Wrapping --- */
+
+  /* Remove the large desktop margin to allow centering */
   .section-title.ml-200 {
-    margin-left: 50px !important;
+    margin-left: 0 !important;
   }
 
+  /* Remove conflicting margins from the title's text lines */
+  .the-real h6,
+  .the-real h2 div {
+    margin-right: 0 !important;
+  }
+
+  /* Force "THE REAL STRUGGLES" to stay on one line */
+  .the-real h2 .the-real {
+    white-space: nowrap !important;
+  }
+
+  /* Reduce font sizes for smaller screens */
   .the-real h2 .the-real,
-  .the-real h2 .struggles {
+  .the-real h2 .struggles,
+  .the-real h2 div {
     font-size: 42px !important;
   }
 
+
+  /* --- 2. Make Tab Navigation Horizontal --- */
+
   .about-wrapper .nav {
-    /* Make tabs horizontal and centered */
     flex-direction: row !important;
     justify-content: center !important;
-    flex-wrap: wrap !important; /* Allow tabs to wrap on small screens */
+    flex-wrap: wrap !important;
     gap: 10px !important;
     padding-right: 0 !important;
     border-right: none !important;
@@ -1424,13 +1454,14 @@ Responsive Styles for About.jsx (Homepage)
   }
 
   .about-wrapper .nav .nav-item .nav-link {
-    /* Make tab buttons smaller */
     font-size: 16px !important;
     padding: 12px 25px !important;
   }
 
+
+  /* --- 3. Stack Tab Content Vertically --- */
+
   .about-items {
-    /* Stack image on top of text */
     flex-direction: column-reverse !important;
     gap: 30px !important;
   }
@@ -1440,50 +1471,28 @@ Responsive Styles for About.jsx (Homepage)
   }
 
   .about-items .about-content .list-items {
-    /* Adjust list alignment for centered text */
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
     text-align: left !important;
   }
-  .about-button {
-    margin-left: 0 !important;
-  }
 }
 
-/* For Mobile Devices (up to 767px) */
+
+/* --- For Mobile Only (screens BELOW 768px) --- */
 @media (max-width: 767px) {
+  /* Further reduce font sizes for mobile */
   .the-real h2 .the-real,
-  .the-real h2 .struggles {
-    font-size: 34px !important;
-    margin-right: 0 !important;
+  .the-real h2 .struggles,
+  .the-real h2 div {
+    font-size: 32px !important;
   }
 
   .about-wrapper .nav .nav-item .nav-link {
     font-size: 14px !important;
     padding: 10px 20px !important;
   }
-
-  .about-items .about-content h3 {
-    font-size: 22px !important;
-  }
-  .about-items .about-content p,
-  .about-items .about-content ul li {
-    font-size: 16px !important;
-  }
-  @media (max-width: 991px) {
-  .the-real h2 div {
-    /* This removes the margin that was pushing the text to the left */
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-  }
-  .the-real h6 {
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-  }
 }
-}
-
 
 /*
 ===================================================================
@@ -1571,4 +1580,58 @@ FINAL V2 - Responsive Styles for Header.jsx (Maximum Specificity)
     font-size: 16px !important;
     color: #cdcdcd !important;
   }
+}
+
+
+/*
+==============================================
+Responsive Styles for Showcase.jsx
+==============================================
+*/
+
+/* For Tablets and Smaller Devices (up to 991px) */
+@media (max-width: 991px) {
+  .showcase-section .center-section {
+    /* Reduce the negative margin that pulls the section up */
+    margin-top: -60px !important;
+  }
+
+  .showcase-section .section-title h2 {
+    font-size: 42px !important;
+  }
+
+  .showcase-section .subtitle-text {
+    /* This is the most important fix: allows the text to wrap */
+    white-space: normal !important;
+    max-width: 500px !important; /* Give it a max-width to look neat */
+    margin-top: 5px !important; /* Remove the negative margin */
+  }
+}
+
+
+/* For Mobile Devices (up to 767px) */
+@media (max-width: 767px) {
+  .showcase-section .center-section {
+    margin-top: -30px !important;
+    padding-bottom: 10px !important;
+  }
+
+  .showcase-section .section-title h2 {
+    font-size: 36px !important;
+  }
+
+  .showcase-section .subtitle-text {
+    font-size: 16px !important;
+    text-align: center;
+    margin-right: 0;
+    margin-top: -10px;
+  }
+}
+
+/* For Small Mobile Devices (up to 575px) */
+@media (max-width: 575px) {
+    /* Reduce the space between slider images on very small screens */
+    .showcase-slider {
+        padding: 0 15px !important; /* Add some padding to the sides */
+    }
 }

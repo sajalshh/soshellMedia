@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../api/axiosConfig"; // Using the public api instance
-
+import '../styles/legacy.css';
 // 1. Helper function to parse text with asterisks for neon styling
 const parseNeonText = (text) => {
   if (!text) return "";
