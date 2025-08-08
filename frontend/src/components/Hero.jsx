@@ -21,7 +21,7 @@ const parseNeonText = (text) => {
 
 export default function Hero() {
   const videoRef = useRef(null);
-  const [isScaled, setIsScaled] = useState(false);
+  const [scale, setScale] = useState(1);
 
   // 2. State for holding dynamic content and loading status
   const [content, setContent] = useState(null);
@@ -53,19 +53,29 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    // This is your existing Intersection Observer logic, it remains unchanged
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsScaled(true);
-        else setIsScaled(false);
-      },
-      { threshold: 0.5 },
-    );
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
 
-    if (videoRef.current) observer.observe(videoRef.current);
-    return () => {
-      if (videoRef.current) observer.unobserve(videoRef.current);
+      const minScale = 1;
+      const maxScale = 1.2;
+      const scrollRange = 400;
+
+      const newScale = Math.min(
+        maxScale,
+        Math.max(
+          minScale,
+          minScale + (scrollTop / scrollRange) * (maxScale - minScale),
+        ),
+      );
+
+      setScale(newScale);
     };
+
+    window.addEventListener("scroll", handleScroll);
+
+    handleScroll(); // set initial scale
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Display a loading state while fetching data
@@ -121,8 +131,13 @@ export default function Hero() {
       </div>
 
       <div
-        className={`hero-video-bg ${isScaled ? "scaled" : ""}`}
+        className="hero-video-bg"
         ref={videoRef}
+        style={{
+          transform: `scale(${scale})`,
+          transition: "transform 0.2s ease-out",
+          transformOrigin: "center center",
+        }}
       >
         <iframe
           src="https://fast.wistia.net/embed/iframe/djiv5ywnyy?autoplay=1&loop=1&mute=1&playsinline=1&controlsVisibleOnLoad=false&videoFoam=true"
@@ -133,7 +148,7 @@ export default function Hero() {
           scrolling="no"
           className="wistia_embed"
           name="wistia_embed"
-          width="100%"
+          width="80%"
           height="100%"
         ></iframe>
       </div>

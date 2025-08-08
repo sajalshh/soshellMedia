@@ -1635,3 +1635,15 @@ Responsive Styles for Showcase.jsx
         padding: 0 15px !important; /* Add some padding to the sides */
     }
 }
+
+/* For teal text */
+.text-neon {
+  font-family: "Marcellus", sans-serif !important;
+}
+
+/* For white text (default) */
+.hero-content h1,
+.hero-content h1 span.text-2,
+.hero-content p.sub {
+  font-family: "Satoshi Variable", sans-serif !important;
+}
