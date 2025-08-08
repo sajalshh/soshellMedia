@@ -18,7 +18,7 @@ export default function RegisterPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Registering with:", formData);
+    // console.log("Registering with:", formData);
     alert("Registration submitted! Check the console for the data.");
     // In a real app, you would send this to your backend to create a new user
   };

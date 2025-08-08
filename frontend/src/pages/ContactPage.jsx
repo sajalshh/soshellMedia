@@ -22,7 +22,7 @@ export default function ContactPage() {
   // Handler for form submission
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent the default form submission
-    console.log("Form Data Submitted:", formData);
+    // console.log("Form Data Submitted:", formData);
     alert("Thank you for your message! Check the console to see the data.");
     // Here you would typically send the data to a backend
     setFormData({ name: "", phone: "", email: "", message: "" }); // Reset form

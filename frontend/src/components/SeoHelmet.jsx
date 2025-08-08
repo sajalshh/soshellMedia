@@ -23,28 +23,28 @@ const SeoHelmet = ({ pageUrl, title, description }) => {
 
   useEffect(() => {
     const fetchSeoData = async () => {
-      console.log("1. Starting fetch for:", pageUrl);
+      // console.log("1. Starting fetch for:", pageUrl);
       try {
         const response = await api.get(`/seo?pageUrl=${pageUrl}`);
-        console.log("2. Received API response:", response.data);
+        // console.log("2. Received API response:", response.data);
         if (response.data && response.data.data) {
-          console.log(
-            "3. Data is valid. Updating state with:",
-            response.data.data,
-          );
+          // console.log(
+          //   "3. Data is valid. Updating state with:",
+          //   response.data.data,
+          // );
           setSeo(response.data.data);
         } else {
-        console.log(
-          "4. Data is NOT valid or missing. State will not be updated.",
-        );
+        // console.log(
+        //   "4. Data is NOT valid or missing. State will not be updated.",
+        // );
         }
       } catch (error) {
         console.error("5. An error occurred in fetchSeoData:", error);
         // If a specific entry isn't found (404), create it from props
         if (error.response && error.response.status === 404 && title) {
-          console.log(
-            `No specific SEO entry for ${pageUrl}. Using fallback props.`,
-          );
+          // console.log(
+          //   `No specific SEO entry for ${pageUrl}. Using fallback props.`,
+          // );
           setSeo({
             title: `${title} | Soshell Media`,
             metaDescription: createExcerpt(description),
@@ -63,7 +63,7 @@ const SeoHelmet = ({ pageUrl, title, description }) => {
     }
   }, [pageUrl, title, description]);
   // document.title = seo.title;
-console.log("6. Rendering component with seo.title:", seo.title);
+// console.log("6. Rendering component with seo.title:", seo.title);
   return (
     <Helmet>
       <title>{seo.title}</title>

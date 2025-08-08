@@ -29,10 +29,10 @@ const useAxiosPrivate = () => {
           prevRequest.sent = true;
           try {
             const refreshResponse = await privateApi.get("/auth/refresh");
-            console.log(
-              "🔁 Refreshed token:",
-              refreshResponse.data.accessToken,
-            );
+            // console.log(
+            //   "🔁 Refreshed token:",
+            //   refreshResponse.data.accessToken,
+            // );
             const newAccessToken = refreshResponse.data.accessToken;
             localStorage.setItem("accessToken", newAccessToken);
             setAuth((prev) => ({ ...prev, accessToken: newAccessToken }));
