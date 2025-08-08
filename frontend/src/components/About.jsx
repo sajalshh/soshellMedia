@@ -53,7 +53,7 @@ export default function About() {
           <Fade direction="up" delay={300} triggerOnce>
             <h2>
               <div className="the-real">
-                THE REAL <span className="text-neon struggles">STRUGGLES</span>
+                The Real <span className="text-neon struggles">Struggles</span>
               </div>
               <div>
                 You <span className="text-neon">Face</span>

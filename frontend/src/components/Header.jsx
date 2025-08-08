@@ -12,38 +12,11 @@ const NavLinks = () => (
       <li>
         <Link to="/about">About Us</Link>
       </li>
-      <li className="has-dropdown">
-        <a href="/#" onClick={(e) => e.preventDefault()}>
-          Pages
-        </a>
-        <ul className="submenu">
-          <li>
-            <Link to="/service">Services</Link>
-          </li>
-          <li>
-            <Link to="/team">Team</Link>
-          </li>
-          <li>
-            <Link to="/project">Project</Link>
-          </li>
-          <li>
-            <Link to="/pricing">Pricing</Link>
-          </li>
-          <li>
-            <Link to="/faq">Our Faq</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-        </ul>
+      <li>
+       <Link to="/service">Services</Link>
       </li>
       <li className="has-dropdown">
         <Link to="/news">Blog</Link>
-        <ul className="submenu">
-          <li>
-            <Link to="/news">Blog</Link>
-          </li>
-        </ul>
       </li>
       <li>
         <Link to="/contact">Contact</Link>

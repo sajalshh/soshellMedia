@@ -1003,13 +1003,18 @@
 Responsive Styles for AboutPage.jsx
 ==============================================
 */
-
+.breadcrumb-wrapper .section-title h2 .media-name {
+  font-size: inherit; /* This makes it match the font size of the parent h2 */
+}
 /* For Tablets and Smaller Devices (up to 991px) */
 @media (max-width: 991px) {
   .breadcrumb-wrapper .section-title h2 {
-    font-size: 20px !important;
+    font-size: 50px !important;
   }
-
+.about-content .about-button {
+    margin-left: 0 !important; /* Remove the conflicting left margin */
+    margin-top: 30px !important; /* Add proper space above the button */
+  }
   .about-section .about-content p {
     font-size: 16px !important;
   }
@@ -1120,7 +1125,7 @@ Responsive Styles for StickyCardScroller.jsx
 /* For Mobile Devices (up to 767px) */
 @media (max-width: 767px) {
   .sticky-scroll-wrapper .section-title h2 {
-    font-size: 42px !important;
+    font-size: 45px !important;
     margin-left: 5px;
     margin-right: 5px;
   }
@@ -1221,7 +1226,7 @@ FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
 /* For Mobile Devices (up to 767px) */
 @media (max-width: 767px) {
   .project-wrapper .project-title {
-    font-size: 70px !important;
+    font-size: 45px !important;
     margin-bottom: 0 !important;
   }
   .project-wrapper .project-title img {
@@ -1233,14 +1238,14 @@ FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
 }
 
 /* For Small Mobile Devices (up to 575px) */
-@media (max-width: 575px) {
+/* @media (max-width: 575px) {
   .project-wrapper .project-title {
     font-size: 55px !important;
   }
   .project-wrapper .project-content h3 a {
-    font-size: 25px !important; /* Small mobile size */
+    font-size: 25px !important;
   }
-}
+} */
 
 @media (max-width: 991px) {
   .project-wrapper .project-content p {
@@ -1308,7 +1313,8 @@ Responsive Styles for Hero.jsx
   }
   
   .hero-content h1 .text-2 {
-    font-size: 40px !important;
+    font-size: 60px !important;
+    font-weight: inherit !important;
   }
 
   .hero-content p.sub {
@@ -1328,11 +1334,14 @@ Responsive Styles for Hero.jsx
 @media (max-width: 575px) {
   .hero-content h1 {
     font-size: 40px !important;
+    
   }
   
   .hero-content h1 .text-2 {
-    font-size: 32px !important;
-
+    font-size: 40px !important;
+    /* This line makes the font-weight match the first line */
+    font-weight: inherit !important;
+    
   }
 
   .hero-content p.sub {
@@ -1437,7 +1446,7 @@ FINAL - Responsive Styles for About.jsx (Mobile & Tablet Only)
   .the-real h2 .the-real,
   .the-real h2 .struggles,
   .the-real h2 div {
-    font-size: 42px !important;
+    font-size: 45px !important;
   }
 
 
@@ -1485,7 +1494,30 @@ FINAL - Responsive Styles for About.jsx (Mobile & Tablet Only)
   .the-real h2 .the-real,
   .the-real h2 .struggles,
   .the-real h2 div {
-    font-size: 32px !important;
+    font-size: 45px !important;
+  }
+
+  .about-wrapper .nav .nav-item .nav-link {
+    font-size: 14px !important;
+    padding: 10px 20px !important;
+  }
+}
+
+@media (max-width: 575px) {
+  /* This new rule changes the stacking order for small mobile screens */
+  .about-items {
+    /* This places the text content on top and the image below it */
+    flex-direction: column !important;
+  }
+
+  /* --- Your existing styles for this breakpoint --- */
+
+  .the-real h2 .the-real,
+  .the-real h2 .struggles,
+  .the-real h2 div {
+    font-size: 45px !important;
+    white-space: normal !important;
+    line-height: 1 !important;
   }
 
   .about-wrapper .nav .nav-item .nav-link {
@@ -1639,6 +1671,7 @@ Responsive Styles for Showcase.jsx
 /* For teal text */
 .text-neon {
   font-family: "Marcellus", sans-serif !important;
+  
 }
 
 /* For white text (default) */
@@ -1646,4 +1679,109 @@ Responsive Styles for Showcase.jsx
 .hero-content h1 span.text-2,
 .hero-content p.sub {
   font-family: "Satoshi Variable", sans-serif !important;
+}
+
+
+@media (max-width: 575px) {
+  /*
+  ============================================
+    Work Process Section Mobile Styles
+  ============================================
+  */
+
+  /* Adjust overall section padding for smaller screens */
+  .work-process-section.section-padding-2 {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  /* --- Section Title --- */
+  .work-process-section .section-title h2 {
+    font-size: 45px; /* Reduce heading font size */
+  }
+
+  .work-process-section .section-title p {
+    font-size: 16px; /* Adjust subtitle font size */
+  }
+
+  /* --- Process Cards --- */
+  .work-process-items {
+    padding: 25px; /* Reduce padding inside the card */
+    margin-bottom: 30px; /* Add space between stacked cards */
+    text-align: center; /* Center the content on mobile for a cleaner look */
+  }
+  
+  /* Make sure the last card in each row doesn't have extra bottom margin if needed */
+  .work-process-section .row .col-xl-4:last-child .work-process-items,
+  .work-process-section .row .col-lg-4:last-child .work-process-items,
+  .work-process-section .row .col-md-6:last-child .work-process-items {
+      margin-bottom: 0;
+  }
+  
+  /* Specific rule for the very last card in the layout */
+  .work-process-section .justify-content-center .col-md-6:last-child .work-process-items {
+    margin-bottom: 0;
+  }
+
+
+  /* --- Card Icon --- */
+  .work-process-items .icon {
+    font-size: 5px; /* Make the icon smaller */
+    margin-bottom: 25px;
+    /* If the icon is not centered by text-align, uncomment the following */
+    
+    /* display: block;
+    margin-left: auto;
+    margin-right: auto;
+    */
+  }
+
+  /* --- Card Number --- */
+  .work-process-items .number {
+    font-size: 30px; /* Adjust number size */
+    top: 15px;      /* Adjust position if it's absolutely positioned */
+    right: 20px;
+  }
+
+  /* --- Card Content --- */
+  .work-process-items .content h3 {
+    font-size: 20px; /* Reduce card title font size */
+    margin-bottom: 10px;
+  }
+
+  .work-process-items .content p {
+    font-size: 15px; /* Adjust card description font size */
+  }
+}
+
+/* For Small Mobile Devices (up to 575px) */
+@media (max-width: 575px) {
+  /*
+  ============================================
+    Showcase Section Mobile Styles
+  ============================================
+  */
+
+  /* 1. Reduce overall section padding to match other sections */
+  .showcase-section.section-padding-2 {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+
+  /* 2. Adjust the main title's font size */
+  .showcase-section .section-title h2 {
+    font-size: 45px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* 3. Fine-tune the subtitle text size and spacing */
+  .showcase-section .subtitle-text {
+    font-size: 15px !important;
+    margin-top: 5px !important;
+  }
+
+  /* 4. Add padding to the slider so images don't touch the screen edges */
+  .showcase-slider {
+    padding: 0 15px !important;
+  }
 }

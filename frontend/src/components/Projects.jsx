@@ -40,7 +40,7 @@ export default function Projects() {
           data-wow-delay=".3s"
         >
           Selected <br /> <img src="/assets/img/has.png" alt="img" />{" "}
-          <span>Projects</span>
+          <span className="text-neon">Projects</span>
         </h2>
 
         <div className="row align-items-center">
