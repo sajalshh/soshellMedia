@@ -6,6 +6,7 @@ import api from "../api/axiosConfig"; // Using the public api instance
 import '../styles/legacy.css';
 import "animate.css"; // 
 import WOW from "wow.js";
+//hello
 // 1. Helper function to parse text with asterisks for neon styling
 const parseNeonText = (text) => {
   if (!text) return "";
