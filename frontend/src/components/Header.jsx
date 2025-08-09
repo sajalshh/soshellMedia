@@ -1,25 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { FaEnvelope } from "react-icons/fa";
 
-// A reusable component for the navigation links
-// This prevents repeating code and makes updates easier
-const NavLinks = () => (
+// 1. Updated NavLinks to accept a 'closeMenu' function
+const NavLinks = ({ closeMenu }) => (
   <nav id="mobile-menu">
     <ul>
+      {/* 2. Added onClick={closeMenu} to every link */}
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/" onClick={closeMenu}>
+          Home
+        </Link>
       </li>
       <li>
-        <Link to="/about">About Us</Link>
+        <Link to="/about" onClick={closeMenu}>
+          About Us
+        </Link>
       </li>
       <li>
-       <Link to="/service">Services</Link>
-      </li>
-      <li className="has-dropdown">
-        <Link to="/news">Blog</Link>
+        <Link to="/service" onClick={closeMenu}>
+          Services
+        </Link>
       </li>
       <li>
-        <Link to="/contact">Contact</Link>
+        <Link to="/news" onClick={closeMenu}>
+          Blog
+        </Link>
+      </li>
+      <li>
+        <Link to="/contact" onClick={closeMenu}>
+          Contact
+        </Link>
       </li>
     </ul>
   </nav>
@@ -42,20 +53,36 @@ export default function Header() {
 
   return (
     <>
-      {/* =====================================================
-        Off-Canvas Sidebar for Mobile Menu
-        =====================================================
-      */}
-      
+      <div className="fix-area">
+        <div className={`offcanvas__info ${isSidebarOpen ? "info-open" : ""}`}>
+          <div className="offcanvas__wrapper">
+            <div className="offcanvas__content">
+              <div className="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
+                <div className="offcanvas__logo">
+                  <Link to="/" onClick={() => setIsSidebarOpen(false)}>
+                    <img src="/assets/img/logo/white-logo.svg" alt="logo-img" />
+                  </Link>
+                </div>
+                <div className="offcanvas__close">
+                  <button onClick={() => setIsSidebarOpen(false)}>
+                    <i className="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div className="mobile-menu fix mb-3">
+                {/* 3. We pass the function down to the component here */}
+                <NavLinks closeMenu={() => setIsSidebarOpen(false)} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         className={`offcanvas__overlay ${isSidebarOpen ? "overlay-open" : ""}`}
         onClick={() => setIsSidebarOpen(false)}
       ></div>
 
-      {/* =====================================================
-        Main Header for Desktop
-        =====================================================
-      */}
       <header
         id="header-sticky"
         className={`header-1 ${isSticky ? "sticky" : ""}`}
@@ -74,39 +101,35 @@ export default function Header() {
                   </Link>
                 </div>
                 <div className="mean__menu-wrapper">
-                  {/* Desktop navigation links are rendered here */}
                   <div className="main-menu">
-                    <NavLinks />
+                    {/* The desktop menu doesn't need the close function */}
+                    <NavLinks closeMenu={() => {}} />
                   </div>
                 </div>
               </div>
               <div className="header-right d-flex justify-content-end align-items-center">
-                <Link to="/login" className="join-text">
-                  <img src="/assets/img/discord.svg" alt="img" /> Join now
+                {/* 2. Updated "Contact Us" link */}
+                <Link to="/contact" className="theme-btn contact-btn">
+                  <FaEnvelope />
+                  <span>Contact Us</span>
                 </Link>
-                <a
-                  href="#0"
-                  className="search-trigger search-icon"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsSearchOpen(true);
-                  }}
-                >
-                  <i className="fa-regular fa-magnifying-glass"></i>
-                </a>
 
-                {/* Hamburger Icon - only visible on mobile via CSS */}
-                
+                {/* 3. Magnifying glass button has been removed */}
+
+                <div className="header__hamburger d-xl-block my-auto">
+                  <div
+                    className="sidebar__toggle"
+                    onClick={() => setIsSidebarOpen(true)}
+                  >
+                    <i className="fas fa-bars"></i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* =====================================================
-        Search Popup Area
-        =====================================================
-      */}
       <div className={`search-wrap ${isSearchOpen ? "open" : ""}`}>
         <div className="search-inner">
           <i

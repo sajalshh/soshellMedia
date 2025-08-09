@@ -307,7 +307,6 @@
 .about-items .about-content ul li {
   font-size: 15px; /* Adjust this as needed, e.g., 12px or 13px */
   line-height: 1.5;
-
 }
 .hero-content {
   display: flex;
@@ -642,7 +641,6 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
- 
   }
 }
 
@@ -740,14 +738,10 @@
   font-size: 52px !important; /* Adjust as needed */
 }
 
-
-
 .media-name {
   color: #03dcb0 !important;
   font-size: 52px; /* Replace with your desired color */
 }
-
-
 
 .the-real h2 div {
   margin-top: 10px;
@@ -775,7 +769,7 @@
 
 .hero-video-bg.scaled {
   transform: scale(1.2);
-   /* scale up */
+  /* scale up */
 }
 
 .hero-video-bg iframe {
@@ -788,11 +782,9 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-
 .counter-one {
   transform: scale(0.9); /* reduce size */
   transform-origin: center;
-  
 }
 
 .login {
@@ -817,7 +809,7 @@
   font-weight: 600;
   color: #ffffff;
   text-transform: uppercase;
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
   margin-top: 2.5rem;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
@@ -836,7 +828,7 @@
 
 .dashboard-accordion .accordion-item:first-of-type,
 .dashboard-accordion .accordion-item:last-of-type {
-    border-radius: 8px !important;
+  border-radius: 8px !important;
 }
 
 /* Accordion button styling when collapsed */
@@ -857,7 +849,7 @@
 
 /* Custom accordion icon (plus/minus effect) */
 .dashboard-accordion .accordion-button::after {
-  content: '\002B'; /* Plus sign */
+  content: "\002B"; /* Plus sign */
   font-size: 1.5rem;
   background-image: none; /* Remove default Bootstrap icon */
   font-weight: 300;
@@ -865,7 +857,7 @@
 }
 
 .dashboard-accordion .accordion-button:not(.collapsed)::after {
-  content: '\2212'; /* Minus sign */
+  content: "\2212"; /* Minus sign */
   transform: translateY(-4px);
 }
 
@@ -874,7 +866,6 @@
   padding: 1.5rem;
   background-color: #f7fafc;
 }
-
 
 /* --- Status Message Styling (Loading/Success/Error) --- */
 .status-message {
@@ -913,7 +904,6 @@
     transform: translateY(0);
   }
 }
-
 
 /* --- Manage SEO Component Styling --- */
 
@@ -978,10 +968,10 @@
 }
 
 .tiptap-editor-wrapper {
-  border: 1px solid #cbd5e0;        /* Adds the missing border */
-  border-radius: 6px;              /* Rounds the corners to match other inputs */
-  padding: 0.5rem 0.75rem;         /* Adds some internal spacing for the text */
-  background-color: #fff;          /* Ensures a white background */
+  border: 1px solid #cbd5e0; /* Adds the missing border */
+  border-radius: 6px; /* Rounds the corners to match other inputs */
+  padding: 0.5rem 0.75rem; /* Adds some internal spacing for the text */
+  background-color: #fff; /* Ensures a white background */
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -994,9 +984,8 @@
 /* This targets the actual editable area inside the wrapper */
 .tiptap-editor-wrapper .ProseMirror {
   min-height: 200px; /* Ensures the editor has a decent default height */
-  outline: none;     /* Removes the default browser outline, as our wrapper now handles the focus style */
+  outline: none; /* Removes the default browser outline, as our wrapper now handles the focus style */
 }
-
 
 /*
 ==============================================
@@ -1011,7 +1000,7 @@ Responsive Styles for AboutPage.jsx
   .breadcrumb-wrapper .section-title h2 {
     font-size: 50px !important;
   }
-.about-content .about-button {
+  .about-content .about-button {
     margin-left: 0 !important; /* Remove the conflicting left margin */
     margin-top: 30px !important; /* Add proper space above the button */
   }
@@ -1063,7 +1052,6 @@ Responsive Styles for AboutPage.jsx
   }
 }
 
-
 /*
 ==============================================
 Responsive Styles for StickyCardScroller.jsx
@@ -1103,9 +1091,9 @@ Responsive Styles for StickyCardScroller.jsx
     border-radius: 20px !important; /* Ensures the corners are rounded */
     position: relative !important; /* Constrain image height */
   }
-  
+
   .card-image {
-     width: 100% !important;
+    width: 100% !important;
     height: 100% !important; /* Make the image fill its container */
     object-fit: cover !important;
   }
@@ -1117,7 +1105,8 @@ Responsive Styles for StickyCardScroller.jsx
   .card-text h2 {
     font-size: 28px !important;
   }
-  .card-text p, .card-bullets {
+  .card-text p,
+  .card-bullets {
     font-size: 16px !important;
   }
 }
@@ -1135,20 +1124,20 @@ Responsive Styles for StickyCardScroller.jsx
     height: 600vh !important;
     margin-top: 100px;
   }
-  
+
   .sticky-card {
     padding: 20px !important;
     height: 90vh !important;
   }
-  
+
   .card-image {
-     width: 100% !important;
+    width: 100% !important;
     height: 100% !important; /* Make the image fill its container */
     object-fit: cover !important;
   }
   .card-image-container {
-      max-height: 250px;
-       height: 250px !important;
+    max-height: 250px;
+    height: 250px !important;
   }
 
   .floating-box {
@@ -1160,7 +1149,7 @@ Responsive Styles for StickyCardScroller.jsx
   .floating-time {
     font-size: 14px !important;
   }
-  
+
   .floating-sub {
     font-size: 10px !important;
   }
@@ -1168,15 +1157,14 @@ Responsive Styles for StickyCardScroller.jsx
   .card-text h2 {
     font-size: 24px !important;
   }
-  
+
   .explore-button {
-      float: none !important;
-      margin-top: 20px !important;
+    float: none !important;
+    margin-top: 20px !important;
   }
 }
 /* For Small Mobile Devices (up to 575px) */
 @media (max-width: 575px) {
-
   /* 1. Adjust the main section title */
   .sticky-scroll-wrapper .section-title h2 {
     font-size: 32px !important;
@@ -1189,7 +1177,7 @@ Responsive Styles for StickyCardScroller.jsx
     padding: 0 15px 40px 15px; /* Add padding for a better look */
     overflow: hidden;
   }
-  
+
   /* 3. Ensure the card within the slide looks correct */
   .mobile-card-slider .sticky-card {
     position: relative; /* It's a normal card now, not absolute */
@@ -1210,7 +1198,7 @@ Responsive Styles for StickyCardScroller.jsx
   .mobile-card-slider .card-bullets {
     font-size: 15px !important;
   }
-  
+
   /* 5. Style the Swiper pagination dots */
   .mobile-card-slider .swiper-pagination-bullet {
     background: #ffffff !important;
@@ -1218,7 +1206,9 @@ Responsive Styles for StickyCardScroller.jsx
   }
 
   .mobile-card-slider .swiper-pagination-bullet-active {
-    background: var(--tp-theme-primary) !important; /* Your theme's neon color */
+    background: var(
+      --tp-theme-primary
+    ) !important; /* Your theme's neon color */
     opacity: 1;
   }
 }
@@ -1236,7 +1226,6 @@ FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
     font-size: 48px !important;
   }
 }
-
 
 /* --- B. TABLET & MOBILE STYLES (Screens below 992px) --- */
 @media (max-width: 991px) {
@@ -1291,7 +1280,7 @@ FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
     Projects Section Mobile Styles (575px)
   ============================================
   */
-  
+
   /* 1. Adjust the main "Selected Projects" title size */
   .project-wrapper .project-title {
     font-size: 45px !important;
@@ -1302,9 +1291,9 @@ FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
     font-size: 22px !important; /* Make project titles slightly smaller */
     line-height: 1.3 !important; /* Add space if the title wraps to two lines */
   }
-.project-wrapper .project-content h3 {
-  text-align: center !important;
-}
+  .project-wrapper .project-content h3 {
+    text-align: center !important;
+  }
   .project-wrapper .project-content p {
     font-size: 15px !important; /* Ensure description text is a readable size */
   }
@@ -1333,8 +1322,6 @@ FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
     margin-right: auto !important;
   }
 }
-
-
 
 /*
 ==============================================
@@ -1380,7 +1367,7 @@ Responsive Styles for Hero.jsx
   .hero-content h1 {
     font-size: 60px !important;
   }
-  
+
   .hero-content h1 .text-2 {
     font-size: 60px !important;
     font-weight: inherit !important;
@@ -1388,7 +1375,7 @@ Responsive Styles for Hero.jsx
 
   .hero-content p.sub {
     font-size: 18px !important;
-     text-align: center !important;
+    text-align: center !important;
   }
 
   /* This makes the video responsive */
@@ -1403,14 +1390,12 @@ Responsive Styles for Hero.jsx
 @media (max-width: 575px) {
   .hero-content h1 {
     font-size: 40px !important;
-    
   }
-  
+
   .hero-content h1 .text-2 {
     font-size: 40px !important;
     /* This line makes the font-weight match the first line */
     font-weight: inherit !important;
-    
   }
 
   .hero-content p.sub {
@@ -1492,7 +1477,6 @@ FINAL - Responsive Styles for About.jsx (Mobile & Tablet Only)
 
 /* --- For Tablets and Smaller (screens BELOW 992px) --- */
 @media (max-width: 991px) {
-
   /* --- 1. Fix Main Title Alignment & Wrapping --- */
 
   /* Remove the large desktop margin to allow centering */
@@ -1518,7 +1502,6 @@ FINAL - Responsive Styles for About.jsx (Mobile & Tablet Only)
     font-size: 45px !important;
   }
 
-
   /* --- 2. Make Tab Navigation Horizontal --- */
 
   .about-wrapper .nav {
@@ -1535,7 +1518,6 @@ FINAL - Responsive Styles for About.jsx (Mobile & Tablet Only)
     font-size: 16px !important;
     padding: 12px 25px !important;
   }
-
 
   /* --- 3. Stack Tab Content Vertically --- */
 
@@ -1555,7 +1537,6 @@ FINAL - Responsive Styles for About.jsx (Mobile & Tablet Only)
     text-align: left !important;
   }
 }
-
 
 /* --- For Mobile Only (screens BELOW 768px) --- */
 @media (max-width: 767px) {
@@ -1631,7 +1612,7 @@ FINAL V2 - Responsive Styles for Header.jsx (Maximum Specificity)
     margin: 0px !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
-  
+
   .offcanvas__info .mobile-menu nav#mobile-menu ul li:last-child {
     border-bottom: none !important;
   }
@@ -1642,7 +1623,7 @@ FINAL V2 - Responsive Styles for Header.jsx (Maximum Specificity)
     visibility: visible !important;
     opacity: 1 !important;
     height: auto !important;
-    
+
     /* Style the text */
     color: white !important;
     background-color: transparent !important;
@@ -1651,7 +1632,7 @@ FINAL V2 - Responsive Styles for Header.jsx (Maximum Specificity)
     padding: 15px 5px !important;
     text-align: left !important;
   }
-  
+
   .offcanvas__info .mobile-menu nav#mobile-menu ul li a:hover {
     color: var(--theme) !important;
   }
@@ -1683,7 +1664,6 @@ FINAL V2 - Responsive Styles for Header.jsx (Maximum Specificity)
   }
 }
 
-
 /*
 ==============================================
 Responsive Styles for Showcase.jsx
@@ -1709,7 +1689,6 @@ Responsive Styles for Showcase.jsx
   }
 }
 
-
 /* For Mobile Devices (up to 767px) */
 @media (max-width: 767px) {
   .showcase-section .center-section {
@@ -1731,16 +1710,15 @@ Responsive Styles for Showcase.jsx
 
 /* For Small Mobile Devices (up to 575px) */
 @media (max-width: 575px) {
-    /* Reduce the space between slider images on very small screens */
-    .showcase-slider {
-        padding: 0 15px !important; /* Add some padding to the sides */
-    }
+  /* Reduce the space between slider images on very small screens */
+  .showcase-slider {
+    padding: 0 15px !important; /* Add some padding to the sides */
+  }
 }
 
 /* For teal text */
 .text-neon {
   font-family: "Marcellus", sans-serif !important;
-  
 }
 
 /* For white text (default) */
@@ -1749,7 +1727,6 @@ Responsive Styles for Showcase.jsx
 .hero-content p.sub {
   font-family: "Satoshi Variable", sans-serif !important;
 }
-
 
 @media (max-width: 575px) {
   /*
@@ -1779,26 +1756,28 @@ Responsive Styles for Showcase.jsx
     margin-bottom: 30px; /* Add space between stacked cards */
     text-align: center; /* Center the content on mobile for a cleaner look */
   }
-  
+
   /* Make sure the last card in each row doesn't have extra bottom margin if needed */
   .work-process-section .row .col-xl-4:last-child .work-process-items,
   .work-process-section .row .col-lg-4:last-child .work-process-items,
   .work-process-section .row .col-md-6:last-child .work-process-items {
-      margin-bottom: 0;
-  }
-  
-  /* Specific rule for the very last card in the layout */
-  .work-process-section .justify-content-center .col-md-6:last-child .work-process-items {
     margin-bottom: 0;
   }
 
+  /* Specific rule for the very last card in the layout */
+  .work-process-section
+    .justify-content-center
+    .col-md-6:last-child
+    .work-process-items {
+    margin-bottom: 0;
+  }
 
   /* --- Card Icon --- */
   .work-process-items .icon {
     font-size: 5px; /* Make the icon smaller */
     margin-bottom: 25px;
     /* If the icon is not centered by text-align, uncomment the following */
-    
+
     /* display: block;
     margin-left: auto;
     margin-right: auto;
@@ -1808,7 +1787,7 @@ Responsive Styles for Showcase.jsx
   /* --- Card Number --- */
   .work-process-items .number {
     font-size: 30px; /* Adjust number size */
-    top: 15px;      /* Adjust position if it's absolutely positioned */
+    top: 15px; /* Adjust position if it's absolutely positioned */
     right: 20px;
   }
 
@@ -1853,4 +1832,143 @@ Responsive Styles for Showcase.jsx
   .showcase-slider {
     padding: 0 15px !important;
   }
+}
+
+/*
+===================================================================
+  FINAL DEFINITIVE CSS for Header Mobile Menu
+  (Overrides main.css conflicts)
+===================================================================
+*/
+
+/* This media query targets tablets and mobile devices */
+@media (max-width: 1199px) {
+  /* --- 1. HIDE DESKTOP ELEMENTS & SHOW HAMBURGER ICON --- */
+  .header-1 .main-menu,
+  .header-1 .join-text {
+    display: none !important;
+  }
+  .header__hamburger .sidebar__toggle {
+    display: block !important;
+    font-size: 24px !important;
+    color: #fff !important;
+    cursor: pointer !important;
+    z-index: 100000;
+  }
+
+  /* --- 2. STYLE THE OFF-CANVAS CONTAINER --- */
+  .offcanvas__info {
+    height: auto !important;
+    max-height: 80vh !important;
+    padding-bottom: 40px !important;
+    width: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(15, 15, 20, 0.7) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    transform: translateY(-105%) !important;
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1) !important;
+  }
+  .offcanvas__info.info-open {
+    transform: translateY(0) !important;
+  }
+
+  .offcanvas__info .mobile-menu nav#mobile-menu ul {
+    padding-left: 0 !important;
+  }
+  /* --- 3. CRITICAL FIX: FORCE CORRECT LAYOUT FOR MOBILE MENU --- */
+  .offcanvas__info .mobile-menu nav#mobile-menu > ul {
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: left !important;
+    width: 100% !important;
+  }
+
+  .offcanvas__info .mobile-menu nav#mobile-menu > ul > li {
+    display: block !important; /* CRITICAL: Overrides inline-block from main.css */
+    width: 100% !important;
+    margin: 0 !important; /* CRITICAL: Overrides desktop margins */
+    padding: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .offcanvas__info .mobile-menu nav#mobile-menu > ul > li:last-child {
+    border-bottom: none !important;
+  }
+
+  .offcanvas__wrapper {
+    padding: 0 !important;
+  }
+
+  .offcanvas__info .mobile-menu nav#mobile-menu > ul > li > a {
+    display: block !important;
+    color: #ffffff !important;
+    background: transparent !important;
+    padding: 15px 20px !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .offcanvas__info .mobile-menu nav#mobile-menu > ul > li > a:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: var(--tp-theme-primary, #00ffcc) !important;
+  }
+
+  /* Hide submenus in this design for simplicity */
+  .offcanvas__info .mobile-menu nav#mobile-menu .submenu {
+    display: none !important;
+  }
+}
+@media (max-width: 1199px) {
+  .offcanvas__info .mobile-menu nav#mobile-menu {
+    position: static !important;
+
+    transform: none !important;
+
+    left: auto !important;
+
+    right: auto !important;
+    background-color: #00000000;
+
+    top: auto !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+  }
+}
+
+
+/*
+=====================================================
+  Header "Contact Us" Button Styles
+=====================================================
+*/
+.header-right .contact-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important; /* Space between icon and text */
+  padding: 15px 30px !important; /* Adjust button size */
+  background-color: transparent !important;
+  border: 2px solid var(--tp-theme-primary, #03dcb0) !important;
+  color: #ffffff !important;
+  transition: all 0.3s ease !important;
+}
+
+.header-right .contact-btn svg { /* Target the react-icon svg */
+  font-size: 18px !important;
+  color: var(--tp-theme-primary, #03dcb0) !important; /* Teal color */
+  transition: all 0.3s ease !important;
+}
+
+.header-right .contact-btn:hover {
+  background-color: var(--tp-theme-primary, #03dcb0) !important;
+  color: #0b0c0c !important; /* Dark text on hover */
+}
+
+.header-right .contact-btn:hover svg {
+  color: #0b0c0c !important;
 }

@@ -86,7 +86,7 @@ export default function Footer() {
               className="col-xl-3 col-lg-4 col-md-6 ps-lg-3 wow fadeInUp"
               data-wow-delay=".8s"
             >
-              <div className="single-footer-widget">
+              {/* <div className="single-footer-widget">
                 <div className="widget-head">
                   <h3>Instagram</h3>
                 </div>
@@ -124,7 +124,7 @@ export default function Footer() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -135,7 +135,7 @@ export default function Footer() {
             <div className="logo-img wow fadeInUp" data-wow-delay=".3s">
               <a href="index.html">
                 <img
-                  src="/assets/img/logo/header.png"
+                  src="/assets/img/logo/logo.png"
                   alt="header"
                   style={{ width: "164px", height: "62px" }}
                 />
