@@ -3,7 +3,14 @@ import { useScroll, useTransform } from "framer-motion";
 import Card from "./Card";
 import api from "../api/axiosConfig";
 
-// 1. Create a new child component for the scrolling content
+
+// Import Swiper for the mobile view
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+
+// This is the DESKTOP component with the scroll animation
 const ScrollingCards = ({ cardData }) => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -54,6 +61,18 @@ export default function StickyCardScroller() {
   const [cardData, setCardData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 575);
+
+  // 2. ADD EFFECT TO LISTEN FOR SCREEN RESIZING
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 575);
+    };
+
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
   useEffect(() => {
     const fetchServiceCards = async () => {
       try {
@@ -84,11 +103,30 @@ export default function StickyCardScroller() {
         </h2>
       </div>
 
-      {/* 3. Conditionally render the new component only when data is ready */}
+      {/* 3. CONDITIONALLY RENDER BASED ON SCREEN SIZE */}
       {!loading && cardData.length > 0 ? (
-        <ScrollingCards cardData={cardData} />
+        isMobile ? (
+          // ON MOBILE: Render a Swiper Slider
+          <div className="mobile-card-slider">
+            <Swiper
+              modules={[Pagination]}
+              spaceBetween={20}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+            >
+              {cardData.map((card) => (
+                <SwiperSlide key={card._id}>
+                  {/* The Card component is reused here, but without animation styles */}
+                  <Card card={card} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        ) : (
+          // ON DESKTOP: Render the scrolling animation
+          <ScrollingCards cardData={cardData} />
+        )
       ) : (
-        // You can have a more sophisticated loader here if you want
         <div style={{ minHeight: "100vh" }}></div>
       )}
     </div>

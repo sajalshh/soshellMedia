@@ -1174,7 +1174,54 @@ Responsive Styles for StickyCardScroller.jsx
       margin-top: 20px !important;
   }
 }
+/* For Small Mobile Devices (up to 575px) */
+@media (max-width: 575px) {
 
+  /* 1. Adjust the main section title */
+  .sticky-scroll-wrapper .section-title h2 {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* 2. Style the new mobile slider container */
+  .mobile-card-slider {
+    margin-top: 40px;
+    padding: 0 15px 40px 15px; /* Add padding for a better look */
+    overflow: hidden;
+  }
+  
+  /* 3. Ensure the card within the slide looks correct */
+  .mobile-card-slider .sticky-card {
+    position: relative; /* It's a normal card now, not absolute */
+    height: auto; /* Let content determine height */
+    padding: 20px !important; /* Keep the mobile padding */
+  }
+
+  /* 4. Adjust the card's internal content */
+  .mobile-card-slider .card-image-container {
+    height: 200px !important;
+  }
+
+  .mobile-card-slider .card-text h2 {
+    font-size: 22px !important;
+  }
+
+  .mobile-card-slider .card-text p,
+  .mobile-card-slider .card-bullets {
+    font-size: 15px !important;
+  }
+  
+  /* 5. Style the Swiper pagination dots */
+  .mobile-card-slider .swiper-pagination-bullet {
+    background: #ffffff !important;
+    opacity: 0.5;
+  }
+
+  .mobile-card-slider .swiper-pagination-bullet-active {
+    background: var(--tp-theme-primary) !important; /* Your theme's neon color */
+    opacity: 1;
+  }
+}
 
 /*
 ==========================================================================

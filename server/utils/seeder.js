@@ -174,7 +174,7 @@ const serviceCardsData = [
 
 const projectsData = [
   {
-    title: "Creative Content &|Storytelling", // Changed
+    title: "Creative Content &|Storytelling",
     date: "25 july, 2024",
     description:
       "Duise sagettise rosend acum oneste curos adipiscine contacting the everyday agency secondar overseas",
@@ -183,7 +183,7 @@ const projectsData = [
     displayOrder: 1,
   },
   {
-    title: "Growth &|Performance Marketing", // Changed
+    title: "Growth &|Performance Marketing",
     date: "25 july, 2024",
     description:
       "Duise sagettise rosend acum oneste curos adipiscine contacting the everyday agency secondar overseas",
@@ -192,7 +192,7 @@ const projectsData = [
     displayOrder: 2,
   },
   {
-    title: "Creative Content &|Storytelling", // Changed
+    title: "Creative Content &|Storytelling",
     date: "25 july, 2024",
     description:
       "Duise sagettise rosend acum oneste curos adipiscine contacting the everyday agency secondar overseas",
@@ -211,7 +211,7 @@ const seoData = [
     ogTitle: "Soshell Media | We Create Content That Converts",
     ogDescription:
       "A performance-driven content studio for bold brands ready to scale.",
-    ogImage: "/assets/img/social-share-home.jpg", // Example URL
+    ogImage: "/assets/img/social-share-home.jpg", 
   },
   {
     pageUrl: "/about",
@@ -221,7 +221,7 @@ const seoData = [
     ogTitle: "About Our Creative Agency | Soshell Media",
     ogDescription:
       "Discover the vision and purpose behind Soshell Media's performance-driven content.",
-    ogImage: "/assets/img/social-share-about.jpg", // Example URL
+    ogImage: "/assets/img/social-share-about.jpg", 
   },
   {
     pageUrl: "/news",

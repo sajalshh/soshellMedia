@@ -1,13 +1,14 @@
-// src/components/dashboard/homepage/ManageServiceCards.jsx
+// src/components/dashboard/ManageServiceCards.jsx
 
 import { useState, useEffect } from "react";
-import usePrivateApi from "../../../hooks/usePrivateApi";
+import useAxiosPrivate from "../../../hooks/usePrivateApi";
 
 const ManageServiceCards = () => {
   const [cards, setCards] = useState([]);
-  // 1. Replaced the simple 'message' state with our new state object
-  const [saveState, setSaveState] = useState({ status: "idle", message: "" });
-  const privateApi = usePrivateApi();
+  const [message, setMessage] = useState("");
+  // 1. New state to manage a separate file input for each card
+  const [fileInputs, setFileInputs] = useState({});
+  const privateApi = useAxiosPrivate();
 
   useEffect(() => {
     const fetchCards = async () => {
@@ -16,54 +17,56 @@ const ManageServiceCards = () => {
         setCards(response.data.data);
       } catch (error) {
         console.error("Failed to fetch service cards", error);
-        // Set an error state if the initial fetch fails
-        setSaveState({
-          status: "error",
-          message: "Error: Could not load service cards.",
-        });
       }
     };
     fetchCards();
-  }, [privateApi]); // Added privateApi dependency
-
-  // 2. Added the effect to auto-clear the status message
-  useEffect(() => {
-    if (saveState.status === "success" || saveState.status === "error") {
-      const timer = setTimeout(() => {
-        setSaveState({ status: "idle", message: "" });
-      }, 4000);
-      return () => clearTimeout(timer);
-    }
-  }, [saveState.status]);
+  }, []);
 
   const handleChange = (cardId, field, value, descIndex = null) => {
-    setCards(
-      cards.map((card) => {
-        if (card._id === cardId) {
-          if (field === "description") {
-            const updatedDesc = [...card.description];
-            updatedDesc[descIndex].text = value; // Only updating text for simplicity
-            return { ...card, description: updatedDesc };
-          }
-          return { ...card, [field]: value };
+    setCards(cards.map((card) => {
+      if (card._id === cardId) {
+        if (field === "description") {
+          const updatedDesc = [...card.description];
+          updatedDesc[descIndex].text = value; 
+          return { ...card, description: updatedDesc };
         }
-        return card;
-      }),
-    );
+        return { ...card, [field]: value };
+      }
+      return card;
+    }));
+  };
+  
+  // 2. New handler for file input changes
+  const handleFileChange = (cardId, file) => {
+    setFileInputs(prev => ({ ...prev, [cardId]: file }));
   };
 
   const handleSaveChanges = async (cardId) => {
     const cardToSave = cards.find((card) => card._id === cardId);
-    // 3. Updated the save handler to set loading, success, and error states
-    setSaveState({ status: "loading", message: "Saving..." });
+    setMessage("Saving...");
+    
+    // 3. Use FormData to send both text and the image file
+    const formData = new FormData();
+    formData.append('title', cardToSave.title);
+    formData.append('floatingTitle', cardToSave.floatingTitle);
+    formData.append('floatingSub', cardToSave.floatingSub);
+    // When sending a nested array with FormData, it's best to stringify it
+    formData.append('description', JSON.stringify(cardToSave.description));
+    
+    // Append the new file if one was selected for this specific card
+    if (fileInputs[cardId]) {
+        formData.append('image', fileInputs[cardId]);
+    }
+
     try {
-      await privateApi.put(`/homepage/service-cards/${cardId}`, cardToSave);
-      setSaveState({
-        status: "success",
-        message: "Card updated successfully!",
-      });
+      const response = await privateApi.put(`/homepage/service-cards/${cardId}`, formData);
+      // Update local state with the returned data to show the new image instantly
+      setCards(cards.map(c => c._id === cardId ? response.data.data : c));
+      setFileInputs(prev => ({ ...prev, [cardId]: null })); // Clear the selected file
+      setMessage("Card updated successfully!");
+      setTimeout(() => setMessage(""), 3000);
     } catch (error) {
-      setSaveState({ status: "error", message: "Error: Could not save card." });
+      setMessage("Error: Could not save card.");
     }
   };
 
@@ -71,25 +74,17 @@ const ManageServiceCards = () => {
     <div className="card mt-5">
       <div className="card-body">
         <h3 className="card-title">Edit Service Cards</h3>
-        {/* 4. Display the status message at the top of the component */}
-        {saveState.status !== "idle" && (
-          <div className={`alert mt-3 status-message ${saveState.status}`}>
-            {saveState.message}
-          </div>
-        )}
+        {message && <div className="alert alert-info">{message}</div>}
         {cards.map((card) => (
           <div key={card._id} className="border p-3 rounded mb-4">
             <h5 className="mb-3">Editing Card: {card.title}</h5>
-            {/* All input fields remain the same */}
             <div className="mb-2">
               <label className="form-label">Card Title</label>
               <input
                 type="text"
                 className="form-control"
                 value={card.title}
-                onChange={(e) =>
-                  handleChange(card._id, "title", e.target.value)
-                }
+                onChange={(e) => handleChange(card._id, "title", e.target.value)}
               />
             </div>
             {card.description.map((desc, index) => (
@@ -99,9 +94,7 @@ const ManageServiceCards = () => {
                   type="text"
                   className="form-control"
                   value={desc.text}
-                  onChange={(e) =>
-                    handleChange(card._id, "description", e.target.value, index)
-                  }
+                  onChange={(e) => handleChange(card._id, "description", e.target.value, index)}
                 />
               </div>
             ))}
@@ -112,9 +105,7 @@ const ManageServiceCards = () => {
                   type="text"
                   className="form-control"
                   value={card.floatingTitle}
-                  onChange={(e) =>
-                    handleChange(card._id, "floatingTitle", e.target.value)
-                  }
+                  onChange={(e) => handleChange(card._id, "floatingTitle", e.target.value)}
                 />
               </div>
               <div className="col-md-6 mb-2">
@@ -123,22 +114,28 @@ const ManageServiceCards = () => {
                   type="text"
                   className="form-control"
                   value={card.floatingSub}
-                  onChange={(e) =>
-                    handleChange(card._id, "floatingSub", e.target.value)
-                  }
+                  onChange={(e) => handleChange(card._id, "floatingSub", e.target.value)}
                 />
               </div>
             </div>
 
-            {/* 5. Updated the button to be dynamic */}
+            {/* 4. Add the new file input and image preview */}
+            <div className="mb-2 mt-2">
+                <label className="form-label">Card Image</label>
+                <input 
+                  type="file" 
+                  className="form-control" 
+                  onChange={(e) => handleFileChange(card._id, e.target.files[0])} 
+                />
+                <small className="form-text">Current Image:</small><br/>
+                <img src={card.image} alt="preview" style={{ width: '100px', marginTop: '10px', borderRadius: '5px' }} />
+            </div>
+
             <button
               className="btn btn-primary mt-3"
               onClick={() => handleSaveChanges(card._id)}
-              disabled={saveState.status === "loading"}
             >
-              {saveState.status === "loading"
-                ? "Saving..."
-                : `Save "${card.title}"`}
+              Save "{card.title}"
             </button>
           </div>
         ))}

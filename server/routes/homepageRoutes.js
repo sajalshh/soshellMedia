@@ -104,21 +104,48 @@ router.get("/service-cards", async (req, res) => {
 // @desc    Update a Service Card
 // @route   PUT /api/homepage/service-cards/:id
 // @access  Private (Client)
-router.put("/service-cards/:id", protect, authorize("client"), async (req, res) => {
+router.put(
+  "/service-cards/:id",
+  protect,
+  authorize("client"),
+  upload.single("image"),
+  async (req, res) => {
     try {
-        const updatedCard = await ServiceCard.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
+      // Because the description array is stringified on the frontend, we need to parse it back
+      const updateData = {
+        ...req.body,
+        description: JSON.parse(req.body.description),
+      };
+
+      if (req.file) {
+        const b64 = Buffer.from(req.file.buffer).toString("base64");
+        let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+        const result = await cloudinary.uploader.upload(dataURI, {
+          folder: "service-cards",
         });
-        if (!updatedCard) {
-            return res.status(404).json({ message: 'Service card not found' });
-        }
-        res.status(200).json({ success: true, data: updatedCard });
+        updateData.image = result.secure_url;
+      }
+
+      const updatedCard = await ServiceCard.findByIdAndUpdate(
+        req.params.id,
+        updateData,
+        {
+          new: true,
+          runValidators: true,
+        },
+      );
+
+      if (!updatedCard) {
+        return res.status(404).json({ message: "Service card not found" });
+      }
+      res.status(200).json({ success: true, data: updatedCard });
     } catch (error) {
-        console.error(error); // Added for more detailed logging
-        res.status(500).json({ message: "Server Error" });
+      console.error(error);
+      res.status(500).json({ message: "Server Error" });
     }
-});
+  },
+);
+
 
 // === PROJECTS ===
 
