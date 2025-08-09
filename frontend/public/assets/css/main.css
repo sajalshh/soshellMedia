@@ -1283,12 +1283,12 @@ span {
 }
 @media (max-width: 575px) {
   .message-items h2 {
-    font-size: 55px;
+    font-size: 45px;
   }
 }
 @media (max-width: 470px) {
   .message-items h2 {
-    font-size: 40px;
+    font-size: 45px;
   }
 }
 .message-items h2 span {

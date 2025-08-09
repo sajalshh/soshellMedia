@@ -1167,7 +1167,7 @@ Responsive Styles for StickyCardScroller.jsx
 @media (max-width: 575px) {
   /* 1. Adjust the main section title */
   .sticky-scroll-wrapper .section-title h2 {
-    font-size: 32px !important;
+    font-size: 45px !important;
     line-height: 1.2 !important;
   }
 
