@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaEnvelope } from "react-icons/fa";
+import { FaEnvelope } from "react-icons/fa"; // Using the envelope icon
 
-// 1. Updated NavLinks to accept a 'closeMenu' function
 const NavLinks = ({ closeMenu }) => (
   <nav id="mobile-menu">
     <ul>
-      {/* 2. Added onClick={closeMenu} to every link */}
       <li>
         <Link to="/" onClick={closeMenu}>
           Home
@@ -38,7 +36,6 @@ const NavLinks = ({ closeMenu }) => (
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -60,7 +57,7 @@ export default function Header() {
               <div className="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
                 <div className="offcanvas__logo">
                   <Link to="/" onClick={() => setIsSidebarOpen(false)}>
-                    <img src="/assets/img/logo/white-logo.svg" alt="logo-img" />
+                    <img src="/assets/img/logo/logo.png" alt="logo-img" />
                   </Link>
                 </div>
                 <div className="offcanvas__close">
@@ -69,9 +66,7 @@ export default function Header() {
                   </button>
                 </div>
               </div>
-
               <div className="mobile-menu fix mb-3">
-                {/* 3. We pass the function down to the component here */}
                 <NavLinks closeMenu={() => setIsSidebarOpen(false)} />
               </div>
             </div>
@@ -102,20 +97,20 @@ export default function Header() {
                 </div>
                 <div className="mean__menu-wrapper">
                   <div className="main-menu">
-                    {/* The desktop menu doesn't need the close function */}
                     <NavLinks closeMenu={() => {}} />
                   </div>
                 </div>
               </div>
+
+              {/* This is the corrected top-right section */}
               <div className="header-right d-flex justify-content-end align-items-center">
-                {/* 2. Updated "Contact Us" link */}
+                {/* 1. "Contact Us" button for desktop */}
                 <Link to="/contact" className="theme-btn contact-btn">
                   <FaEnvelope />
                   <span>Contact Us</span>
                 </Link>
 
-                {/* 3. Magnifying glass button has been removed */}
-
+                {/* 2. Hamburger Icon for mobile */}
                 <div className="header__hamburger d-xl-block my-auto">
                   <div
                     className="sidebar__toggle"
@@ -130,26 +125,7 @@ export default function Header() {
         </div>
       </header>
 
-      <div className={`search-wrap ${isSearchOpen ? "open" : ""}`}>
-        <div className="search-inner">
-          <i
-            className="fas fa-times search-close"
-            id="search-close"
-            onClick={() => setIsSearchOpen(false)}
-          ></i>
-          <div className="search-cell">
-            <form method="get">
-              <div className="search-field-holder">
-                <input
-                  type="search"
-                  className="main-search-input"
-                  placeholder="Search..."
-                />
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+      {/* Search popup has been removed as requested */}
     </>
   );
 }
