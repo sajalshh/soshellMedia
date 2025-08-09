@@ -3,13 +3,6 @@ import { useScroll, useTransform } from "framer-motion";
 import Card from "./Card";
 import api from "../api/axiosConfig";
 
-
-// Import Swiper for the mobile view
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-
 // This is the DESKTOP component with the scroll animation
 const ScrollingCards = ({ cardData }) => {
   const containerRef = useRef(null);
@@ -56,14 +49,11 @@ const ScrollingCards = ({ cardData }) => {
   );
 };
 
-// 2. The main component now only handles data fetching and loading states
 export default function StickyCardScroller() {
   const [cardData, setCardData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 575);
 
-  // 2. ADD EFFECT TO LISTEN FOR SCREEN RESIZING
   useEffect(() => {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth <= 575);
@@ -89,7 +79,6 @@ export default function StickyCardScroller() {
 
   return (
     <div className="sticky-scroll-wrapper">
-      {/* Static heading block */}
       <div className="section-title text-center">
         <h6 className="wow fadeInUp">
           <img src="/assets/img/star.png" alt="img" />
@@ -103,24 +92,13 @@ export default function StickyCardScroller() {
         </h2>
       </div>
 
-      {/* 3. CONDITIONALLY RENDER BASED ON SCREEN SIZE */}
       {!loading && cardData.length > 0 ? (
         isMobile ? (
-          // ON MOBILE: Render a Swiper Slider
-          <div className="mobile-card-slider">
-            <Swiper
-              modules={[Pagination]}
-              spaceBetween={20}
-              slidesPerView={1}
-              pagination={{ clickable: true }}
-            >
-              {cardData.map((card) => (
-                <SwiperSlide key={card._id}>
-                  {/* The Card component is reused here, but without animation styles */}
-                  <Card card={card} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+          // ON MOBILE: Render a simple, static list of cards
+          <div className="static-card-list">
+            {cardData.map((card) => (
+              <Card key={card._id} card={card} />
+            ))}
           </div>
         ) : (
           // ON DESKTOP: Render the scrolling animation

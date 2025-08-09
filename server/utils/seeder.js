@@ -13,6 +13,7 @@ const AboutTab = require("../models/AboutTab");
 const ServiceCard = require("../models/ServiceCard");
 const Project = require("../models/Project");
 const SeoData = require("../models/SeoData");
+const AboutSectionContent = require("../models/AboutSectionContent");
 // Load env vars
 dotenv.config({ path: "./.env" });
 
@@ -78,7 +79,7 @@ const aboutTabsData = [
       "Weekly content prompts that align with current trends and brand values.",
       "Strategic pillars to organize your content around storytelling, value, and sales.",
     ],
-    imageSrc: "/assets/img/about/01.jpg",
+    // imageSrc: "/assets/img/about/01.jpg",
   },
   {
     tabId: "vision",
@@ -91,7 +92,7 @@ const aboutTabsData = [
       "Strategy-first posting that aligns with your funnel.",
       "CTAs, hooks, and formats designed for engagement and lead generation.",
     ],
-    imageSrc: "/assets/img/about/01.jpg",
+    // imageSrc: "/assets/img/about/01.jpg",
   },
   {
     tabId: "feature",
@@ -104,9 +105,13 @@ const aboutTabsData = [
       "Evergreen content strategies that work beyond algorithm shifts.",
       "Clear content plans so you never have to guess what’s next.",
     ],
-    imageSrc: "/assets/img/about/01.jpg",
+    // imageSrc: "/assets/img/about/01.jpg",
   },
 ];
+
+const aboutSectionContent = {
+  videoUrl: "https://fast.wistia.net/embed/iframe/djiv5ywnyy",
+};
 
 const serviceCardsData = [
   {
@@ -275,6 +280,7 @@ const importData = async () => {
     await ServiceCard.deleteMany();
     await Project.deleteMany();
     await SeoData.deleteMany();
+    await AboutSectionContent.deleteMany();
 
     // Insert new data
     await TeamMember.insertMany(teamMembers);
@@ -285,6 +291,7 @@ const importData = async () => {
     await ServiceCard.insertMany(serviceCardsData);
     await Project.insertMany(projectsData);
     await SeoData.insertMany(seoData);
+    await AboutSectionContent.create(aboutSectionContent);
     console.log("✅ Data Imported!");
     process.exit();
   } catch (error) {

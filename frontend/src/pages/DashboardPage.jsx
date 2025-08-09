@@ -11,6 +11,7 @@ import ManageServiceCards from "../components/dashboard/homepage/ManageServiceCa
 import ManageProjects from "../components/dashboard/homepage/ManageProjects";
 import ManageBlog from "../components/dashboard/ManageBlog";
 import ManageSeo from "../components/dashboard/ManageSeo";
+import ManageAboutVideo from "../components/dashboard/homepage/ManageAboutVideo";
 
 // ====================================================================
 // REFACTORED COMPONENT WITH LOADING/SUCCESS STATE HANDLING
@@ -177,6 +178,7 @@ const DashboardPage = () => {
             data-bs-parent="#dashboardAccordion"
           >
             <div className="accordion-body">
+              <ManageAboutVideo />
               <ManageAboutTabs />
             </div>
           </div>

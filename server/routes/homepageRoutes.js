@@ -10,6 +10,7 @@ const HeroContent = require("../models/HeroContent");
 const AboutTab = require("../models/AboutTab");
 const ServiceCard = require("../models/ServiceCard");
 const Project = require("../models/Project");
+const AboutSectionContent = require("../models/AboutSectionContent");
 
 // @desc    Get Hero section content
 // @route   GET /api/homepage/hero
@@ -89,6 +90,37 @@ router.put(
     }
   },
 );
+
+// ... after the about-tabs PUT route ...
+
+// @desc    Get About Section content (the video URL)
+// @route   GET /api/homepage/about-section
+// @access  Public
+router.get("/about-section", async (req, res) => {
+  try {
+    const sectionContent = await AboutSectionContent.findOne();
+    res.status(200).json({ success: true, data: sectionContent });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// @desc    Update About Section content
+// @route   PUT /api/homepage/about-section
+// @access  Private (Client)
+router.put("/about-section", protect, authorize("client"), async (req, res) => {
+  try {
+    const updatedContent = await AboutSectionContent.findOneAndUpdate({}, req.body, {
+      new: true,
+      upsert: true, // Creates the document if it doesn't exist
+      runValidators: true,
+    });
+    res.status(200).json({ success: true, data: updatedContent });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
 
 
 // --- SERVICE CARDS ROUTES ---

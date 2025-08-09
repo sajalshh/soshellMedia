@@ -1,37 +1,46 @@
 import React, { useState, useEffect } from "react";
 import { Fade } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
-import api from "../api/axiosConfig"; 
+import api from "../api/axiosConfig";
 
 export default function About() {
   const [activeTab, setActiveTab] = useState("");
   const [tabsData, setTabsData] = useState([]);
+  const [videoUrl, setVideoUrl] = useState(""); // State for the video URL
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
-    const fetchTabsData = async () => {
+    const fetchAboutContent = async () => {
       try {
-        const response = await api.get("/homepage/about-tabs");
-        const data = response.data.data;
-        setTabsData(data);
-  
-        if (data && data.length > 0) {
-          setActiveTab(data[0].tabId);
+        // Fetch both sets of data at the same time for efficiency
+        const [tabsResponse, sectionResponse] = await Promise.all([
+          api.get("/homepage/about-tabs"),
+          api.get("/homepage/about-section"),
+        ]);
+
+        const tabs = tabsResponse.data.data;
+        setTabsData(tabs);
+
+        // Set the video URL from the new endpoint
+        if (sectionResponse.data.data) {
+          setVideoUrl(sectionResponse.data.data.videoUrl);
+        }
+
+        // Set the default active tab
+        if (tabs && tabs.length > 0) {
+          setActiveTab(tabs[0].tabId);
         }
       } catch (error) {
-        console.error("Failed to fetch about tabs content:", error);
+        console.error("Failed to fetch about content:", error);
       } finally {
         setLoading(false);
       }
     };
-    fetchTabsData();
+    fetchAboutContent();
   }, []);
 
-  // Find the content for the currently active tab from the fetched data
   const activeTabData = tabsData.find((tab) => tab.tabId === activeTab);
 
-  // Display a placeholder while the data is loading to prevent layout shifts
   if (loading) {
     return (
       <section
@@ -63,7 +72,6 @@ export default function About() {
         </div>
 
         <div className="about-wrapper mt-4 mt-md-0">
-          {/* The tab navigation is now generated dynamically from the API data */}
           <ul className="nav">
             <Fade direction="up" delay={300} cascade damping={0.2} triggerOnce>
               {tabsData.map((tab) => (
@@ -85,7 +93,6 @@ export default function About() {
             </Fade>
           </ul>
 
-          {/* The tab content is now rendered dynamically based on the active tab */}
           <div className="tab-content">
             {activeTabData && (
               <div className="tab-pane active">
@@ -114,9 +121,22 @@ export default function About() {
                       </Link>
                     </Fade>
                   </div>
+
+                  {/* The old image div is replaced with this new video container */}
                   <Fade direction="up" delay={300} triggerOnce>
-                    <div className="about-image">
-                      <img src={activeTabData.imageSrc} alt="img" />
+                    <div className="about-video-container">
+                      {videoUrl && (
+                        <iframe
+                          src={`${videoUrl}?autoplay=1&loop=1&mute=1&playsinline=1&controlsVisibleOnLoad=false&videoFoam=true`}
+                          title="About Us Video"
+                          allow="autoplay; fullscreen"
+                          allowFullScreen
+                          frameBorder="0"
+                          scrolling="no"
+                          className="wistia_embed"
+                          name="wistia_embed"
+                        ></iframe>
+                      )}
                     </div>
                   </Fade>
                 </div>
@@ -144,7 +164,7 @@ const SVGIcon = () => (
     />
     <path
       d="M5.80711 14C5.47208 14 5.24873 13.8667 5.02538 13.6L0.335025 8C-0.111675 7.46667 -0.111675 6.66667 0.335025 6.13333C0.781726 5.6 1.45178 5.6 1.89848 6.13333L6.58883 11.7333C7.03553 12.2667 7.03553 13.0667 6.58883 13.6C6.47716 13.8667 6.14213 14 5.80711 14ZM11.7259 7.06667C11.3909 7.06667 11.1675 6.93333 10.9442 6.66667C10.4975 6.13333 10.4975 5.33333 10.9442 4.8L14.5178 0.4C14.9645 -0.133333 15.6345 -0.133333 16.0812 0.4C16.5279 0.933333 16.5279 1.73333 16.0812 2.26667L12.5076 6.66667C12.2843 6.93333 12.0609 7.06667 11.7259 7.06667Z"
-      fill="#EFFB5LO3"
+      fill="#EFFB53"
     />
   </svg>
 );
