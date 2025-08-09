@@ -57,7 +57,7 @@ export default function Hero() {
       const scrollTop = window.scrollY;
 
       const minScale = 1;
-      const maxScale = 1.15;
+      const maxScale = 1.12;
       const scrollRange = 400;
 
       const newScale = Math.min(
