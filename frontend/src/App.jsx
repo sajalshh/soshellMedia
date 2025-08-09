@@ -11,6 +11,7 @@ import ContactPage from "./pages/ContactPage";
 import ServicePage from "./pages/ServicePage";
 import TeamPage from "./pages/TeamPage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
+
 import ProjectPage from "./pages/ProjectPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -20,6 +21,7 @@ import NewsDetailsPage from "./pages/NewsDetailsPage";
 import ManageBlog from "./components/dashboard/ManageBlog";
 import BlogPostEditor from "./components/dashboard/BlogPostEditor";
 import ManageSeo from "./components/dashboard/ManageSeo";
+import ServiceDetailsPage from "./pages/ServiceDetailsPage";
 
 
 // 1. Import the new components for the dashboard
@@ -56,6 +58,10 @@ export default function App() {
             <Route path="faq" element={<FaqPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<RegisterPage />} />
+            <Route
+              path="service-details/:slug"
+              element={<ServiceDetailsPage />}
+            />
             <Route path="news" element={<NewsPage />} />
             <Route path="news-details/:slug" element={<NewsDetailsPage />} />
             <Route path="*" element={<NotFoundPage />} />

@@ -2034,3 +2034,167 @@ Responsive Styles for Showcase.jsx
     padding: 20px !important;
   }
 }
+
+/*
+=====================================================
+  FINAL Corrected Styles for Service Page
+=====================================================
+*/
+
+/* --- A. Desktop & Global Styles --- */
+
+/* 1. Adjust the main banner padding and layout */
+.breadcrumb-wrapper {
+  padding-bottom: 120px !important; /* Add space at the bottom for the new paragraph */
+}
+@media (min-width: 992px) {
+  .breadcrumb-description {
+    max-width: 1140px !important; /* Increase this value to make the paragraph wider */
+  }
+}
+
+.breadcrumb-description {
+  margin-top: -60px !important; /* This controls the space between the title and the paragraph */
+  max-width: 850px; /* Constrains width for readability */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.breadcrumb-description p {
+  font-size: 20px !important;
+  line-height: 1.6 !important;
+  color: #cdcdcd !important;
+  text-align: center;
+}
+
+/* 2. Styling for the second section title ("Reimagined for the Scroll Age") */
+.service-section .section-title h2 span {
+  font-family: "Satoshi Variable", sans-serif !important;
+  font-weight: 700 !important;
+}
+.service-section .section-title h2 .font-marcellus {
+  font-family: "Marcellus", sans-serif !important;
+  color: var(--theme) !important;
+  font-weight: 400 !important;
+}
+
+/* 3. Styling for the service card layout */
+.service-box-items {
+  height: 100%;
+}
+.service-box-items .service-content .service-subtitle {
+  font-style: italic !important;
+  color: #a0a0a0 !important;
+  margin-top: -10px !important;
+  margin-bottom: 15px !important;
+  display: block;
+}
+.service-section .row .col-lg-6 {
+  margin-bottom: 30px !important;
+}
+
+
+/* --- B. Mobile Styles (575px and smaller) --- */
+@media (max-width: 575px) {
+  /* 1. Adjust breadcrumb title size */
+  .breadcrumb-wrapper .page-heading h1 {
+    font-size: 45px !important;
+    line-height: 1.2 !important; 
+  }
+
+  /* 2. Adjust intro paragraph styles for mobile */
+  .breadcrumb-description {
+    margin-top: 0px !important;
+  }
+  .breadcrumb-description p {
+    font-size: 16px !important;
+  }
+
+  /* 3. Adjust second title styles for mobile */
+  .service-section .section-title h2 {
+    font-size: 45px !important;
+    line-height: 1.2 !important; 
+  }
+
+  /* 4. Stack service cards vertically on mobile */
+  .service-box-items {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+  }
+  .service-box-items .service-image {
+    max-width: 300px !important;
+    width: 100% !important;
+    margin-bottom: 20px !important;
+  }
+  .service-box-items .service-content {
+    max-width: 100% !important;
+    padding: 30px !important;
+  }
+}
+
+
+/*
+=====================================================
+  New Styles for Service Details Page
+=====================================================
+*/
+
+/* --- A. Desktop & Global Styles --- */
+
+/* 1. Styling for the main "Detailed Services" heading */
+.service-details-heading {
+  font-size: 70px !important;
+  font-family: "Satoshi Variable", sans-serif !important;
+  font-weight: 900 !important;
+  color: white !important;
+  margin-top: 80px;
+  margin-bottom: -30px;
+}
+.service-details-heading .font-marcellus {
+  font-family: "Marcellus", sans-serif !important;
+  color: var(--theme) !important;
+  font-weight: 400 !important;
+}
+@media (min-width: 992px) {
+  .benefit-section .benefit-right-items {
+    
+    padding-top: 0px !important;
+    padding-bottom: 200px !important;
+    max-width: 340px !important;
+  }
+  .benefit-section .benefit-left-content {
+   
+    padding-top: 0px !important;
+    padding-bottom: 200px !important;
+    
+  }
+}
+
+/* 2. Styling for the detailed paragraph on the right side of the benefit section */
+.single-benefit-text p {
+  font-size: 18px !important;
+  line-height: 1.7 !important;
+  color: #cdcdcd !important;
+}
+
+
+/* --- B. Mobile Styles (575px and smaller) --- */
+@media (max-width: 575px) {
+  .service-details-heading {
+    margin-top: 30px;
+    font-size: 45px !important;
+    margin-bottom: -20px;
+  }
+
+  .benefit-section .benefit-left-content {
+    text-align: center;
+
+  }
+
+  .single-benefit-text p {
+    font-size: 16px !important;
+    text-align: center;
+    margin-top: 20px;
+  }
+}
