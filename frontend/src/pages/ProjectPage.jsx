@@ -1,74 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
 import SeoHelmet from "../components/SeoHelmet";
+import api from "../api/axiosConfig";
 
-// Data for all portfolio items
-const allProjects = [
-  {
-    id: 1,
-    title: "Futuristic stylish model",
-    category: "creative",
-    imgSrc: "/assets/img/project/09.jpg",
-  },
-  {
-    id: 2,
-    title: "Bold and vibrant design",
-    category: "graphic",
-    imgSrc: "/assets/img/project/10.jpg",
-  },
-  {
-    id: 3,
-    title: "Breathtaking landscape",
-    category: "anime",
-    imgSrc: "/assets/img/project/11.jpg",
-  },
-  {
-    id: 4,
-    title: "Stylishly extravagant toy",
-    category: "creative",
-    imgSrc: "/assets/img/project/12.jpg",
-  },
-  {
-    id: 5,
-    title: "A vintage postcard design",
-    category: "graphic",
-    imgSrc: "/assets/img/project/13.jpg",
-  },
-  {
-    id: 6,
-    title: "Color for simple Company",
-    category: "animal",
-    imgSrc: "/assets/img/project/14.jpg",
-  },
-  {
-    id: 7,
-    title: "Another postcard design",
-    category: "graphic",
-    imgSrc: "/assets/img/project/15.jpg",
-  },
-  {
-    id: 8,
-    title: "Another simple Company color",
-    category: "animal",
-    imgSrc: "/assets/img/project/16.jpg",
-  },
-  {
-    id: 9,
-    title: "Another stylish model",
-    category: "creative",
-    imgSrc: "/assets/img/project/17.jpg",
-  },
-];
-
-const filters = ["all", "creative", "anime", "animal", "graphic"];
+// The new filter categories
+const filters = ["All", "Creative", "Marketing", "Development"];
 
 export default function ProjectPage() {
-  const [activeFilter, setActiveFilter] = useState("all");
-  const [filteredProjects, setFilteredProjects] = useState(allProjects);
+  const [allProjects, setAllProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [loading, setLoading] = useState(true);
 
+  // Fetch portfolio data from the backend when the component mounts
   useEffect(() => {
-    if (activeFilter === "all") {
+    const fetchProjects = async () => {
+      try {
+        const response = await api.get("/portfolio");
+        setAllProjects(response.data.data);
+        setFilteredProjects(response.data.data); // Initially show all
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProjects();
+  }, []);
+
+  // Handle filtering when the active filter changes
+  useEffect(() => {
+    if (activeFilter === "All") {
       setFilteredProjects(allProjects);
     } else {
       const newProjects = allProjects.filter(
@@ -76,11 +38,11 @@ export default function ProjectPage() {
       );
       setFilteredProjects(newProjects);
     }
-  }, [activeFilter]);
+  }, [activeFilter, allProjects]);
 
   return (
     <>
-      <SeoHelmet pageUrl="/projects" />
+      <SeoHelmet pageUrl="/project" />
       {/* Breadcrumb Section */}
       <div
         className="breadcrumb-wrapper bg-cover"
@@ -89,11 +51,6 @@ export default function ProjectPage() {
         <div className="container">
           <div className="page-heading">
             <Fade direction="up" triggerOnce>
-              <h6>
-                <img src="/assets/img/star.png" alt="img" /> user creation
-              </h6>
-            </Fade>
-            <Fade direction="up" delay={300} triggerOnce>
               <h1>
                 Creative <span>Portfolio</span>
               </h1>
@@ -105,6 +62,7 @@ export default function ProjectPage() {
       {/* Portfolio Section */}
       <section className="portfolio-section section-padding section-bg">
         <div className="container">
+          {/* Filter Navigation */}
           <ul className="nav">
             <Fade direction="up" cascade damping={0.1} triggerOnce>
               {filters.map((filter) => (
@@ -119,44 +77,45 @@ export default function ProjectPage() {
                       activeFilter === filter ? "active" : ""
                     }`}
                   >
-                    {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                    {filter}
                   </a>
                 </li>
               ))}
             </Fade>
           </ul>
+
+          {/* Video Grid */}
           <div className="tab-content">
             <div className="tab-pane fade show active">
               <div className="row">
-                {filteredProjects.map((project, index) => (
-                  <div key={project.id} className="col-xl-4 col-lg-6 col-md-6">
-                    <Fade direction="up" delay={index * 100} triggerOnce>
-                      <div className="portfolio-card-items">
-                        <div className="portfolio-image">
-                          <img src={project.imgSrc} alt={project.title} />
-                          <Link
-                            to={`/project-details/${project.id}`}
-                            className="lets-circle"
-                          >
-                            <i className="fa-sharp fa-regular fa-arrow-up-right"></i>{" "}
-                            <br />
-                            Project details
-                          </Link>
+                {loading ? (
+                  <p>Loading portfolio...</p>
+                ) : (
+                  filteredProjects.map((project, index) => (
+                    <div key={project._id} className="col-lg-4 col-md-6 col-12">
+                      <Fade direction="up" delay={index * 100} triggerOnce>
+                        <div className="portfolio-video-card">
+                          <div className="portfolio-video-wrapper">
+                            <iframe
+                              src={`${project.videoUrl}?autoplay=1&loop=1&mute=1&playsinline=1&controlsVisibleOnLoad=false&videoFoam=true`}
+                              title={project.title}
+                              allow="autoplay; fullscreen"
+                              frameBorder="0"
+                              scrolling="no"
+                              className="wistia_embed"
+                            ></iframe>
+                          </div>
+                          <div className="portfolio-video-content">
+                            <h6>
+                              <span>//</span> {project.category}
+                            </h6>
+                            <h3>{project.title}</h3>
+                          </div>
                         </div>
-                        <div className="portfolio-content">
-                          <h6>
-                            <span>//</span> {project.category}
-                          </h6>
-                          <h3>
-                            <Link to={`/project-details/${project.id}`}>
-                              {project.title}
-                            </Link>
-                          </h3>
-                        </div>
-                      </div>
-                    </Fade>
-                  </div>
-                ))}
+                      </Fade>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>

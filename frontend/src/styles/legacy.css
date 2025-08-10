@@ -2198,3 +2198,78 @@ Responsive Styles for Showcase.jsx
     margin-top: 20px;
   }
 }
+
+/*
+=====================================================
+  New Styles for Portfolio Video Page
+=====================================================
+*/
+
+/* --- A. Desktop & Global Styles --- */
+
+.portfolio-video-card {
+  margin-top: 30px;
+}
+
+.portfolio-video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16; /* This creates the vertical "reel" shape */
+  border-radius: 20px;
+  overflow: hidden; /* Clips the iframe to the rounded corners */
+  background-color: #111; /* A fallback background */
+}
+.portfolio-section .row {
+    justify-content: center !important;
+  }
+.portfolio-section .row .col-lg-4 {
+    /* This controls the OVERALL SIZE of each card. Adjust as you like. */
+    max-width: 380px !important; 
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+.portfolio-video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.portfolio-video-content {
+  margin-top: 20px;
+}
+
+.portfolio-video-content h6 {
+  font-size: 15px;
+  color: #cdcdcd;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.portfolio-video-content h6 span {
+  color: var(--theme);
+}
+
+.portfolio-video-content h3 {
+  font-size: 24px;
+}
+
+
+/* --- B. Mobile Styles (575px and smaller) --- */
+@media (max-width: 575px) {
+  /* Make the filter buttons a bit smaller on mobile */
+  .portfolio-section .nav .nav-link {
+    font-size: 14px !important;
+    padding: 8px 15px !important;
+  }
+  
+  /* Adjust breadcrumb heading size */
+  .breadcrumb-wrapper .page-heading h1 {
+      font-size: 42px !important;
+  }
+
+  .portfolio-video-content h3 {
+    font-size: 20px;
+  }
+}

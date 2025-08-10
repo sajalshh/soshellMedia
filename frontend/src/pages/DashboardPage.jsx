@@ -12,6 +12,7 @@ import ManageProjects from "../components/dashboard/homepage/ManageProjects";
 import ManageBlog from "../components/dashboard/ManageBlog";
 import ManageSeo from "../components/dashboard/ManageSeo";
 import ManageAboutVideo from "../components/dashboard/homepage/ManageAboutVideo";
+import ManagePortfolio from "../components/dashboard/ManagePortfolio";
 
 // ====================================================================
 // REFACTORED COMPONENT WITH LOADING/SUCCESS STATE HANDLING
@@ -290,6 +291,29 @@ const DashboardPage = () => {
           >
             <div className="accordion-body">
               <ManageBlog />
+            </div>
+          </div>
+        </div>
+
+        <h4 className="dashboard-section-title">Portfolio Page Content</h4>
+        <div className="accordion-item">
+          <h2 className="accordion-header" id="headingPortfolio">
+            <button
+              className="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapsePortfolio"
+            >
+              Manage Portfolio Videos
+            </button>
+          </h2>
+          <div
+            id="collapsePortfolio"
+            className="accordion-collapse collapse"
+            data-bs-parent="#dashboardAccordion"
+          >
+            <div className="accordion-body">
+              <ManagePortfolio />
             </div>
           </div>
         </div>

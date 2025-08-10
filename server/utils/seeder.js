@@ -14,6 +14,7 @@ const ServiceCard = require("../models/ServiceCard");
 const Project = require("../models/Project");
 const SeoData = require("../models/SeoData");
 const AboutSectionContent = require("../models/AboutSectionContent");
+const PortfolioItem = require("../models/PortfolioItem");
 // Load env vars
 dotenv.config({ path: "./.env" });
 
@@ -176,6 +177,27 @@ const serviceCardsData = [
   },
 ];
 
+const portfolioItemsData = [
+  {
+    title: "Creative Campaign A",
+    category: "Creative",
+    videoUrl: "https://fast.wistia.net/embed/iframe/djiv5ywnyy", // Replace with a real link
+    displayOrder: 1,
+  },
+  {
+    title: "Marketing Strategy B",
+    category: "Marketing",
+    videoUrl: "https://fast.wistia.net/embed/iframe/djiv5ywnyy",
+    displayOrder: 2,
+  },
+  {
+    title: "Development Project C",
+    category: "Development",
+    videoUrl: "https://fast.wistia.net/embed/iframe/djiv5ywnyy",
+    displayOrder: 3,
+  },
+];
+
 
 const projectsData = [
   {
@@ -281,6 +303,7 @@ const importData = async () => {
     await Project.deleteMany();
     await SeoData.deleteMany();
     await AboutSectionContent.deleteMany();
+    await PortfolioItem.deleteMany();
 
     // Insert new data
     await TeamMember.insertMany(teamMembers);
@@ -292,6 +315,9 @@ const importData = async () => {
     await Project.insertMany(projectsData);
     await SeoData.insertMany(seoData);
     await AboutSectionContent.create(aboutSectionContent);
+    await PortfolioItem.insertMany(portfolioItemsData);
+
+    
     console.log("✅ Data Imported!");
     process.exit();
   } catch (error) {
