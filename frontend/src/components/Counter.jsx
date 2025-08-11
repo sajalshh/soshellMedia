@@ -12,7 +12,7 @@ export default function Counter({
     <div className="counter-items wow fadeInUp">
       <div className="icon">
         {Icon && <Icon size={40} color="#ffffff" />}{" "}
-        {/* yellow highlight, adjust as needed */}
+       
       </div>
       <div className="content">
         <h2>

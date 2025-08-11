@@ -50,7 +50,7 @@ const SeoHelmet = ({ pageUrl, title, description }) => {
             metaDescription: createExcerpt(description),
             ogTitle: `${title} | Soshell Media`,
             ogDescription: createExcerpt(description),
-            ogImage: "", // You could add a default OG image URL here
+            ogImage: "",
           });
         } else {
           console.error(`Failed to fetch SEO data for ${pageUrl}`, error);
@@ -68,13 +68,13 @@ const SeoHelmet = ({ pageUrl, title, description }) => {
     <Helmet>
       <title>{seo.title}</title>
       <meta name="description" content={seo.metaDescription} />
-      {/* Open Graph / Facebook */}
+     
       {seo.ogTitle && <meta property="og:title" content={seo.ogTitle} />}
       {seo.ogDescription && (
         <meta property="og:description" content={seo.ogDescription} />
       )}
       {seo.ogImage && <meta property="og:image" content={seo.ogImage} />}
-      {/* You can add more tags here, like Twitter cards */}
+    
     </Helmet>
   );
 };

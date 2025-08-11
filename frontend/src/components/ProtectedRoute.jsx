@@ -7,8 +7,6 @@ const ProtectedRoute = () => {
   const { auth } = useAuth();
   const location = useLocation();
 
-  // If we have an access token, render the child route.
-  // Otherwise, navigate to the login page.
   return auth?.accessToken ? (
     <Outlet />
   ) : (

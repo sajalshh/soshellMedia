@@ -12,11 +12,11 @@ export default function Message() {
     "/assets/img/brand/03.png",
     "/assets/img/brand/04.png",
     "/assets/img/brand/05.png",
-    "/assets/img/brand/01.png", // Duplicate
-    "/assets/img/brand/02.png", // Duplicate
-    "/assets/img/brand/03.png", // Duplicate
-    "/assets/img/brand/04.png", // Duplicate
-    "/assets/img/brand/05.png" // Duplicate
+    "/assets/img/brand/01.png", 
+    "/assets/img/brand/02.png", 
+    "/assets/img/brand/03.png", 
+    "/assets/img/brand/04.png", 
+    "/assets/img/brand/05.png" 
   ];
 
   return (

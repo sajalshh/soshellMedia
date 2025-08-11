@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 export default function BackToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -11,16 +10,12 @@ export default function BackToTopButton() {
     }
   };
 
-
   useEffect(() => {
     window.addEventListener("scroll", toggleVisibility);
-
-
     return () => {
       window.removeEventListener("scroll", toggleVisibility);
     };
   }, []);
-
 
   const scrollToTop = () => {
     window.scrollTo({

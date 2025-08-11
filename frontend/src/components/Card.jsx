@@ -17,7 +17,7 @@ export default function Card({ card, style }) {
           </div>
         </div>
 
-        {/* RIGHT: Text */}
+       
         <div className="card-text">
           <h2>{card.title}</h2>
           {Array.isArray(card.description) ? (
@@ -34,7 +34,7 @@ export default function Card({ card, style }) {
           <a href="/project" className="explore-button">
             Explore More
           </a>{" "}
-          {/* Replace # with your link */}
+          {/* Replace link */}
         </div>
       </div>
     </motion.div>

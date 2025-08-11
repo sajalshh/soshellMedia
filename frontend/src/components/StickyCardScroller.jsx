@@ -3,7 +3,6 @@ import { useScroll, useTransform } from "framer-motion";
 import Card from "./Card";
 import api from "../api/axiosConfig";
 
-// This is the DESKTOP component with the scroll animation
 const ScrollingCards = ({ cardData }) => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({

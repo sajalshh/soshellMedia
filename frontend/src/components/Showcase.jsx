@@ -9,8 +9,8 @@ const showcaseImages = [
   "/assets/img/project/07.jpg",
   "/assets/img/project/07.jpg",
   "/assets/img/project/07.jpg",
-  "/assets/img/project/07.jpg", // Added for a better loop
-  "/assets/img/project/07.jpg", // Added for a better loop
+  "/assets/img/project/07.jpg", 
+  "/assets/img/project/07.jpg", 
 ];
 
 export default function Showcase() {

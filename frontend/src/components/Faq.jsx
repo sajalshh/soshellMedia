@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 export default function Faq() {
-  // State to keep track of which accordion item is open. 'faq1' is open by default.
+
   const [openItem, setOpenItem] = useState("faq1");
 
-  // A function to handle the click, which toggles the item.
+
   const handleItemClick = (itemId) => {
     setOpenItem(openItem === itemId ? null : itemId);
   };

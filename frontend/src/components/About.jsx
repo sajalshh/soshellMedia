@@ -6,13 +6,13 @@ import api from "../api/axiosConfig";
 export default function About() {
   const [activeTab, setActiveTab] = useState("");
   const [tabsData, setTabsData] = useState([]);
-  const [videoUrl, setVideoUrl] = useState(""); // State for the video URL
+  const [videoUrl, setVideoUrl] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAboutContent = async () => {
       try {
-        // Fetch both sets of data at the same time for efficiency
+        
         const [tabsResponse, sectionResponse] = await Promise.all([
           api.get("/homepage/about-tabs"),
           api.get("/homepage/about-section"),
@@ -21,12 +21,12 @@ export default function About() {
         const tabs = tabsResponse.data.data;
         setTabsData(tabs);
 
-        // Set the video URL from the new endpoint
+        
         if (sectionResponse.data.data) {
           setVideoUrl(sectionResponse.data.data.videoUrl);
         }
 
-        // Set the default active tab
+      
         if (tabs && tabs.length > 0) {
           setActiveTab(tabs[0].tabId);
         }

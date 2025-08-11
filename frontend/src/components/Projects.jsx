@@ -20,7 +20,6 @@ export default function Projects() {
   }, []);
 
   if (loading) {
-    // Render a placeholder to avoid layout shift while loading
     return (
       <section className="project-section fix section-padding section-bg"></section>
     );
@@ -73,7 +72,7 @@ export default function Projects() {
                 >
                   <span>{project.date}</span>
                   <h3>
-                    {/* This renders the title with line breaks where you put a '|' */}
+                   
                     <a
                       href={project.projectLink}
                       dangerouslySetInnerHTML={{
@@ -90,7 +89,7 @@ export default function Projects() {
               </div>
             );
 
-            // This logic creates the alternating layout
+           
             return isEven ? (
               <React.Fragment key={project._id}>
                 {imageBlock}

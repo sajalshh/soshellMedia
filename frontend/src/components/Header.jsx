@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaEnvelope } from "react-icons/fa"; // Using the envelope icon
+import { FaEnvelope } from "react-icons/fa"; 
 
 const NavLinks = ({ closeMenu }) => (
   <nav id="mobile-menu">
@@ -102,7 +102,7 @@ export default function Header() {
                 </div>
               </div>
 
-              {/* This is the corrected top-right section */}
+              {/* top-right section */}
               <div className="header-right d-flex justify-content-end align-items-center">
                 {/* 1. "Contact Us" button for desktop */}
                 <Link to="/contact" className="theme-btn contact-btn">
@@ -110,7 +110,7 @@ export default function Header() {
                   <span>Contact Us</span>
                 </Link>
 
-                {/* 2. Hamburger Icon for mobile */}
+                {/* Icon for mobile */}
                 <div className="header__hamburger d-xl-block my-auto">
                   <div
                     className="sidebar__toggle"
@@ -124,8 +124,6 @@ export default function Header() {
           </div>
         </div>
       </header>
-
-      {/* Search popup has been removed as requested */}
     </>
   );
 }

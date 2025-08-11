@@ -1,6 +1,4 @@
 import React from "react";
-
-// A small reusable component for the checkmark SVG to keep the code clean
 const Checkmark = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

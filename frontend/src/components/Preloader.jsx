@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Preloader({ isLoading }) {
-  // We return null if loading is finished, so the component is removed from the page.
+  
   if (!isLoading) {
     return null;
   }

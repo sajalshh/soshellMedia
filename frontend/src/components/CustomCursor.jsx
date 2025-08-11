@@ -5,12 +5,11 @@ export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    // Update cursor position
+
     const handleMouseMove = (e) => {
       setPosition({ x: e.clientX, y: e.clientY });
     };
 
-    // Detect when hovering over interactive elements
     const handleMouseOver = (e) => {
       if (e.target.closest("a, button, .cursor-pointer")) {
         setIsHovering(true);
@@ -25,7 +24,7 @@ export default function CustomCursor() {
     document.body.addEventListener("mouseover", handleMouseOver);
     document.body.addEventListener("mouseout", handleMouseOut);
 
-    // Cleanup listeners
+    
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       document.body.removeEventListener("mouseover", handleMouseOver);

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
-// 1. Import the specific icons we need from the library
+
 import {
   FaSearch,
   FaPaintBrush,
@@ -10,7 +10,7 @@ import {
   FaFileAlt,
 } from "react-icons/fa";
 
-// 2. Update the data with your new text and the imported icon components
+
 const processData = [
   {
     id: 1,
@@ -75,13 +75,13 @@ export default function WorkProcess() {
           </Fade>
         </div>
         <div className="row">
-          {/* First row with 3 cards */}
+          
           {processData.slice(0, 3).map((item, index) => (
             <div key={item.id} className="col-xl-4 col-lg-4 col-md-6">
               <Fade direction="up" delay={200 * (index + 1)} triggerOnce>
                 <div className="work-process-items">
                   <div className="icon">
-                    {item.icon} {/* 3. Render the icon component */}
+                    {item.icon} 
                   </div>
                   <div className="number">{item.number}</div>
                   <div className="content">
@@ -94,13 +94,13 @@ export default function WorkProcess() {
           ))}
         </div>
         <div className="row justify-content-center">
-          {/* Second row with 2 cards, centered */}
+          
           {processData.slice(3, 5).map((item, index) => (
             <div key={item.id} className="col-xl-4 col-lg-4 col-md-6">
               <Fade direction="up" delay={200 * (index + 1)} triggerOnce>
                 <div className="work-process-items">
                   <div className="icon">
-                    {item.icon} {/* 3. Render the icon component */}
+                    {item.icon} 
                   </div>
                   <div className="number">{item.number}</div>
                   <div className="content">
@@ -112,7 +112,7 @@ export default function WorkProcess() {
             </div>
           ))}
         </div>
-        {/* ... CTA Wrapper ... */}
+        
       </div>
     </section>
   );
