@@ -61,7 +61,10 @@ export default function Header() {
                   </Link>
                 </div>
                 <div className="offcanvas__close">
-                  <button onClick={() => setIsSidebarOpen(false)}>
+                  <button
+                    onClick={() => setIsSidebarOpen(false)}
+                    aria-label="Close menu"
+                  >
                     <i className="fas fa-times"></i>
                   </button>
                 </div>

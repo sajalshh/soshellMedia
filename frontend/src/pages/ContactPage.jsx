@@ -171,6 +171,7 @@ export default function ContactPage() {
             style={{ border: 0 }}
             allowFullScreen=""
             loading="lazy"
+            title="Location of our office on Google Maps"
           ></iframe>
         </div>
       </div>

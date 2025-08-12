@@ -185,6 +185,7 @@ const ManageBlog = () => {
                     type="button"
                     className="btn-close"
                     onClick={handleCloseModal}
+                    aria-label="Close"
                   ></button>
                 </div>
                 {/* --- MODAL BODY --- */}

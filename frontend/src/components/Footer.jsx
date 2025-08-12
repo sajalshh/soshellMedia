@@ -20,7 +20,11 @@ export default function Footer() {
                       id="email"
                       placeholder="Enter email..."
                     />
-                    <button className="newsletter-btn" type="submit">
+                    <button
+                      className="newsletter-btn"
+                      type="submit"
+                      aria-label="Subscribe to newsletter"
+                    >
                       <img src="/assets/img/circle-check.png" alt="img" />
                     </button>
                   </div>
@@ -78,7 +82,6 @@ export default function Footer() {
                   <li>
                     <a href="/service">Video Editing</a>
                   </li>
-                
                 </ul>
               </div>
             </div>

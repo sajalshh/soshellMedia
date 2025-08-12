@@ -34,7 +34,7 @@ export default function Paralax() {
         className="paralax-section-2 mt-0 fix bg-cover"
         style={{ backgroundImage: "url('/assets/img/paralax-bg-2.jpg')" }}
       >
-        <div className="video-text">
+        <div className="video-text" aria-label="Play video">
           <button onClick={openModal} className="video-btn ripple video-popup">
             <i className="fas fa-play"></i>
           </button>

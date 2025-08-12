@@ -180,6 +180,7 @@ const ManageProjects = () => {
                     type="button"
                     className="btn-close"
                     onClick={handleCloseModal}
+                    aria-label="Close"
                   ></button>
                 </div>
                 {/* --- MODAL BODY WITH FORM FIELDS RESTORED --- */}

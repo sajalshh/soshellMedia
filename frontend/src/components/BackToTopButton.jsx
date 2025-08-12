@@ -29,6 +29,7 @@ export default function BackToTopButton() {
       id="back-top"
       className={`back-to-top ${isVisible ? "show" : ""}`}
       onClick={scrollToTop}
+      aria-label="Scroll to top"
     >
       <i className="fa-regular fa-arrow-up"></i>
     </button>

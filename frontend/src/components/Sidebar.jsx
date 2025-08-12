@@ -21,7 +21,7 @@ export default function Sidebar() {
         <div className="search-widget">
           <form action="#">
             <input type="text" placeholder="Search here" />
-            <button type="submit">
+            <button type="submit" aria-label="Search">
               <i className="fa-solid fa-magnifying-glass"></i>
             </button>
           </form>
