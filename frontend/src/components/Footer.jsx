@@ -148,10 +148,8 @@ export default function Footer() {
               Namespaceit © 2024. All Rights Reserved.
             </p>
             <div className="social-icon wow fadeInUp" data-wow-delay=".7s">
-              <a href="#">
-                <i className="fa-brands fa-discord"></i>
-              </a>
-              <a href="#">
+              
+              {/* <a href="#">
                 <i className="fa-brands fa-facebook-f"></i>
               </a>
               <a href="#">
@@ -159,7 +157,7 @@ export default function Footer() {
               </a>
               <a href="#">
                 <i className="fa-brands fa-youtube"></i>
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
