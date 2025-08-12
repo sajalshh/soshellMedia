@@ -1,4 +1,3 @@
-/* Variables for buttons and theme colors */
 :root {
   --tp-theme-primary: #00ffcc;
   --tp-theme-secondary: #ff7d6b;
@@ -6,9 +5,7 @@
   --tp-text-body: #656565;
 }
 
-/* -----------------------
-   Buttons
------------------------- */
+/* Buttons */
 
 .theme-btn {
   display: inline-block;
@@ -65,9 +62,7 @@
   font-size: 14px;
 }
 
-/* -----------------------
-   Animations
------------------------- */
+/* Animations */
 
 @keyframes moveleft {
   0% {
@@ -109,7 +104,7 @@
   }
 }
 
-/* Add this to the bottom of the file */
+
 
 .search-wrap {
   opacity: 0;
@@ -122,7 +117,7 @@
   visibility: visible;
 }
 
-/* Custom Mouse Cursor Styles */
+
 .mouse-cursor {
   position: fixed;
   left: 0;
@@ -137,7 +132,7 @@
 .cursor-inner {
   width: 10px;
   height: 10px;
-  background-color: #007c73; /* Your site's primary color */
+  background-color: #007c73; 
   transform: translate(-50%, -50%);
 }
 
@@ -163,14 +158,14 @@
 
 /* Mobile Menu Styles */
 .header__hamburger .sidebar__toggle {
-  display: none; /* Hidden by default */
+  display: none; 
 }
 
 .main-menu .mobile-menu-close {
-  display: none; /* Hide close button on desktop */
+  display: none; 
 }
 
-/* Show hamburger and hide desktop menu on screens smaller than 1200px */
+
 @media (max-width: 1199px) {
   .header__hamburger .sidebar__toggle {
     display: block;
@@ -178,10 +173,10 @@
   }
 
   .main-menu {
-    display: none; /* Hide desktop menu container */
+    display: none; 
   }
 
-  /* Styles for the mobile menu panel */
+
   #mobile-menu {
     display: block;
     position: fixed;
@@ -189,7 +184,7 @@
     top: 0;
     width: 300px;
     height: 100%;
-    background: #080d22; /* Dark background */
+    background: #080d22; 
     z-index: 9999;
     padding: 80px 30px 30px;
     transform: translateX(-105%);
@@ -200,7 +195,7 @@
     transform: translateX(0);
   }
 
-  /* Mobile menu links */
+
   #mobile-menu ul {
     display: flex;
     flex-direction: column;
@@ -219,10 +214,10 @@
   }
 
   #mobile-menu ul .submenu {
-    display: none; /* Hiding submenus for simplicity for now */
+    display: none; 
   }
 
-  /* Mobile menu close button */
+ 
   .main-menu .mobile-menu-close {
     display: block;
     position: absolute;
@@ -240,27 +235,24 @@
   font-weight: 1000;
 }
 
-/* Definitive fix for the NewsPage hero slider */
 
-/* Ensure the slider can contain positioned elements */
+
+
 .news-hero-slider {
   position: relative;
 }
 
-/* Hide the content of ALL slides by default and keep them on a low layer */
 .news-hero-slider .swiper-slide .hero-content {
   opacity: 0;
   z-index: 1;
   transition: opacity 0.6s ease;
 }
 
-/* ONLY show the content of the ACTIVE slide and bring it to the very front */
 .news-hero-slider .swiper-slide.swiper-slide-active .hero-content {
   opacity: 1;
-  z-index: 5; /* A high number to ensure it's on top */
+  z-index: 5; 
 }
 
-/* Show dropdown menu when controlled by React state */
 .main-menu ul li .submenu.show-dropdown {
   opacity: 1;
   visibility: visible;
@@ -272,17 +264,14 @@
   width: 100%;
 }
 
-/*
-  This second rule makes the heading text responsive, so it
-  shrinks on smaller screens to always fit correctly.
-*/
+
 .hero-secton .hero-content h1 {
-  font-size: clamp(40px, 8vw, 90px); /* Responsive font size */
+  font-size: clamp(40px, 8vw, 90px);
   width: 100%;
 }
 
 .hero-content h1 b {
-  margin-left: 0.2em; /* Use a small, normal-sized space instead of the large one */
+  margin-left: 0.2em; 
 }
 
 .text-neon {
@@ -296,31 +285,31 @@
 .hero-secton .hero-content .sub {
   margin-top: 15px;
   display: block;
-  max-width: 10000px; /* Give it a max-width so the line breaks nicely */
+  max-width: 10000px; 
   margin-left: auto;
   margin-right: auto;
   text-align: left;
-  font-size: 20px; /* Force the text to center */
+  font-size: 20px;
 }
 
 .about-items .about-content p,
 .about-items .about-content ul li {
-  font-size: 15px; /* Adjust this as needed, e.g., 12px or 13px */
+  font-size: 15px; 
   line-height: 1.5;
 }
 .hero-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center; /* This centers all the text */
+  text-align: center; 
 }
 .hero-contact-btn {
   margin-top: 30px;
-  color: #0b0c0c; /* Adds space above the button */
+  color: #0b0c0c; 
 }
 
 .hero-contact-btn:hover {
-  background-color: #007c73; /* A slightly darker neon */
+  background-color: #007c73; 
   color: #f7f7f7;
 }
 
@@ -330,12 +319,7 @@
 
 .teal-text {
   color: #03dcb0;
-  /* text-shadow:
-    0 0 3px #39ff14,
-    0 0 7px #39ff14,
-    0 0 13px #0fa,
-    0 0 20px #0fa; */
-  font-weight: 700; /* or inherit */
+  font-weight: 700; 
   font-family: inherit !important;
 }
 
@@ -372,13 +356,11 @@
   color: #000000;
 }
 
-/* for cards animation */
-
 /* Styles for the Sticky Card Scroller */
 .sticky-scroll-container {
   height: 420vh;
   position: relative;
-  perspective: 1200px; /* Slight 3D effect */
+  perspective: 1200px;
 }
 
 .sticky-card-pinner {
@@ -389,7 +371,7 @@
   justify-content: center;
   align-items: center;
   overflow: visible;
-  margin-top: -80px; /* Important! */
+  margin-top: -80px;
 }
 
 .sticky-card {
@@ -448,16 +430,16 @@
   position: absolute;
   top: 20px;
   left: 20px;
-  background: rgba(56, 255, 189, 0.2); /* Neon yellow with opacity */
-  color: #03dcb0; /* Text color neon */
+  background: rgba(56, 255, 189, 0.2); 
+  color: #03dcb0; 
   padding: 10px 16px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   gap: 10px;
-  backdrop-filter: blur(12px); /* Glass effect */
+  backdrop-filter: blur(12px); 
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(56, 255, 199, 0.3); /* Light border */
+  border: 1px solid rgba(56, 255, 199, 0.3); 
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   animation: float 3s ease-in-out infinite;
 }
@@ -469,12 +451,12 @@
 .floating-time {
   font-weight: 700;
   font-size: 16px;
-  color: #03dcb0; /* Stays bright */
+  color: #03dcb0; 
 }
 
 .floating-sub {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.7); /* Soft white */
+  color: rgba(255, 255, 255, 0.7); 
 }
 
 .card-text {
@@ -492,7 +474,7 @@
   color: #cdcdcd;
 }
 
-/* Floating animation */
+
 @keyframes float {
   0% {
     transform: translateY(0);
@@ -548,7 +530,7 @@
   text-align: center;
   font-size: 42px;
   font-weight: 800;
-  color: #f5f5f5; /* use neon yellow or white or your theme color */
+  color: #f5f5f5; 
   margin-bottom: 40px;
 }
 
@@ -557,7 +539,7 @@
 .pro h3 a {
   white-space: nowrap;
   line-height: 1.2;
-  font-size: 48px; /* adjust as needed */
+  font-size: 48px;
   display: inline-block;
 }
 
@@ -566,19 +548,13 @@
   white-space: normal;
 }
 
-/* Style the new icons in the Work Process section */
+
 .work-process-items .icon svg {
-  font-size: 50px; /* Or any size you prefer */
-  color: #007c73; /* Your theme's neon color */
+  font-size: 50px; 
+  color: #007c73; 
 }
 
-/* .showcase-section .section-title,
-.showcase-section .text-width {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-} */
-/* Fix for the About Page heading inside the banner */
+
 .breadcrumb-wrapper .section-title {
   padding-top: 150px;
   padding-bottom: 60px;
@@ -603,7 +579,7 @@
 }
 
 .about-section {
-  padding-top: 10px !important; /* adjust this down */
+  padding-top: 10px !important; 
 }
 
 @media (max-width: 1199px) {
@@ -634,7 +610,6 @@
 
   .about-section {
     padding-top: 10px !important;
-    /* adjust this down */
   }
 
   .section-title {
@@ -658,7 +633,7 @@
 .custom-section-title span {
   font-size: 30px;
   font-weight: bold;
-  color: #007c73; /* neon yellow for example */
+  color: #007c73; 
 }
 
 .section-title h2 div {
@@ -675,10 +650,10 @@
 }
 
 .section-title .block-heading {
-  display: inline-block; /* prevents line break */
+  display: inline-block; 
   font-size: 52px;
   font-weight: 700;
-  white-space: nowrap; /* ⬅️ keeps the line together */
+  white-space: nowrap; 
 }
 
 .we-build {
@@ -695,25 +670,23 @@
   align-items: center;
   justify-content: flex-start;
   text-align: center;
-  padding-top: 0.5rem; /* Even tighter top padding */
+  padding-top: 0.5rem; 
   padding-bottom: 1rem;
   margin-top: -90px;
 }
 
-/* Heading with no top/bottom margin */
 .center-section h2 {
   font-size: 52px;
   line-height: 1.2;
   color: #fff;
-  margin: -10px; /* remove default margin */
+  margin: -10px;
 }
 
-/* Subtitle closer to title */
 .subtitle-text {
-  max-width: none; /* Remove width restriction */
-  white-space: nowrap; /* Force one line */
-  overflow: visible; /* Optional: hides overflow if needed */
-  text-overflow: ellipsis; /* Optional: adds "..." if text overflows */
+  max-width: none; 
+  white-space: nowrap; 
+  overflow: visible; 
+  text-overflow: ellipsis;
   font-size: 18px;
   margin-right: 40px;
   text-align: center;
@@ -735,12 +708,12 @@
 }
 
 .the-real {
-  font-size: 52px !important; /* Adjust as needed */
+  font-size: 52px !important; 
 }
 
 .media-name {
   color: #03dcb0 !important;
-  font-size: 52px; /* Replace with your desired color */
+  font-size: 52px; 
 }
 
 .the-real h2 div {
@@ -769,7 +742,6 @@
 
 .hero-video-bg.scaled {
   transform: scale(1.2);
-  /* scale up */
 }
 
 .hero-video-bg iframe {
@@ -783,7 +755,7 @@
 }
 
 .counter-one {
-  transform: scale(0.9); /* reduce size */
+  transform: scale(0.9);
   transform-origin: center;
 }
 
@@ -791,19 +763,12 @@
   color: #000000;
 }
 
-/* Dashboard */
-
-/* src/styles/legacy.css */
-
-/* --- Professional Dashboard Redesign --- */
-
 /* Main Header: "Admin Dashboard" */
 .dashboard-header h2 {
   font-weight: 700;
   color: #ffffff;
 }
 
-/* Section titles like "Homepage Content" */
 .dashboard-section-title {
   font-size: 1rem;
   font-weight: 600;
@@ -816,10 +781,10 @@
   border-bottom: 1px solid #e2e8f0;
 }
 
-/* Remove default accordion borders and radius */
+
 .dashboard-accordion .accordion-item {
   border: none;
-  border-bottom: 1px solid #e2e8f0; /* Use bottom borders for separation */
+  border-bottom: 1px solid #e2e8f0; 
   margin-bottom: 0.5rem;
   background-color: #fff;
   border-radius: 8px !important;
@@ -831,7 +796,6 @@
   border-radius: 8px !important;
 }
 
-/* Accordion button styling when collapsed */
 .dashboard-accordion .accordion-button {
   font-weight: 600;
   color: #2d3748;
@@ -840,34 +804,33 @@
   box-shadow: none !important;
 }
 
-/* Accordion button styling when expanded */
+
 .dashboard-accordion .accordion-button:not(.collapsed) {
-  color: #2b6cb0; /* A nice blue color for active state */
+  color: #2b6cb0; 
   background-color: #ebf8ff;
   border-bottom: 1px solid #bee3f8;
 }
 
-/* Custom accordion icon (plus/minus effect) */
+
 .dashboard-accordion .accordion-button::after {
-  content: "\002B"; /* Plus sign */
+  content: "\002B";
   font-size: 1.5rem;
-  background-image: none; /* Remove default Bootstrap icon */
+  background-image: none; 
   font-weight: 300;
   transform: translateY(-4px);
 }
 
 .dashboard-accordion .accordion-button:not(.collapsed)::after {
-  content: "\2212"; /* Minus sign */
+  content: "\2212"; 
   transform: translateY(-4px);
 }
 
-/* Accordion body styling */
+
 .dashboard-accordion .accordion-body {
   padding: 1.5rem;
   background-color: #f7fafc;
 }
 
-/* --- Status Message Styling (Loading/Success/Error) --- */
 .status-message {
   font-weight: 500;
   padding: 0.5rem 1rem;
@@ -876,19 +839,16 @@
   animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Green for success */
 .status-message.success {
   background-color: #c6f6d5;
   color: #22543d;
 }
 
-/* Yellow/Orange for loading */
 .status-message.loading {
   background-color: #feebc8;
   color: #9c4221;
 }
 
-/* Red for error */
 .status-message.error {
   background-color: #fed7d7;
   color: #9b2c2c;
@@ -905,57 +865,55 @@
   }
 }
 
-/* --- Manage SEO Component Styling --- */
+/* --- Manage SEO Styling --- */
 
-/* Style for the main card container */
 .manage-seo-card .card-title {
-  color: #1a202c; /* A dark, near-black color for the main title */
+  color: #1a202c;
   font-weight: 700;
   margin-bottom: 1.5rem;
 }
 
-/* Styling for each individual SEO editing block */
+
 .seo-entry {
-  background-color: #f7fafc; /* A very light grey background to separate entries */
-  border-color: #e2e8f0 !important; /* A light grey border */
+  background-color: #f7fafc; 
+  border-color: #e2e8f0 !important; 
 }
 
-/* Styling for the header of each entry (e.g., "Page: /") */
+
 .seo-entry .seo-header {
   color: #2d3748;
   font-weight: 600;
 }
 
-/* Styling for the `code` tag inside the header */
 .seo-entry .seo-header code {
-  color: #e53e3e; /* A reddish color for the page URL */
+  color: #e53e3e;
   background-color: #fed7d7;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
   font-size: 0.9em;
 }
 
-/* Styling for all form field labels */
+
 .seo-entry .form-label {
-  color: #2d3748; /* Dark grey for labels */
-  font-weight: 600; /* Bolder labels */
+  color: #2d3748; 
+  font-weight: 600; 
   margin-bottom: 0.5rem;
   display: block;
 }
 
-/* Styling for all text inputs and textareas */
+
 .seo-entry .form-control {
-  color: #1a202c; /* Black text for input fields */
+  color: #1a202c; 
   border-color: #cbd5e0;
 }
 
-/* A subtle effect when an input is focused */
+
 .seo-entry .form-control:focus {
   border-color: #4299e1;
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
 }
 
-/* Styling for the "Social Media / Open Graph" subtitle */
+
 .seo-entry .seo-section-subtitle {
   color: #4a5568;
   text-transform: uppercase;
@@ -968,10 +926,10 @@
 }
 
 .tiptap-editor-wrapper {
-  border: 1px solid #cbd5e0; /* Adds the missing border */
-  border-radius: 6px; /* Rounds the corners to match other inputs */
-  padding: 0.5rem 0.75rem; /* Adds some internal spacing for the text */
-  background-color: #fff; /* Ensures a white background */
+  border: 1px solid #cbd5e0; 
+  border-radius: 6px; 
+  padding: 0.5rem 0.75rem; 
+  background-color: #fff; 
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -981,28 +939,22 @@
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
 }
 
-/* This targets the actual editable area inside the wrapper */
 .tiptap-editor-wrapper .ProseMirror {
-  min-height: 200px; /* Ensures the editor has a decent default height */
-  outline: none; /* Removes the default browser outline, as our wrapper now handles the focus style */
+  min-height: 200px; 
+  outline: none; 
 }
 
-/*
-==============================================
-Responsive Styles for AboutPage.jsx
-==============================================
-*/
 .breadcrumb-wrapper .section-title h2 .media-name {
-  font-size: inherit; /* This makes it match the font size of the parent h2 */
+  font-size: inherit; 
 }
-/* For Tablets and Smaller Devices (up to 991px) */
+
 @media (max-width: 991px) {
   .breadcrumb-wrapper .section-title h2 {
     font-size: 50px !important;
   }
   .about-content .about-button {
-    margin-left: 0 !important; /* Remove the conflicting left margin */
-    margin-top: 30px !important; /* Add proper space above the button */
+    margin-left: 0 !important;
+    margin-top: 30px !important;
   }
   .about-section .about-content p {
     font-size: 16px !important;
@@ -1019,7 +971,6 @@ Responsive Styles for AboutPage.jsx
   }
 }
 
-/* For Mobile Devices (up to 767px) */
 @media (max-width: 767px) {
   .breadcrumb-wrapper .section-title {
     padding-top: 110px !important;
@@ -1036,7 +987,7 @@ Responsive Styles for AboutPage.jsx
   }
 
   .counter-wrapper.counter-one .counter-items {
-    flex-basis: 100% !important; /* Each counter takes full width */
+    flex-basis: 100% !important;
     justify-content: center !important;
   }
 
@@ -1045,33 +996,27 @@ Responsive Styles for AboutPage.jsx
   }
 }
 
-/* For Small Mobile Devices (up to 575px) */
+
 @media (max-width: 575px) {
   .breadcrumb-wrapper .section-title h2 {
     font-size: 52px !important;
   }
 }
 
-/*
-==============================================
-Responsive Styles for StickyCardScroller.jsx
-==============================================
-*/
+/* Responsive Styles for StickyCardScroller.jsx */
 
-/* For Tablets and Smaller Devices (up to 991px) */
 @media (max-width: 991px) {
   .sticky-scroll-wrapper .section-title h2 {
     font-size: 40px !important;
   }
 
-  /* Give more scroll room as cards are now taller */
   .sticky-scroll-container {
     height: 550vh !important;
   }
 
   .sticky-card {
     padding: 30px !important;
-    height: 85vh !important; /* Allow card to be taller */
+    height: 85vh !important; 
   }
 
   .card-inner {
@@ -1086,15 +1031,15 @@ Responsive Styles for StickyCardScroller.jsx
 
   .card-image-container {
     width: 100% !important;
-    height: 300px !important; /* Give the container a fixed height */
-    overflow: hidden !important; /* This is the KEY FIX: it clips the overflowing image */
-    border-radius: 20px !important; /* Ensures the corners are rounded */
-    position: relative !important; /* Constrain image height */
+    height: 300px !important; 
+    overflow: hidden !important; 
+    border-radius: 20px !important;
+    position: relative !important; 
   }
 
   .card-image {
     width: 100% !important;
-    height: 100% !important; /* Make the image fill its container */
+    height: 100% !important; 
     object-fit: cover !important;
   }
 
@@ -1111,7 +1056,7 @@ Responsive Styles for StickyCardScroller.jsx
   }
 }
 
-/* For Mobile Devices (up to 767px) */
+
 @media (max-width: 767px) {
   .sticky-scroll-wrapper .section-title h2 {
     font-size: 45px !important;
@@ -1119,7 +1064,7 @@ Responsive Styles for StickyCardScroller.jsx
     margin-right: 5px;
   }
 
-  /* Increase scroll room even more for mobile */
+ 
   .sticky-scroll-container {
     height: 600vh !important;
     margin-top: 100px;
@@ -1132,7 +1077,7 @@ Responsive Styles for StickyCardScroller.jsx
 
   .card-image {
     width: 100% !important;
-    height: 100% !important; /* Make the image fill its container */
+    height: 100% !important; 
     object-fit: cover !important;
   }
   .card-image-container {
@@ -1163,17 +1108,12 @@ Responsive Styles for StickyCardScroller.jsx
     margin-top: 20px !important;
   }
 }
-/* For Small Mobile Devices (up to 575px) */
-/* For Small Mobile Devices (up to 575px) */
-/* For Small Mobile Devices (up to 575px) */
 @media (max-width: 575px) {
-  /* 1. Adjust the main section title */
   .sticky-scroll-wrapper .section-title h2 {
     font-size: 45px !important;
     line-height: 1.2 !important;
   }
 
-  /* 2. Style the static card list container */
   .static-card-list {
     margin-top: 40px;
     padding: 0 15px 40px 15px;
@@ -1182,7 +1122,6 @@ Responsive Styles for StickyCardScroller.jsx
     gap: 25px;
   }
 
-  /* 3. Style the card within the static list */
   .static-card-list .sticky-card {
     position: relative !important;
     height: auto !important;
@@ -1190,10 +1129,9 @@ Responsive Styles for StickyCardScroller.jsx
     transform: none !important;
     opacity: 1 !important;
     visibility: visible !important;
-    width: 100% !important; /* THIS IS THE FIX */
+    width: 100% !important;
   }
 
-  /* 4. Center the text content inside the card */
   .static-card-list .card-text {
     text-align: center !important;
   }
@@ -1203,34 +1141,25 @@ Responsive Styles for StickyCardScroller.jsx
   }
 }
 
-/*
-==========================================================================
-FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
-==========================================================================
-*/
+/* Projects.jsx (Desktop & Mobile) */
 
-/* --- A. DESKTOP STYLES (Screens 992px and wider) --- */
 @media (min-width: 992px) {
-  /* This rule protects your desktop style, ensuring the title is 65px */
   .project-wrapper .project-content h3 a {
     font-size: 48px !important;
   }
 }
 
-/* --- B. TABLET & MOBILE STYLES (Screens below 992px) --- */
 @media (max-width: 991px) {
-  /* FONT SIZES & SPACING */
   .project-wrapper .project-title {
     font-size: 85px !important;
   }
   .project-wrapper .project-content h3 a {
-    font-size: 48px !important; /* Tablet size */
+    font-size: 48px !important; 
   }
   .project-section .row > div {
     margin-bottom: 20px !important;
   }
 
-  /* RESET MARGINS & ALIGNMENT */
   .project-wrapper .project-content {
     margin-left: 0 !important;
     text-align: center !important;
@@ -1240,7 +1169,7 @@ FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
     margin: 0 auto !important;
   }
 
-  /* RE-ORDER THE ALTERNATING LAYOUT */
+
   .col-lg-6:has(.content-reversed) {
     order: 2 !important;
   }
@@ -1249,7 +1178,6 @@ FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
   }
 }
 
-/* For Mobile Devices (up to 767px) */
 @media (max-width: 767px) {
   .project-wrapper .project-title {
     font-size: 45px !important;
@@ -1262,67 +1190,47 @@ FINAL v2 CORRECTED Styles for Projects.jsx (Desktop & Mobile Separation)
     font-size: 25px !important; /* Mobile size */
   }
 }
-
-/* For Small Mobile Devices (up to 575px) */
-@media (max-width: 575px) {
-  /*
+ /*
   ============================================
     Projects Section Mobile Styles (575px)
   ============================================
   */
-
-  /* 1. Adjust the main "Selected Projects" title size */
+@media (max-width: 575px) {
   .project-wrapper .project-title {
     font-size: 45px !important;
   }
 
-  /* 2. Fine-tune the font sizes within each project card */
+  
   .project-wrapper .project-content h3 a {
-    font-size: 22px !important; /* Make project titles slightly smaller */
-    line-height: 1.3 !important; /* Add space if the title wraps to two lines */
+    font-size: 22px !important; 
+    line-height: 1.3 !important;
   }
   .project-wrapper .project-content h3 {
     text-align: center !important;
   }
   .project-wrapper .project-content p {
-    font-size: 15px !important; /* Ensure description text is a readable size */
+    font-size: 15px !important; 
   }
 
-  /* 3. Adjust the "explore now" button for a better fit */
   .project-wrapper .project-content .theme-btn {
     padding: 12px 30px !important;
     font-size: 14px !important;
   }
 }
 
-/* For Small Mobile Devices (up to 575px) */
-/* @media (max-width: 575px) {
-  .project-wrapper .project-title {
-    font-size: 55px !important;
-  }
-  .project-wrapper .project-content h3 a {
-    font-size: 25px !important;
-  }
-} */
-
 @media (max-width: 991px) {
   .project-wrapper .project-content p {
-    /* This centers the paragraph block within its container */
     margin-left: auto !important;
     margin-right: auto !important;
   }
 }
 
-/*
-==============================================
-Responsive Styles for Hero.jsx
-==============================================
-*/
+/* Responsive Styles for Hero.jsx */
 
-/* For Tablets and Smaller Devices (up to 991px) */
+
 @media (max-width: 991px) {
   .hero-1 {
-    padding-top: 170px !important; /* Reduce top spacing */
+    padding-top: 170px !important;
   }
 
   .hero-content h1 {
@@ -1336,7 +1244,6 @@ Responsive Styles for Hero.jsx
   }
 
   .hero-content p.sub {
-    /* This is a key fix: remove the large margin and center the text */
     margin-left: auto !important;
     margin-right: auto !important;
     max-width: 600px !important;
@@ -1348,7 +1255,7 @@ Responsive Styles for Hero.jsx
   }
 }
 
-/* For Mobile Devices (up to 767px) */
+
 @media (max-width: 767px) {
   .hero-1 {
     padding-top: 150px !important;
@@ -1368,15 +1275,13 @@ Responsive Styles for Hero.jsx
     text-align: center !important;
   }
 
-  /* This makes the video responsive */
   .hero-video-bg iframe {
     width: 100% !important;
     height: auto !important;
-    aspect-ratio: 16 / 9 !important; /* Maintain video aspect ratio */
+    aspect-ratio: 16 / 9 !important;
   }
 }
 
-/* For Small Mobile Devices (up to 575px) */
 @media (max-width: 575px) {
   .hero-content h1 {
     font-size: 40px !important;
@@ -1384,7 +1289,6 @@ Responsive Styles for Hero.jsx
 
   .hero-content h1 .text-2 {
     font-size: 40px !important;
-    /* This line makes the font-weight match the first line */
     font-weight: inherit !important;
   }
 
