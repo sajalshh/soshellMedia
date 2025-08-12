@@ -21,6 +21,11 @@ const NavLinks = ({ closeMenu }) => (
         </Link>
       </li>
       <li>
+        <Link to="/project" onClick={closeMenu}>
+          Portfolio
+        </Link>
+      </li>
+      <li>
         <Link to="/news" onClick={closeMenu}>
           Blog
         </Link>
