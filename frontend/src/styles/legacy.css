@@ -2428,3 +2428,48 @@ Responsive Styles for Showcase.jsx
   padding-top: 10px !important;  /* reduce from whatever is default */
   padding-bottom: 10px !important;
 }
+
+
+@media (max-width: 575px) {
+  /* Banner + spacing (your current rules) */
+  .breadcrumb-wrapper {
+    padding-top: 25px !important;
+    padding-bottom: 25px !important;
+  }
+  .breadcrumb-wrapper .page-heading h1 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+  .appointment-section {
+    padding-top: 20px !important;
+  }
+
+  /* Modal mobile centering fix */
+  .modal-content {
+    width: 94vw;
+    max-width: none;
+    padding: 20px;
+  }
+  .modal-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center !important; /* center the title */
+    padding-right: 44px;                 /* space for the X so text doesn't overlap */
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+  .modal-title {
+    width: 100% !important;
+    text-align: center !important;
+    margin: 0 !important;
+    font-size: 18px;
+    line-height: 1.3;
+  }
+  .modal-close-btn {
+    position: absolute !important;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
