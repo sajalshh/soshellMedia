@@ -145,7 +145,7 @@ export default function Footer() {
               </a>
             </div>
             <p className="wow fadeInUp" data-wow-delay=".5s">
-              Namespaceit © 2024. All Rights Reserved.
+              Soshell Media © 2024. All Rights Reserved.
             </p>
             <div className="social-icon wow fadeInUp" data-wow-delay=".7s">
               
