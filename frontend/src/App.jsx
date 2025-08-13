@@ -22,6 +22,7 @@ import ManageBlog from "./components/dashboard/ManageBlog";
 import BlogPostEditor from "./components/dashboard/BlogPostEditor";
 import ManageSeo from "./components/dashboard/ManageSeo";
 import ServiceDetailsPage from "./pages/ServiceDetailsPage";
+import AppointmentPage from "./pages/AppointmentPage";
 
 
 // 1. Import the new components for the dashboard
@@ -64,6 +65,7 @@ export default function App() {
             />
             <Route path="news" element={<NewsPage />} />
             <Route path="news-details/:slug" element={<NewsDetailsPage />} />
+            <Route path="appointment" element={<AppointmentPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
 

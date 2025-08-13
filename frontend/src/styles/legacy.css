@@ -2177,3 +2177,254 @@ Responsive Styles for Showcase.jsx
     font-size: 20px;
   }
 }
+
+/*
+=====================================================
+  FINAL Calendar Styles (Gaps, Glow, and BG Fix)
+=====================================================
+*/
+
+/* --- 1. Main Calendar Container --- */
+.day-picker-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.rdp-custom {
+  --rdp-cell-size: 50px;
+  --rdp-accent-color: var(--tp-theme-primary, #00ffcc);
+  --rdp-background-color: transparent;
+  
+  margin: 1em;
+  font-family: "Satoshi Variable", sans-serif !important;
+}
+
+/* --- 2. Gaps Between Boxes Without Breaking Grid --- */
+.rdp-day {
+  width: var(--rdp-cell-size);
+  height: var(--rdp-cell-size);
+  border-radius: 12px !important;
+  background-color: #2f2f33 !important;
+  margin: 4px; /* ✅ adds space between cells safely */
+  transition: background-color 0.2s ease-in-out;
+}
+.rdp-button {
+  width: 100% !important;
+  height: 100% !important;
+  color: #f0f0f0 !important;
+  border: none !important;
+  outline: none !important;
+}
+.rdp-day_outside {
+  background-color: transparent !important;
+  opacity: 0.2;
+}
+
+/* --- 3. Month/Year & Weekday Headers --- */
+.rdp-caption_label {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+.rdp-nav_button {
+  color: #ffffff !important;
+}
+.rdp-head_cell {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #a0a0a0 !important;
+  text-transform: uppercase;
+}
+
+/* --- 4. Hover and Today Styles --- */
+.rdp-day:not([aria-disabled="true"]):not(.rdp-day_selected):hover {
+  background-color: #4a4a4f !important;
+  box-shadow: 0 0 6px rgba(0, 255, 204, 0.4);
+}
+.rdp-day_today:not(.rdp-day_selected) {
+  box-shadow: 0 0 0 1px #555 inset !important;
+}
+.rdp-day_today:not(.rdp-day_selected) .rdp-button {
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+
+/* --- 5. Selected Neon Glow --- */
+.rdp-day_selected,
+.rdp-day_selected:focus-visible,
+.rdp-day_selected:hover {
+  background-color: var(--rdp-accent-color) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 12px var(--rdp-accent-color),
+              0 0 25px rgba(0, 255, 204, 0.8) !important;
+  transform: scale(1.05);
+  outline: none !important;
+}
+.rdp-day_selected .rdp-button {
+  color: #0b0c0c !important;
+}
+.rdp-day_selected .rdp-button:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* --- 6. Disabled Dates --- */
+.rdp-day_disabled {
+  background-color: #2f2f33 !important;
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+/*
+=====================================================
+  Styles for Booking Modal & Time Slots
+=====================================================
+*/
+
+/* The dark background overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* The modal popup box */
+.modal-content {
+  background: #1A1A1E;
+  padding: 30px;
+  border-radius: 15px;
+  border: 1px solid var(--border);
+  width: 90%;
+  max-width: 500px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-size: 24px;
+  color: #fff;
+}
+
+.modal-close-btn {
+  font-size: 28px;
+  font-weight: 300;
+  color: #fff;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* Container for the time slot buttons */
+.time-slots-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 15px;
+}
+
+.time-slot-btn {
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #2f2f33;
+  border: 1px solid #444;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.time-slot-btn:hover {
+  background-color: var(--tp-theme-primary);
+  color: #0b0c0c;
+  border-color: var(--tp-theme-primary);
+}
+
+/*
+=====================================================
+  Styles for Booking Form & Status Messages
+=====================================================
+*/
+
+.booking-form .form-group {
+  margin-bottom: 15px;
+}
+
+.booking-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #cdcdcd;
+}
+
+.booking-form input,
+.booking-form textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background-color: #2f2f33;
+  color: #fff;
+  font-size: 16px;
+}
+
+.booking-form-summary {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border);
+  color: #cdcdcd;
+}
+
+.booking-form .form-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.booking-form .btn-back {
+  background: none;
+  border: none;
+  color: #cdcdcd;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.booking-status-message {
+  text-align: center;
+  padding: 20px;
+}
+.booking-status-message p {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+.booking-status-message.success p {
+  color: var(--tp-theme-primary);
+}
+.booking-status-message.error p {
+  color: #ff7d6b;
+}
+
+.appointment-section {
+  padding-top: 20px !important; /* was likely 80-120px */
+  margin-top: 0 !important;
+}
+
+.breadcrumb-wrapper {
+  padding-top: 10px !important;  /* reduce from whatever is default */
+  padding-bottom: 10px !important;
+}

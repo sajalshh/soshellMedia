@@ -3,3 +3,6 @@
 
 # Environment Variables
 .env
+
+# Google Cloud credentials
+config/google_credentials.json

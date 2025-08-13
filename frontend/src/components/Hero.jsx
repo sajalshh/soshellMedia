@@ -41,7 +41,7 @@ export default function Hero() {
           subheading:
             "Performance-driven content studio for bold brands ready to scale, not settle",
           buttonText: "Book a discovery call",
-          buttonLink: "/contact",
+          buttonLink: "/appointment",
         });
       } finally {
         setLoading(false);

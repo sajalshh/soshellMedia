@@ -19,10 +19,16 @@ router.get("/", async (req, res) => {
     }
     const seoData = await SeoData.findOne({ pageUrl });
     if (!seoData) {
-      // Return default data or an empty object if no specific data is found
-      return res
-        .status(404)
-        .json({ message: "No SEO data found for this URL" });
+      // If no specific SEO data is found, return default site-wide data
+      // This prevents the frontend from seeing an error
+      return res.status(200).json({
+        success: true,
+        data: {
+          title: "Soshell Media | Performance-Driven Content Studio",
+          metaDescription:
+            "A performance-driven content studio for bold brands ready to scale.",
+        },
+      });
     }
     res.status(200).json({ success: true, data: seoData });
   } catch (error) {
