@@ -148,16 +148,6 @@ export default function Footer() {
               Soshell Media © 2024. All Rights Reserved.
             </p>
             <div className="social-icon wow fadeInUp" data-wow-delay=".7s">
-              
-              {/* <a href="#">
-                <i className="fa-brands fa-facebook-f"></i>
-              </a>
-              <a href="#">
-                <i className="fa-brands fa-linkedin-in"></i>
-              </a>
-              <a href="#">
-                <i className="fa-brands fa-youtube"></i>
-              </a> */}
             </div>
           </div>
         </div>
