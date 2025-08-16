@@ -42,10 +42,10 @@ router.post("/book", async (req, res) => {
 
     // THIS IS THE FIX: We build a simple date-time string WITHOUT UTC conversion.
     // This creates a string like "2025-08-27"
-    const dateString = format(new Date(date), "yyyy-MM-dd");
+    const dateString = date; 
 
     // This creates a string like "2025-08-27T11:00:00"
-    const startDateTimeString = `${dateString}T${time}:00`;
+     const startDateTimeString = `${dateString}T${time}:00`;
 
     // Calculate the end time by adding one hour
     const [hour, minute] = time.split(":").map(Number);

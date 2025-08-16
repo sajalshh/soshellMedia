@@ -81,7 +81,7 @@ export default function AppointmentPage() {
 
     const appointmentData = {
       ...formData,
-      date: selectedDate,
+      date: format(selectedDate, "yyyy-MM-dd"),
       time: selectedSlot,
     };
 
