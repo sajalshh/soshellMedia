@@ -10,10 +10,10 @@ export default function Modal({ isOpen, onClose, title, children }) {
 
   return (
     // The semi-transparent background overlay
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay">
       <Fade direction="up" duration={300} triggerOnce>
         {/* The actual modal content box */}
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-content">
           <div className="modal-header">
             <h3 className="modal-title">{title}</h3>
             <button className="modal-close-btn" onClick={onClose}>
