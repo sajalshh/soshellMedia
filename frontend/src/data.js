@@ -3,7 +3,7 @@
 export const blogPosts = [
   {
     id: 1,
-    imgSrc: "/assets/img/news/post-1.jpg",
+    imgSrc: "/assets/img/blog/post-1.jpg",
     date: "July 20, 2025",
     category: "Digital Art",
     author: "Marcus",
@@ -15,7 +15,7 @@ export const blogPosts = [
   },
   {
     id: 2,
-    imgSrc: "/assets/img/news/post-2.jpg",
+    imgSrc: "/assets/img/blog/post-2.jpg",
     date: "July 21, 2025",
     category: "AI",
     author: "Colleen",
@@ -27,7 +27,7 @@ export const blogPosts = [
   },
   {
     id: 3,
-    imgSrc: "/assets/img/news/post-3.jpg",
+    imgSrc: "/assets/img/blog/post-3.jpg",
     date: "July 22, 2025",
     category: "Tech",
     author: "Marcus",
@@ -91,19 +91,19 @@ export const recentPostsSidebar = [
     id: 1,
     title: "Forms without realistic represent areterm",
     date: "18 Dec, 2024",
-    imgSrc: "/assets/img/news/pp3.jpg",
+    imgSrc: "/assets/img/blog/pp3.jpg",
   },
   {
     id: 2,
     title: "Depicting people anima or the characters",
     date: "18 Dec, 2024",
-    imgSrc: "/assets/img/news/pp4.jpg",
+    imgSrc: "/assets/img/blog/pp4.jpg",
   },
   {
     id: 3,
     title: "Blends realitys fantasy through be care",
     date: "18 Dec, 2024",
-    imgSrc: "/assets/img/news/pp5.jpg",
+    imgSrc: "/assets/img/blog/pp5.jpg",
   },
 ];
 

@@ -251,7 +251,7 @@ const seoData = [
     ogImage: "/assets/img/social-share-about.jpg", 
   },
   {
-    pageUrl: "/news",
+    pageUrl: "/blog",
     title: "Latest News & Insights | Soshell Media",
     metaDescription:
       "Stay updated with the latest news, trends, and insights from the team at Soshell Media.",

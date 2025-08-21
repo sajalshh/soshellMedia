@@ -33,7 +33,7 @@ export default function Sidebar() {
           <ul>
             {categories.map((category) => (
               <li key={category.name}>
-                <Link to="/news">{category.name}</Link>{" "}
+                <Link to="/blog">{category.name}</Link>{" "}
                 <span>({category.count})</span>
               </li>
             ))}
@@ -51,7 +51,7 @@ export default function Sidebar() {
               <div className="recent-content">
                 <span>digital</span>
                 <h6>
-                  <Link to={`/news-details/${post.id}`}>{post.title}</Link>
+                  <Link to={`/blog-details/${post.id}`}>{post.title}</Link>
                 </h6>
                 <ul>
                   <li>
@@ -65,13 +65,13 @@ export default function Sidebar() {
       </SidebarWidget>
 
       <div className="news-banner-img">
-        <img src="/assets/img/news/Banner.png" alt="img" />
+        <img src="/assets/img/blog/Banner.png" alt="img" />
       </div>
 
       <SidebarWidget title="Tags Clouds">
         <div className="tagcloud">
           {tags.map((tag) => (
-            <Link to="/news" key={tag}>
+            <Link to="/blog" key={tag}>
               {tag}
             </Link>
           ))}

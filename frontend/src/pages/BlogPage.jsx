@@ -1,5 +1,3 @@
-// src/pages/NewsPage.jsx
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
@@ -9,7 +7,7 @@ import SeoHelmet from "../components/SeoHelmet";
 
 // 2. Update BlogPostItem to use our new data structure
 const BlogPostItem = ({ post }) => {
-  const imageUrl = post.featuredImage || "/assets/img/news/post-1.jpg";
+  const imageUrl = post.featuredImage || "/assets/img/blog/post-1.jpg";
   const category = post.category || "Uncategorized";
 
   return (
@@ -31,13 +29,13 @@ const BlogPostItem = ({ post }) => {
         <h3>
           {/* Link to the post using its 'slug' */}
           <Link
-            to={`/news-details/${post.slug}`}
+            to={`/blog-details/${post.slug}`}
             dangerouslySetInnerHTML={{ __html: post.title }}
           />
         </h3>
         {/* Use the 'excerpt' field from our database */}
         <div dangerouslySetInnerHTML={{ __html: post.excerpt }} />
-        <Link to={`/news-details/${post.slug}`} className="theme-btn mt-4">
+        <Link to={`/blog-details/${post.slug}`} className="theme-btn mt-4">
           Read More <i className="fa-solid fa-arrow-right-long"></i>
         </Link>
       </div>
@@ -45,7 +43,7 @@ const BlogPostItem = ({ post }) => {
   );
 };
 
-export default function NewsPage() {
+export default function BlogPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -70,10 +68,10 @@ export default function NewsPage() {
 
   return (
     <>
-      <SeoHelmet pageUrl="/news" />
+      <SeoHelmet pageUrl="/blog" />
       <section
         className="news-hero-section bg-cover"
-        style={{ backgroundImage: "url('/assets/img/news/bg.jpg')" }}
+        style={{ backgroundImage: "url('/assets/img/blog/bg.jpg')" }}
       >
         {/* ... Hero Slider JSX ... */}
       </section>

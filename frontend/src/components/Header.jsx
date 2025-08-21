@@ -26,7 +26,7 @@ const NavLinks = ({ closeMenu }) => (
         </Link>
       </li>
       <li>
-        <Link to="/news" onClick={closeMenu}>
+        <Link to="/blog" onClick={closeMenu}>
           Blog
         </Link>
       </li>
@@ -112,10 +112,9 @@ export default function Header() {
 
               {/* top-right section */}
               <div className="header-right d-flex justify-content-end align-items-center">
-                {/* 1. "Contact Us" button for desktop */}
-                <Link to="/contact" className="theme-btn contact-btn">
+                <Link to="/appointment" className="theme-btn contact-btn">
                   <FaEnvelope />
-                  <span>Contact Us</span>
+                  <span>Book Appointment</span>
                 </Link>
 
                 {/* Icon for mobile */}

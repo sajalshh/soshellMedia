@@ -50,7 +50,7 @@ export default function Footer() {
                     <a href="/contact">Consulting</a>
                   </li>
                   <li>
-                    <a href="/news">Our blog</a>
+                    <a href="/blog">Our blog</a>
                   </li>
                   <li>
                     <a href="/contact">Contact us</a>

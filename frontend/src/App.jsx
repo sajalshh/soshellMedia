@@ -14,13 +14,13 @@ import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 
 import ProjectPage from "./pages/ProjectPage";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import NewsPage from "./pages/NewsPage";
+import BlogPage from "./pages/BlogPage";
 import FaqPage from "./pages/FaqPage";
 import NewsDetailsPage from "./pages/NewsDetailsPage";
 import ManageBlog from "./components/dashboard/ManageBlog";
 import BlogPostEditor from "./components/dashboard/BlogPostEditor";
 import ManageSeo from "./components/dashboard/ManageSeo";
+import RegisterPage from "./pages/RegisterPage"; 
 import ServiceDetailsPage from "./pages/ServiceDetailsPage";
 import AppointmentPage from "./pages/AppointmentPage";
 
@@ -63,8 +63,8 @@ export default function App() {
               path="service-details/:slug"
               element={<ServiceDetailsPage />}
             />
-            <Route path="news" element={<NewsPage />} />
-            <Route path="news-details/:slug" element={<NewsDetailsPage />} />
+            <Route path="blog" element={<BlogPage />} />
+            <Route path="blog-details/:slug" element={<NewsDetailsPage />} />
             <Route path="appointment" element={<AppointmentPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>

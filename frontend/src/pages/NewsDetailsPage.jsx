@@ -7,7 +7,7 @@ import NotFoundPage from "./NotFoundPage";
 import Sidebar from "../components/Sidebar";
 import SeoHelmet from "../components/SeoHelmet";
 
-export default function NewsDetailsPage() {
+export default function BlogDetailsPage() {
   const { slug } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,12 +36,12 @@ export default function NewsDetailsPage() {
     return <NotFoundPage />;
   }
 
-  const imageUrl = post.featuredImage || "/assets/img/news/post-1.jpg";
+  const imageUrl = post.featuredImage || "/assets/img/blog/post-1.jpg";
 
   return (
     <section className="news-details style-padding fix section-padding">
       <SeoHelmet
-        pageUrl={`/news-details/${slug}`}
+        pageUrl={`/blog-details/${slug}`}
         title={post.title}
         description={post.excerpt || post.content}
       />
