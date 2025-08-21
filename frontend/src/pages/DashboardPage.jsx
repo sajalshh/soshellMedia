@@ -13,6 +13,7 @@ import ManageBlog from "../components/dashboard/ManageBlog";
 import ManageSeo from "../components/dashboard/ManageSeo";
 import ManageAboutVideo from "../components/dashboard/homepage/ManageAboutVideo";
 import ManagePortfolio from "../components/dashboard/ManagePortfolio";
+import ManagePortfolioCategories from "../components/dashboard/ManagePortfolioCategories";
 
 // ====================================================================
 // REFACTORED COMPONENT WITH LOADING/SUCCESS STATE HANDLING
@@ -313,6 +314,7 @@ const DashboardPage = () => {
             data-bs-parent="#dashboardAccordion"
           >
             <div className="accordion-body">
+              <ManagePortfolioCategories />
               <ManagePortfolio />
             </div>
           </div>

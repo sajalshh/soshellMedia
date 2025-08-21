@@ -5,21 +5,17 @@ const router = express.Router();
 const { protect, authorize } = require("../middleware/authMiddleware");
 const PortfolioItem = require("../models/PortfolioItem");
 
-// @desc    Get all portfolio items
-// @route   GET /api/portfolio
-// @access  Public
 router.get("/", async (req, res) => {
   try {
-    const items = await PortfolioItem.find().sort({ displayOrder: "asc" });
+    const items = await PortfolioItem.find()
+      .populate("category")
+      .sort({ displayOrder: "asc" });
     res.status(200).json({ success: true, data: items });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 });
 
-// @desc    Create a new portfolio item
-// @route   POST /api/portfolio
-// @access  Private (Client)
 router.post("/", protect, authorize("client"), async (req, res) => {
   try {
     const newItem = await PortfolioItem.create(req.body);
@@ -29,9 +25,6 @@ router.post("/", protect, authorize("client"), async (req, res) => {
   }
 });
 
-// @desc    Update a portfolio item
-// @route   PUT /api/portfolio/:id
-// @access  Private (Client)
 router.put("/:id", protect, authorize("client"), async (req, res) => {
   try {
     const item = await PortfolioItem.findByIdAndUpdate(
@@ -53,9 +46,6 @@ router.put("/:id", protect, authorize("client"), async (req, res) => {
   }
 });
 
-// @desc    Delete a portfolio item
-// @route   DELETE /api/portfolio/:id
-// @access  Private (Client)
 router.delete("/:id", protect, authorize("client"), async (req, res) => {
   try {
     const item = await PortfolioItem.findById(req.params.id);

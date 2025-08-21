@@ -3,38 +3,47 @@ import { Fade } from "react-awesome-reveal";
 import SeoHelmet from "../components/SeoHelmet";
 import api from "../api/axiosConfig";
 
-// The new filter categories
-const filters = ["All", "Creative", "Marketing", "Development"];
+// --- CHANGE 1: REMOVED the hardcoded filters array ---
+// const filters = ["All", "Creative", "Marketing", "Development"];
 
 export default function ProjectPage() {
   const [allProjects, setAllProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
+  const [categories, setCategories] = useState([]); // <-- ADD STATE for dynamic categories
   const [activeFilter, setActiveFilter] = useState("All");
   const [loading, setLoading] = useState(true);
 
-  // Fetch portfolio data from the backend when the component mounts
+  // --- CHANGE 2: Fetch BOTH projects and categories from the backend ---
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetchPortfolioData = async () => {
+      setLoading(true);
       try {
-        const response = await api.get("/portfolio");
-        setAllProjects(response.data.data);
-        setFilteredProjects(response.data.data); // Initially show all
+        // Fetch both sets of data in parallel for efficiency
+        const [projectsResponse, categoriesResponse] = await Promise.all([
+          api.get("/portfolio"),
+          api.get("/categories"),
+        ]);
+
+        setAllProjects(projectsResponse.data.data);
+        setFilteredProjects(projectsResponse.data.data); // Initially show all
+        setCategories(categoriesResponse.data.data); // Save dynamic categories to state
       } catch (error) {
-        console.error("Failed to fetch projects:", error);
+        console.error("Failed to fetch portfolio data:", error);
       } finally {
         setLoading(false);
       }
     };
-    fetchProjects();
+    fetchPortfolioData();
   }, []);
 
-  // Handle filtering when the active filter changes
+  // --- CHANGE 3: Update the filtering logic to check the category NAME ---
   useEffect(() => {
     if (activeFilter === "All") {
       setFilteredProjects(allProjects);
     } else {
+      // Compare against project.category.name instead of project.category
       const newProjects = allProjects.filter(
-        (project) => project.category === activeFilter,
+        (project) => project.category?.name === activeFilter,
       );
       setFilteredProjects(newProjects);
     }
@@ -62,22 +71,38 @@ export default function ProjectPage() {
       {/* Portfolio Section */}
       <section className="portfolio-section section-padding section-bg">
         <div className="container">
-          {/* Filter Navigation */}
+          {/* --- CHANGE 4: Dynamically generate filter buttons from state --- */}
           <ul className="nav">
             <Fade direction="up" cascade damping={0.1} triggerOnce>
-              {filters.map((filter) => (
-                <li key={filter} className="nav-item">
+              {/* "All" button is still static */}
+              <li key="All" className="nav-item">
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveFilter("All");
+                  }}
+                  className={`nav-link ${
+                    activeFilter === "All" ? "active" : ""
+                  }`}
+                >
+                  All
+                </a>
+              </li>
+              {/* Map over the fetched categories to create the other buttons */}
+              {categories.map((category) => (
+                <li key={category._id} className="nav-item">
                   <a
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      setActiveFilter(filter);
+                      setActiveFilter(category.name);
                     }}
                     className={`nav-link ${
-                      activeFilter === filter ? "active" : ""
+                      activeFilter === category.name ? "active" : ""
                     }`}
                   >
-                    {filter}
+                    {category.name}
                   </a>
                 </li>
               ))}
@@ -107,7 +132,8 @@ export default function ProjectPage() {
                           </div>
                           <div className="portfolio-video-content">
                             <h6>
-                              <span>//</span> {project.category}
+                              {/* --- CHANGE 5: Display the category NAME --- */}
+                              <span>//</span> {project.category?.name}
                             </h6>
                             <h3>{project.title}</h3>
                           </div>

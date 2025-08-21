@@ -20,6 +20,7 @@ const blogRoutes = require("./routes/blogRoutes");
 const seoRoutes = require("./routes/seoRoutes");
 const portfolioRoutes = require("./routes/portfolioRoutes");
 const appointmentRoutes = require("./routes/appointmentRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
 
 
 // Connect to Database
@@ -50,6 +51,7 @@ app.use("/api/blog", blogRoutes);
 app.use("/api/seo", seoRoutes);
 app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/appointments", appointmentRoutes);
+app.use("/api/categories", categoryRoutes);
 // Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

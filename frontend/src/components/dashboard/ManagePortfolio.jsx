@@ -3,9 +3,10 @@ import usePrivateApi from "../../hooks/usePrivateApi";
 
 const ManagePortfolio = () => {
   const [items, setItems] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [currentItem, setCurrentItem] = useState({
     title: "",
-    category: "Creative",
+    category: "", 
     videoUrl: "",
     displayOrder: 0,
   });
@@ -21,9 +22,27 @@ const ManagePortfolio = () => {
     }
   };
 
+
+  const fetchCategories = async () => {
+    try {
+      const response = await privateApi.get("/categories");
+      setCategories(response.data.data);
+      if (response.data.data.length > 0 && !isEditing) {
+        // Set a default category for the "Add New" form
+        setCurrentItem((prev) => ({
+          ...prev,
+          category: response.data.data[0]._id,
+        }));
+      }
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+    }
+  };
+
   useEffect(() => {
     fetchItems();
-  }, []);
+    fetchCategories();
+  }, []); // Runs on component mount
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,6 +51,10 @@ const ManagePortfolio = () => {
 
   const handleSave = async (e) => {
     e.preventDefault();
+    if (!currentItem.category) {
+      alert("Please select a category.");
+      return;
+    }
     const method = isEditing ? "put" : "post";
     const url = isEditing ? `/portfolio/${currentItem._id}` : "/portfolio";
 
@@ -46,7 +69,7 @@ const ManagePortfolio = () => {
 
   const handleEdit = (item) => {
     setIsEditing(true);
-    setCurrentItem(item);
+    setCurrentItem({ ...item, category: item.category?._id || "" });
   };
 
   const handleDelete = async (id) => {
@@ -64,7 +87,7 @@ const ManagePortfolio = () => {
     setIsEditing(false);
     setCurrentItem({
       title: "",
-      category: "Creative",
+      category: categories.length > 0 ? categories[0]._id : "",
       videoUrl: "",
       displayOrder: 0,
     });
@@ -97,9 +120,14 @@ const ManagePortfolio = () => {
               onChange={handleInputChange}
               required
             >
-              <option value="Creative">Creative</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Development">Development</option>
+              <option value="" disabled>
+                -- Select a Category --
+              </option>
+              {categories.map((cat) => (
+                <option key={cat._id} value={cat._id}>
+                  {cat.name}
+                </option>
+              ))}
             </select>
           </div>
           <div className="mb-3">
@@ -151,7 +179,7 @@ const ManagePortfolio = () => {
                 <strong>{item.title}</strong>
                 <br />
                 <small className="text-muted">
-                  {item.category} - Order: {item.displayOrder}
+                  {item.category?.name} - Order: {item.displayOrder}
                 </small>
               </div>
               <div>

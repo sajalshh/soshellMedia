@@ -10,9 +10,9 @@ const PortfolioItemSchema = new mongoose.Schema(
       trim: true,
     },
     category: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "PortfolioCategory", // This links to the PortfolioCategory model
       required: [true, "Please select a category"],
-      enum: ["Creative", "Marketing", "Development"],
     },
     videoUrl: {
       type: String,

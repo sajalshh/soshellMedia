@@ -1,124 +1,126 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Fade } from "react-awesome-reveal";
-// A small reusable component for the pricing features
-const PricingCard = ({ plan, price, isPopular = false }) => (
-  <div className={`pricing-box-items ${isPopular ? "popular" : ""}`}>
-    <div className="icon">
-      <img src="/assets/img/icon/02.svg" alt="img" />
-    </div>
-    <div className="pricing-header">
-      <h3>{plan}</h3>
-      <p>Ideal for personal project</p>
-      <h2>${price}</h2>
-    </div>
-    <ul className="pricing-list">
-      <li>...Feature list...</li>
-    </ul>
-    <div className="pricing-button">
-      <a href="pricing.html" className="theme-btn">
-        Start Now <i className="fa-sharp fa-regular fa-arrow-up-right"></i>
-      </a>
-    </div>
-  </div>
-);
+import SeoHelmet from "../components/SeoHelmet";
+import api from "../api/axiosConfig";
 
-export default function PricingPage() {
-  const [billingCycle, setBillingCycle] = useState("monthly"); // 'monthly' or 'annual'
+// REMOVE the hardcoded filters array
+// const filters = ["All", "Creative", "Marketing", "Development"];
+
+export default function ProjectPage() {
+  const [allProjects, setAllProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [categories, setCategories] = useState([]); // <-- ADD CATEGORIES STATE
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPortfolioData = async () => {
+      setLoading(true);
+      try {
+        // Fetch both projects and categories
+        const [projectsResponse, categoriesResponse] = await Promise.all([
+          api.get("/portfolio"),
+          api.get("/categories"),
+        ]);
+
+        setAllProjects(projectsResponse.data.data);
+        setFilteredProjects(projectsResponse.data.data);
+        setCategories(categoriesResponse.data.data);
+      } catch (error) {
+        console.error("Failed to fetch portfolio data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPortfolioData();
+  }, []);
+
+  useEffect(() => {
+    if (activeFilter === "All") {
+      setFilteredProjects(allProjects);
+    } else {
+      // --- UPDATE FILTERING LOGIC ---
+      const newProjects = allProjects.filter(
+        (project) => project.category?.name === activeFilter,
+      );
+      setFilteredProjects(newProjects);
+    }
+  }, [activeFilter, allProjects]);
 
   return (
-    <section className="pricing-section style-padding fix section-padding">
-      <div className="container">
-        <div className="section-title-area">
-          <div className="section-title ml-200">
-            <Fade direction="up" triggerOnce>
-              <h6>
-                <img src="/assets/img/star.png" alt="img" /> popular package
-              </h6>
-            </Fade>
-            <Fade direction="up" delay={300} triggerOnce>
-              <h2>
-                Competitive package <br />
-                <span>
-                  {" "}
-                  best AI <b>expertise</b>
-                </span>
-              </h2>
-            </Fade>
-          </div>
+    <>
+      {/* ... SeoHelmet and Breadcrumb ... */}
+
+      {/* Portfolio Section */}
+      <section className="portfolio-section section-padding section-bg">
+        <div className="container">
+          {/* Filter Navigation */}
           <ul className="nav">
-            <li className="nav-item">
-              <a
-                href="#Annual"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setBillingCycle("annual");
-                }}
-                className={`nav-link ${
-                  billingCycle === "annual" ? "active" : ""
-                }`}
-              >
-                Annual
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                href="#Monthly"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setBillingCycle("monthly");
-                }}
-                className={`nav-link ${
-                  billingCycle === "monthly" ? "active" : ""
-                }`}
-              >
-                Monthly
-              </a>
-            </li>
+            <Fade direction="up" cascade damping={0.1} triggerOnce>
+              {/* --- DYNAMICALLY RENDER 'ALL' FILTER --- */}
+              <li key="All" className="nav-item">
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveFilter("All");
+                  }}
+                  className={`nav-link ${
+                    activeFilter === "All" ? "active" : ""
+                  }`}
+                >
+                  All
+                </a>
+              </li>
+              {/* --- DYNAMICALLY RENDER CATEGORY FILTERS --- */}
+              {categories.map((category) => (
+                <li key={category._id} className="nav-item">
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActiveFilter(category.name);
+                    }}
+                    className={`nav-link ${
+                      activeFilter === category.name ? "active" : ""
+                    }`}
+                  >
+                    {category.name}
+                  </a>
+                </li>
+              ))}
+            </Fade>
           </ul>
-        </div>
-        <div className="tab-content">
-          <div
-            className={`tab-pane fade ${
-              billingCycle === "monthly" ? "show active" : ""
-            }`}
-          >
-            <div className="row">
-              <div className="col-md-6 col-lg-4 col-xl-3">
-                <PricingCard plan="Standard" price="25" />
-              </div>
-              <div className="col-md-6 col-lg-4 col-xl-3">
-                <PricingCard plan="Professional" price="29" isPopular={true} />
-              </div>
-              <div className="col-md-6 col-lg-4 col-xl-3">
-                <PricingCard plan="Business" price="49" />
-              </div>
-              <div className="col-md-6 col-lg-4 col-xl-3">
-                <PricingCard plan="Enterprise" price="54" />
-              </div>
-            </div>
-          </div>
-          <div
-            className={`tab-pane fade ${
-              billingCycle === "annual" ? "show active" : ""
-            }`}
-          >
-            <div className="row">
-              <div className="col-md-6 col-lg-4 col-xl-3">
-                <PricingCard plan="Standard" price="250" />
-              </div>
-              <div className="col-md-6 col-lg-4 col-xl-3">
-                <PricingCard plan="Professional" price="290" isPopular={true} />
-              </div>
-              <div className="col-md-6 col-lg-4 col-xl-3">
-                <PricingCard plan="Business" price="490" />
-              </div>
-              <div className="col-md-6 col-lg-4 col-xl-3">
-                <PricingCard plan="Enterprise" price="540" />
+
+          {/* Video Grid */}
+          <div className="tab-content">
+            <div className="tab-pane fade show active">
+              <div className="row">
+                {loading ? (
+                  <p>Loading portfolio...</p>
+                ) : (
+                  filteredProjects.map((project, index) => (
+                    <div key={project._id} className="col-lg-4 col-md-6 col-12">
+                      <Fade direction="up" delay={index * 100} triggerOnce>
+                        <div className="portfolio-video-card">
+                          {/* ... iframe ... */}
+                          <div className="portfolio-video-content">
+                            <h6>
+                              {/* --- UPDATE CATEGORY DISPLAY --- */}
+                              <span>//</span> {project.category?.name}
+                            </h6>
+                            <h3>{project.title}</h3>
+                          </div>
+                        </div>
+                      </Fade>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
