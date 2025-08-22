@@ -1958,7 +1958,8 @@ Responsive Styles for Showcase.jsx
 }
 
 .breadcrumb-description {
-  margin-top: -60px !important; /* This controls the space between the title and the paragraph */
+  margin-top: -60px !important;
+  margin-bottom: 40px;
   max-width: 850px; /* Constrains width for readability */
   margin-left: auto;
   margin-right: auto;
@@ -2052,8 +2053,8 @@ Responsive Styles for Showcase.jsx
   font-family: "Satoshi Variable", sans-serif !important;
   font-weight: 900 !important;
   color: white !important;
-  margin-top: 80px;
-  margin-bottom: -30px;
+  margin-top: 50px;
+  margin-bottom: 30px;
 }
 .service-details-heading .font-marcellus {
   font-family: "Marcellus", sans-serif !important;
