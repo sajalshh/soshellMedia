@@ -19,6 +19,7 @@ import FaqPage from "./pages/FaqPage";
 import NewsDetailsPage from "./pages/NewsDetailsPage";
 import ManageBlog from "./components/dashboard/ManageBlog";
 import BlogPostEditor from "./components/dashboard/BlogPostEditor";
+import AdminBlogEditor from "./components/dashboard/AdminBlogEditor";
 import ManageSeo from "./components/dashboard/ManageSeo";
 import RegisterPage from "./pages/RegisterPage"; 
 import ServiceDetailsPage from "./pages/ServiceDetailsPage";
@@ -74,9 +75,9 @@ export default function App() {
           {/* ====================================================== */}
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="blog" element={<ManageBlog />} />
-            <Route path="blog/new" element={<BlogPostEditor />} />{" "}
-            <Route path="blog/edit/:id" element={<BlogPostEditor />} />
+            <Route path="/dashboard/blog" element={<ManageBlog />} />
+            <Route path="/adminblog" element={<AdminBlogEditor />} />
+            <Route path="/adminblog/edit/:id" element={<AdminBlogEditor />} />
           </Route>
         </Routes>
       )}

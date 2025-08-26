@@ -2474,3 +2474,86 @@ Responsive Styles for Showcase.jsx
     transform: translateY(-50%);
   }
 }
+
+
+/*
+=====================================================
+  Custom Styles for Table of Contents (TOC)
+=====================================================
+*/
+
+/* --- A. Desktop Styles --- */
+
+/* 1. Main TOC Container */
+.toc-container {
+  background-color: #1A1A1E; /* Dark background similar to your modals */
+  border: 1px solid #444; /* Subtle border */
+  border-radius: 12px;
+  padding: 30px; /* Generous padding */
+  margin-bottom: 2rem;
+}
+
+/* 2. "Table of Contents" Title */
+.toc-container .card-title {
+  color: #ffffff;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  font-size: 22px;
+  font-weight: 700;
+  border-bottom: 1px solid #444; /* Separator line */
+}
+
+/* 3. List Styling */
+.toc-container ul {
+  list-style-type: none; /* Remove default bullet points */
+  padding-left: 5px;
+  margin-bottom: 0;
+}
+
+.toc-container li {
+  margin-bottom: 12px;
+}
+/* Remove margin from the very last item */
+.toc-container li:last-child {
+  margin-bottom: 0;
+}
+
+/* 4. Link Styling */
+.toc-container a {
+  text-decoration: none;
+  color: #cdcdcd; /* Light grey for standard links */
+  font-weight: 500;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.toc-container a:hover {
+  color: var(--tp-theme-primary, #00ffcc); /* Neon accent on hover */
+  text-decoration: underline;
+}
+
+/* 5. Indentation for sub-headings (h3) */
+.toc-container li.toc-h3 {
+  padding-left: 25px; /* Indent sub-items */
+}
+
+
+/* --- B. Mobile Styles (575px and smaller) --- */
+@media (max-width: 575px) {
+  .toc-container {
+    padding: 20px;
+    margin-top: 30px; /* Reduce padding on mobile */
+  }
+
+  .toc-container .card-title {
+    font-size: 18px; /* Smaller title on mobile */
+  }
+
+  .toc-container a {
+    font-size: 15px; /* Slightly smaller link text */
+  }
+
+  .toc-container li.toc-h3 {
+    padding-left: 20px; /* Reduce indentation for mobile */
+  }
+}

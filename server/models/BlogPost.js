@@ -37,6 +37,22 @@ const BlogPostSchema = new mongoose.Schema(
       type: String,
       default: "Uncategorized",
     },
+    metaTitle: {
+      type: String,
+      trim: true,
+    },
+    metaDescription: {
+      type: String,
+      trim: true,
+    },
+    keywords: {
+      type: String, // Storing as a comma-separated string
+      trim: true,
+    },
+    altTag: {
+      type: String, // Alt tag for the featured image
+      trim: true,
+    },
   },
   {
     // Automatically add createdAt and updatedAt timestamps

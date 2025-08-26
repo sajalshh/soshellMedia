@@ -46,7 +46,18 @@ router.post(
   upload.single("featuredImage"),
   async (req, res) => {
     try {
-      const { title, content, excerpt, author, category } = req.body;
+      const {
+        title,
+        content,
+        excerpt,
+        author,
+        category,
+        metaTitle,
+        metaDescription,
+        keywords,
+        url,
+        alt_tag,
+      } = req.body;
       if (!req.file) {
         return res
           .status(400)
@@ -55,12 +66,10 @@ router.post(
 
       // --- START: FIX FOR DUPLICATE SLUG ---
       // 1. Generate the base slug
-      let slug = slugify(title, { lower: true, strict: true });
+      let slug = slugify(url || title, { lower: true, strict: true });
 
       // 2. Check if a post with this slug already exists
       const existingPost = await BlogPost.findOne({ slug: slug });
-
-      // 3. If it exists, append a short random string to make it unique
       if (existingPost) {
         const randomSuffix = Math.random().toString(36).substring(2, 7);
         slug = `${slug}-${randomSuffix}`;
@@ -81,6 +90,10 @@ router.post(
         category,
         slug: slug, // Use the new, unique slug
         featuredImage: result.secure_url,
+        metaTitle: metaTitle,
+        metaDescription: metaDescription,
+        keywords: keywords,
+        altTag: alt_tag,
       });
 
       res.status(201).json({ success: true, data: newPost });
@@ -102,15 +115,36 @@ router.put(
   upload.single("featuredImage"),
   async (req, res) => {
     try {
-      const { title, content, excerpt, author, category } = req.body;
+      const {
+        title,
+        content,
+        excerpt,
+        author,
+        category,
+        metaTitle,
+        metaDescription,
+        keywords,
+        url,
+        alt_tag,
+      } = req.body;
       const updateData = {
         title,
         content,
         excerpt,
         author,
         category,
-        slug: slugify(title, { lower: true, strict: true }),
+        metaTitle,
+        metaDescription,
+        keywords,
+        altTag: alt_tag,
       };
+
+      if (url) {
+        updateData.slug = slugify(url, { lower: true, strict: true });
+      } else if (title) {
+        // Fallback to title if no URL
+        updateData.slug = slugify(title, { lower: true, strict: true });
+      }
 
       if (req.file) {
         const b64 = Buffer.from(req.file.buffer).toString("base64");
