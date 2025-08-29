@@ -42,7 +42,6 @@ router.post(
   "/",
   protect,
   authorize("client"),
-  // ✅ 2. The middleware is correctly placed here to handle the image upload
   upload.single("featuredImage"),
   async (req, res) => {
     try {
@@ -57,6 +56,7 @@ router.post(
         keywords,
         url,
         alt_tag,
+        canonicalTag,
       } = req.body;
       if (!req.file) {
         return res
@@ -94,6 +94,7 @@ router.post(
         metaDescription: metaDescription,
         keywords: keywords,
         altTag: alt_tag,
+        canonicalTag: canonicalTag,
       });
 
       res.status(201).json({ success: true, data: newPost });
@@ -126,6 +127,7 @@ router.put(
         keywords,
         url,
         alt_tag,
+        canonicalTag,
       } = req.body;
       const updateData = {
         title,
@@ -137,6 +139,7 @@ router.put(
         metaDescription,
         keywords,
         altTag: alt_tag,
+        canonicalTag: canonicalTag,
       };
 
       if (url) {

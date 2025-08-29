@@ -45,6 +45,7 @@ const AdminBlogEditor = () => {
             keywords: post.keywords || "",
             url: post.slug || "",
             alt_tag: post.altTag || "",
+            canonicalTag: post.canonicalTag || "",
           });
           setContent(post.content || "");
         } catch (error) {
@@ -80,6 +81,7 @@ const AdminBlogEditor = () => {
     data.append("title", formData.title);
     data.append("metaTitle", formData.metaTitle);
     data.append("metaDescription", formData.metaDescription);
+    data.append("canonicalTag", formData.canonicalTag);
     data.append("keywords", formData.keywords);
     data.append("url", formData.url);
     data.append("alt_tag", formData.alt_tag);
@@ -154,6 +156,16 @@ const AdminBlogEditor = () => {
               ></textarea>
             </div>
             <div className="mb-3">
+              <label className="form-label">Canonical Tag</label>
+              <input
+                type="text"
+                name="canonicalTag"
+                value={formData.canonicalTag}
+                onChange={handleInputChange}
+                className="form-control"
+              />
+            </div>
+            <div className="mb-3">
               <label className="form-label">Keywords (comma-separated)</label>
               <input
                 type="text"
@@ -199,7 +211,7 @@ const AdminBlogEditor = () => {
             <div className="mb-3">
               <label className="form-label">Content</label>
               <Editor
-                apiKey="mx8v2xw2bvbrj4wzn796afgy4qicr5xojrh5zilsywpjggsa" // IMPORTANT: Get a free key from tiny.cloud
+                apiKey="mx8v2xw2bvbrj4wzn796afgy4qicr5xojrh5zilsywpjggsa"
                 onInit={(evt, editor) => (editorRef.current = editor)}
                 initialValue={content}
                 init={{

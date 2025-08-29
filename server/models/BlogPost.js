@@ -53,6 +53,10 @@ const BlogPostSchema = new mongoose.Schema(
       type: String, // Alt tag for the featured image
       trim: true,
     },
+    canonicalTag: {
+      type: String,
+      trim: true,
+    },
   },
   {
     // Automatically add createdAt and updatedAt timestamps

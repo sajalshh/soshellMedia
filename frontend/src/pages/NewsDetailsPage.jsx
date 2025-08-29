@@ -84,6 +84,7 @@ export default function BlogDetailsPage() {
       <SeoHelmet
         title={post.metaTitle || post.title}
         description={post.metaDescription || post.excerpt}
+        canonical={post.canonicalTag}
         keywords={post.keywords}
       />
       <div className="container">
