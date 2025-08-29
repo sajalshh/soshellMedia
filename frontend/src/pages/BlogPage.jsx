@@ -71,7 +71,7 @@ export default function BlogPage() {
       <SeoHelmet pageUrl="/blog" />
       <section
         className="news-hero-section bg-cover"
-        style={{ backgroundImage: "url('/assets/img/blog/bg.jpg')" }}
+        style={{ backgroundImage: "url('/assets/blog/blogbg.jpg')" }}
       >
         {/* ... Hero Slider JSX ... */}
       </section>
