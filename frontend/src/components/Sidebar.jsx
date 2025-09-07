@@ -1,6 +1,7 @@
+// src/components/Sidebar.jsx
+
 import React from "react";
-import { Link } from "react-router-dom";
-import { categories, recentPostsSidebar, tags } from "../data";
+import { motion } from "framer-motion";
 
 const SidebarWidget = ({ title, children }) => (
   <div className="single-sidebar-widget">
@@ -14,68 +15,31 @@ const SidebarWidget = ({ title, children }) => (
   </div>
 );
 
-export default function Sidebar() {
+export default function Sidebar({ headings }) {
+  if (!headings?.length) return null;
+
   return (
     <div className="main-sidebar">
-      <SidebarWidget title="Search">
-        <div className="search-widget">
-          <form action="#">
-            <input type="text" placeholder="Search here" />
-            <button type="submit" aria-label="Search">
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </form>
-        </div>
-      </SidebarWidget>
-
-      <SidebarWidget title="Categories">
-        <div className="news-widget-categories">
+      <SidebarWidget title="Table of Contents">
+        <motion.div
+          className="toc-container pinned"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
           <ul>
-            {categories.map((category) => (
-              <li key={category.name}>
-                <Link to="/blog">{category.name}</Link>{" "}
-                <span>({category.count})</span>
-              </li>
+            {headings.map((heading) => (
+              <motion.li
+                key={heading.id}
+                className={`toc-${heading.tagName}`}
+                whileHover={{ scale: 1.05, x: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <a href={`#${heading.id}`}>{heading.text}</a>
+              </motion.li>
             ))}
           </ul>
-        </div>
-      </SidebarWidget>
-
-      <SidebarWidget title="Recent Post">
-        <div className="recent-post-area">
-          {recentPostsSidebar.map((post) => (
-            <div className="recent-items" key={post.id}>
-              <div className="recent-thumb">
-                <img src={post.imgSrc} alt="img" />
-              </div>
-              <div className="recent-content">
-                <span>digital</span>
-                <h6>
-                  <Link to={`/blog-details/${post.id}`}>{post.title}</Link>
-                </h6>
-                <ul>
-                  <li>
-                    <i className="fa-solid fa-calendar-days"></i> {post.date}
-                  </li>
-                </ul>
-              </div>
-            </div>
-          ))}
-        </div>
-      </SidebarWidget>
-
-      <div className="news-banner-img">
-        <img src="/assets/img/blog/Banner.png" alt="img" />
-      </div>
-
-      <SidebarWidget title="Tags Clouds">
-        <div className="tagcloud">
-          {tags.map((tag) => (
-            <Link to="/blog" key={tag}>
-              {tag}
-            </Link>
-          ))}
-        </div>
+        </motion.div>
       </SidebarWidget>
     </div>
   );

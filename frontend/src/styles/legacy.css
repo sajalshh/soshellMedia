@@ -2613,3 +2613,30 @@ Responsive Styles for Showcase.jsx
 .service-points-list li:nth-child(3n + 3) .icon {
   color: #33c9ff; /* A bright green */
 }
+
+
+.news-details-content h1 {
+  font-size: 40px !important;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.news-details-content h2 {
+  font-size: 30px !important;
+  line-height: 1.3;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+
+.news-details-wrapper .news-details-items .news-details-content h3 {
+  font-size: 22px !important;
+}
+@media (max-width: 575px) {
+  .news-details-wrapper .news-details-items .news-details-content h3 {
+    font-size: 2px;
+  }
+}
+

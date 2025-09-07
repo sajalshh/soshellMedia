@@ -6996,11 +6996,11 @@ span {
   }
 }
 .news-details-wrapper .news-details-items .news-details-content h3 {
-  font-size: 40px;
+  font-size: 24px;
 }
 @media (max-width: 575px) {
   .news-details-wrapper .news-details-items .news-details-content h3 {
-    font-size: 32px;
+    font-size: 2px;
   }
 }
 .news-details-wrapper .news-details-items .news-details-content .hilight-text {

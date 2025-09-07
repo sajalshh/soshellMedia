@@ -31,23 +31,27 @@ export default function BlogDetailsPage() {
     fetchPost();
   }, [slug]);
 
-  // This new useEffect builds our TOC
+  // Extract TOC and remove duplicate title
   useEffect(() => {
     if (!post?.content) return;
 
-    // We create a temporary element to parse the HTML string
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = post.content;
 
-    // Find all h2 and h3 headings
+    // Remove first H1/H2 if it matches post.title
+    const firstHeading = tempDiv.querySelector("h1, h2");
+    if (firstHeading && firstHeading.innerText.trim() === post.title.trim()) {
+      firstHeading.remove();
+    }
+
+    // Collect only h2 and h3 for TOC
     const foundHeadings = tempDiv.querySelectorAll("h2, h3");
     const extractedHeadings = [];
 
     foundHeadings.forEach((heading, index) => {
       const text = heading.innerText;
-      const tagName = heading.tagName.toLowerCase(); // 'h2' or 'h3'
+      const tagName = heading.tagName.toLowerCase();
 
-      // Create a unique ID from the heading text
       const id =
         text
           .toLowerCase()
@@ -56,17 +60,14 @@ export default function BlogDetailsPage() {
         "-" +
         index;
 
-      // Add the ID to the heading element itself
       heading.setAttribute("id", id);
 
-      // Save the data for our TOC list
       extractedHeadings.push({ id, text, tagName });
     });
 
     setHeadings(extractedHeadings);
-    // Save the modified HTML (which now includes the IDs)
     setProcessedContent(tempDiv.innerHTML);
-  }, [post]); // This effect runs whenever the post data is loaded
+  }, [post]);
 
   if (loading) {
     return <div className="section-padding">Loading post...</div>;
@@ -87,8 +88,10 @@ export default function BlogDetailsPage() {
         canonical={post.canonicalTag}
         keywords={post.keywords}
       />
+
       <div className="container">
         <div className="row g-4">
+          {/* Main Blog Content */}
           <div className="col-12 col-lg-8">
             <div className="news-details-wrapper">
               <div className="news-details-items">
@@ -96,35 +99,19 @@ export default function BlogDetailsPage() {
                   <img src={imageUrl} alt={altText} />
                 </div>
                 <div className="news-details-content">
-                  <h2 dangerouslySetInnerHTML={{ __html: post.title }} />
+                  {/* Blog Title in H1 */}
+                  <h1 dangerouslySetInnerHTML={{ __html: post.title }} />
 
-                  {/* Our new, custom Table of Contents */}
-                  {headings.length > 0 && (
-                    <div className="toc-container card mb-4">
-                      <div className="card-body">
-                        <h5 className="card-title">Table of Contents</h5>
-                        <ul>
-                          {headings.map((heading) => (
-                            <li
-                              key={heading.id}
-                              className={`toc-${heading.tagName}`}
-                            >
-                              <a href={`#${heading.id}`}>{heading.text}</a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Render the content that now has IDs in it */}
+                  {/* Blog Content */}
                   <div dangerouslySetInnerHTML={{ __html: processedContent }} />
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Sidebar (with TOC) */}
           <div className="col-12 col-lg-4">
-            <Sidebar />
+            <Sidebar headings={headings} />
           </div>
         </div>
       </div>
