@@ -2601,17 +2601,17 @@ Responsive Styles for Showcase.jsx
 
 /* Color for the 1st, 4th, 7th, etc., item */
 .service-points-list li:nth-child(3n + 1) .icon {
-  color: #33c9ff; /* A vibrant orange */
+  color: #03dcb0; /* A vibrant orange */
 }
 
 /* Color for the 2nd, 5th, 8th, etc., item */
 .service-points-list li:nth-child(3n + 2) .icon {
-  color: #33c9ff; /* A nice blue */
+  color: #03dcb0; /* A nice blue */
 }
 
 /* Color for the 3rd, 6th, 9th, etc., item */
 .service-points-list li:nth-child(3n + 3) .icon {
-  color: #33c9ff; /* A bright green */
+  color: #03dcb0; /* A bright green */
 }
 
 
