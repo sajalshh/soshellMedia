@@ -2563,3 +2563,53 @@ Responsive Styles for Showcase.jsx
 
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.6) 100%) !important; 
 }
+
+
+.modal.show .modal-dialog-scrollable .modal-body {
+  /* This tells the modal body to add a scrollbar ONLY when its content is too tall */
+  overflow-y: auto;
+  
+  /* This is the key: we limit the body's height to 65% of the viewport height, 
+     leaving room for the header and footer. */
+  max-height: 65vh; 
+}
+
+
+.service-points-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.service-points-list li {
+  display: flex;
+  align-items: flex-start;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  color: #ffffff; /* Adjust color to match your theme */
+}
+
+.service-points-list li .icon {
+  margin-right: 12px;
+  font-size: 20px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* --- ADD THESE RULES FOR THE COLORS --- */
+
+/* Color for the 1st, 4th, 7th, etc., item */
+.service-points-list li:nth-child(3n + 1) .icon {
+  color: #33c9ff; /* A vibrant orange */
+}
+
+/* Color for the 2nd, 5th, 8th, etc., item */
+.service-points-list li:nth-child(3n + 2) .icon {
+  color: #33c9ff; /* A nice blue */
+}
+
+/* Color for the 3rd, 6th, 9th, etc., item */
+.service-points-list li:nth-child(3n + 3) .icon {
+  color: #33c9ff; /* A bright green */
+}

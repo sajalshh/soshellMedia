@@ -3,6 +3,7 @@
 const mongoose = require("mongoose");
 
 const ServiceSchema = new mongoose.Schema({
+  // --- Your Original Fields ---
   title: {
     type: String,
     required: [true, "Please add a title"],
@@ -28,6 +29,26 @@ const ServiceSchema = new mongoose.Schema({
   displayOrder: {
     type: Number,
     default: 0,
+  },
+
+  // --- NEW: Fields for the Service Details Page ---
+  // These fields have default values to make them flexible and
+  // prevent errors when editing older services.
+  detailTitle: {
+    type: String,
+    default: "",
+  },
+  detailSubtitle: {
+    type: String,
+    default: "",
+  },
+  detailImage: {
+    type: String,
+    default: "",
+  },
+  detailPoints: {
+    type: [String],
+    default: [], // Defaults to an empty array
   },
 });
 

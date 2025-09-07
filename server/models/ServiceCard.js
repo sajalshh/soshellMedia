@@ -38,6 +38,24 @@ const ServiceCardSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+
+  detailTitle: {
+    type: String,
+    required: true,
+  },
+  detailSubtitle: {
+    type: String, // We'll store HTML here if needed (like the <b> tag)
+    required: true,
+  },
+  detailImage: {
+    type: String, // A specific, larger image for the details page
+    required: true,
+  },
+  detailPoints: {
+    type: [String], // An array of strings for the bullet points
+    required: true,
+    default: [],
+  },
 });
 
 module.exports = mongoose.model("ServiceCard", ServiceCardSchema);

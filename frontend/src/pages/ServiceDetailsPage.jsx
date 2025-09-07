@@ -1,28 +1,55 @@
-import React from "react";
+// src/pages/ServiceDetailsPage.jsx
+
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
-import { servicesData } from "../data/servicesData"; // Import our new data
+import { FaCheckCircle } from "react-icons/fa";
+import api from "../api/axiosConfig";
+
 import SeoHelmet from "../components/SeoHelmet";
 import NotFoundPage from "./NotFoundPage";
 
 export default function ServiceDetailsPage() {
-  // 1. Get the unique 'slug' from the URL (e.g., 'videography')
   const { slug } = useParams();
+  const [service, setService] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // 2. Find the correct service data from our array that matches the slug
-  const service = servicesData.find((s) => s.slug === slug);
+  useEffect(() => {
+    const fetchServiceDetails = async () => {
+      try {
+        setLoading(true);
+        const response = await api.get(`/services/cards/slug/${slug}`);
+        setService(response.data.data);
+      } catch (err) {
+        console.error("Failed to fetch service details:", err);
+        setError("Could not load service details.");
+        if (err.response && err.response.status === 404) {
+          setService(null);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchServiceDetails();
+  }, [slug]);
 
-  // 3. If no service matches the URL slug, show a 404 Not Found page
-  if (!service) {
+  if (loading) {
+    return <div className="section-padding">Loading...</div>;
+  }
+
+  if (error || !service) {
     return <NotFoundPage />;
   }
 
-  // 4. If a service is found, render the page with its data
   return (
     <>
-      <SeoHelmet pageUrl={`/service-details/${service.slug}`} />
+      <SeoHelmet
+        pageTitle={service.detailTitle || service.title}
+        pageDescription={service.description}
+        pageUrl={`/service-details/${service.slug}`}
+      />
 
-      {/* The new main heading you requested */}
       <section className="service-details-hero section-padding section-bg">
         <div className="container">
           <div className="section-title text-center">
@@ -35,7 +62,6 @@ export default function ServiceDetailsPage() {
         </div>
       </section>
 
-      {/* The "Benefit Section" using the dynamic data for the selected service */}
       <section className="benefit-section fix section-padding section-bg pt-0">
         <div className="container">
           <div className="benefit-wrapper">
@@ -45,7 +71,7 @@ export default function ServiceDetailsPage() {
                   <div className="section-title">
                     <Fade direction="up" triggerOnce>
                       <h6>
-                        <img src="/assets/img/star.png" alt="img" />
+                        <img src="/assets/img/star.png" alt="star" />
                         {service.title}
                       </h6>
                     </Fade>
@@ -63,7 +89,7 @@ export default function ServiceDetailsPage() {
                   </Fade>
                   <Fade direction="up" delay=".5s" triggerOnce>
                     <Link to="/contact" className="theme-btn">
-                      Get free generate{" "}
+                      Get a Free Quote{" "}
                       <i className="fa-sharp fa-regular fa-arrow-up-right"></i>
                     </Link>
                   </Fade>
@@ -72,10 +98,9 @@ export default function ServiceDetailsPage() {
               <div className="col-xl-4 col-lg-6">
                 <Fade direction="up" triggerOnce>
                   <div className="benefit-image">
-                    {/* Use a placeholder image or a specific one from your data */}
                     <img
-                      src="/assets/img/benefit-image.jpg"
-                      alt={service.title}
+                      src={service.detailImage || "/assets/img/placeholder.jpg"}
+                      alt={service.detailTitle || service.title}
                     />
                   </div>
                 </Fade>
@@ -83,7 +108,18 @@ export default function ServiceDetailsPage() {
               <div className="col-xl-4 col-lg-6">
                 <Fade direction="up" triggerOnce>
                   <div className="benefit-right-items single-benefit-text">
-                    <p>{service.detailParagraph}</p>
+                    {/* UPDATED: Safely render the list only if it has items */}
+                    {service.detailPoints &&
+                      service.detailPoints.length > 0 && (
+                        <ul className="service-points-list">
+                          {service.detailPoints.map((point, index) => (
+                            <li key={index}>
+                              <FaCheckCircle className="icon" />
+                              <span>{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                   </div>
                 </Fade>
               </div>
