@@ -105,6 +105,38 @@ router.post(
   },
 );
 
+// @desc    Upload an image for the blog content
+// @route   POST /api/blog/upload-image
+// @access  Private (Client)
+router.post(
+  "/upload-image",
+  protect,
+  authorize("client"),
+  upload.single("file"), // TinyMCE's default field name is 'file'
+  async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: "No file uploaded." });
+      }
+
+      // Upload to Cloudinary
+      const b64 = Buffer.from(req.file.buffer).toString("base64");
+      let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+      const result = await cloudinary.uploader.upload(dataURI, {
+        folder: "blog-posts",
+      });
+
+      // Send back the response that TinyMCE expects
+      res.status(200).json({ location: result.secure_url });
+    } catch (error) {
+      console.error("Image upload error:", error);
+      res
+        .status(500)
+        .json({ message: "Server Error: Could not upload image." });
+    }
+  },
+);
+
 // @desc    Update a blog post
 // @route   PUT /api/blog/:id
 // @access  Private (Client)

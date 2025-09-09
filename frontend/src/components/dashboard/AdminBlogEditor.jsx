@@ -1,5 +1,3 @@
-// src/components/dashboard/AdminBlogEditor.jsx
-
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
@@ -12,12 +10,11 @@ const AdminBlogEditor = () => {
   const privateApi = usePrivateApi();
   const editorRef = useRef(null);
 
-  // Use a single state object for the form data
   const [formData, setFormData] = useState({
     title: "",
     metaTitle: "",
     metaDescription: "",
-    canonicalTag: "", // Note: This field is in your UI but not in the DB model yet.
+    canonicalTag: "",
     keywords: "",
     url: "",
     alt_tag: "",
@@ -37,7 +34,6 @@ const AdminBlogEditor = () => {
         try {
           const response = await privateApi.get(`/blog/id/${id}`);
           const post = response.data.data;
-          // Set the form fields with data from the database
           setFormData({
             title: post.title || "",
             metaTitle: post.metaTitle || "",
@@ -77,7 +73,6 @@ const AdminBlogEditor = () => {
       : content;
 
     const data = new FormData();
-    // Append all form data
     data.append("title", formData.title);
     data.append("metaTitle", formData.metaTitle);
     data.append("metaDescription", formData.metaDescription);
@@ -86,11 +81,9 @@ const AdminBlogEditor = () => {
     data.append("url", formData.url);
     data.append("alt_tag", formData.alt_tag);
     data.append("content", editorContent);
-    // You can add excerpt, author, etc. here if needed
-    data.append("excerpt", formData.metaDescription); // Using meta description as excerpt
+    data.append("excerpt", formData.metaDescription);
 
     if (featuredImageFile) {
-      // Use "featuredImage" to match your backend route
       data.append("featuredImage", featuredImageFile);
     }
 
@@ -116,12 +109,35 @@ const AdminBlogEditor = () => {
     }
   };
 
+  // ✅ NEW: This function handles image uploads from the editor
+  const imageUploadHandler = (blobInfo, progress) =>
+    new Promise((resolve, reject) => {
+      const formData = new FormData();
+      formData.append("file", blobInfo.blob(), blobInfo.filename());
+
+      privateApi
+        .post("/blog/upload-image", formData)
+        .then((response) => {
+          if (response.data.location) {
+            resolve(response.data.location);
+          } else {
+            reject("Image upload failed: Invalid response from server.");
+          }
+        })
+        .catch((error) => {
+          const errorMessage =
+            error.response?.data?.message || "HTTP error during image upload.";
+          reject(errorMessage);
+        });
+    });
+
   return (
     <div className="container-fluid py-4">
       <h3 className="mb-4">{isEditing ? "Edit Blog" : "Create New Blog"}</h3>
       <form onSubmit={handleSubmit}>
         <div className="card">
           <div className="card-body">
+            {/* ... All your form inputs for title, meta, etc. remain the same ... */}
             <div className="mb-3">
               <label className="form-label">Blog Title</label>
               <input
@@ -236,10 +252,15 @@ const AdminBlogEditor = () => {
                     "help",
                     "wordcount",
                   ],
+                  // ✅ MODIFIED: Added 'image' to the toolbar
                   toolbar:
-                    "undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
+                    "undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | removeformat | help",
                   content_style:
                     "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                  // ✅ NEW: Added image upload handler
+                  images_upload_handler: imageUploadHandler,
+                  file_picker_types: "image",
+                  automatic_uploads: true,
                 }}
               />
             </div>
