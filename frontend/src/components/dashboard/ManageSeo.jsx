@@ -1,5 +1,4 @@
 // src/components/dashboard/ManageSeo.jsx
-
 import { useState, useEffect } from "react";
 import usePrivateApi from "../../hooks/usePrivateApi";
 
@@ -7,7 +6,6 @@ const ManageSeo = () => {
   const privateApi = usePrivateApi();
   const [seoData, setSeoData] = useState([]);
   const [saveState, setSaveState] = useState({ status: "idle", message: "" });
-
   const [savingId, setSavingId] = useState(null);
 
   useEffect(() => {
@@ -43,19 +41,20 @@ const ManageSeo = () => {
     );
   };
 
-  // --- 2. Update the save handler to use savingId ---
   const handleSaveChanges = async (id) => {
     const dataToSave = seoData.find((data) => data._id === id);
     setSaveState({ status: "loading", message: "Saving..." });
-    setSavingId(id); // Set which button was clicked
+    setSavingId(id);
 
     try {
+      // Send the object as-is — backend will normalize keywords whether it's a string or array
       await privateApi.put(`/seo/${id}`, dataToSave);
       setSaveState({
         status: "success",
         message: `SEO for ${dataToSave.pageUrl} updated successfully!`,
       });
     } catch (error) {
+      console.error(error);
       setSaveState({
         status: "error",
         message: "Error: Could not save SEO data.",
@@ -92,6 +91,7 @@ const ManageSeo = () => {
                 }
               />
             </div>
+
             <div className="mb-3 form-group">
               <label className="form-label">Meta Description</label>
               <textarea
@@ -101,12 +101,14 @@ const ManageSeo = () => {
                 onChange={(e) =>
                   handleChange(data._id, "metaDescription", e.target.value)
                 }
-              ></textarea>
+              />
             </div>
+
             <hr />
             <h6 className="mt-3 seo-section-subtitle">
               Social Media / Open Graph
             </h6>
+
             <div className="mb-3 form-group">
               <label className="form-label">Social Title</label>
               <input
@@ -118,6 +120,7 @@ const ManageSeo = () => {
                 }
               />
             </div>
+
             <div className="mb-3 form-group">
               <label className="form-label">Social Description</label>
               <textarea
@@ -127,8 +130,9 @@ const ManageSeo = () => {
                 onChange={(e) =>
                   handleChange(data._id, "ogDescription", e.target.value)
                 }
-              ></textarea>
+              />
             </div>
+
             <div className="mb-3 form-group">
               <label className="form-label">Social Image URL</label>
               <input
@@ -141,10 +145,31 @@ const ManageSeo = () => {
               />
             </div>
 
+            {/* ---------------- Keywords input ---------------- */}
+            <div className="mb-3 form-group">
+              <label className="form-label">Keywords (comma-separated)</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="e.g. marketing, seo, content"
+                value={
+                  Array.isArray(data.keywords)
+                    ? data.keywords.join(", ")
+                    : data.keywords || ""
+                }
+                onChange={(e) =>
+                  handleChange(data._id, "keywords", e.target.value)
+                }
+              />
+              <small className="form-text text-muted">
+                Enter comma-separated keywords. They will be normalized on save.
+              </small>
+            </div>
+
             <button
               className="btn btn-primary mt-2"
               onClick={() => handleSaveChanges(data._id)}
-              disabled={saveState.status === "loading"}
+              disabled={saveState.status === "loading" && savingId === data._id}
             >
               {saveState.status === "loading" && savingId === data._id
                 ? "Saving..."

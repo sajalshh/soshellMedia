@@ -27,6 +27,7 @@ router.get("/", async (req, res) => {
           title: "Soshell Media | Performance-Driven Content Studio",
           metaDescription:
             "A performance-driven content studio for bold brands ready to scale.",
+          keywords: [],
         },
       });
     }
@@ -51,23 +52,44 @@ router.get("/all", protect, authorize("client"), async (req, res) => {
 // @desc    Update SEO data by its ID
 // @route   PUT /api/seo/:id
 // @access  Private (Client)
+// server/routes/seoRoutes.js (PUT /api/seo/:id)
 router.put("/:id", protect, authorize("client"), async (req, res) => {
   try {
+    const updateBody = { ...req.body };
+
+    // Normalize keywords:
+    if (typeof updateBody.keywords === "string") {
+      updateBody.keywords = updateBody.keywords
+        .split(",")
+        .map((k) => k.trim())
+        .filter(Boolean);
+    }
+
+    if (Array.isArray(updateBody.keywords)) {
+      // dedupe & normalize to lowercase (optional)
+      updateBody.keywords = [
+        ...new Set(updateBody.keywords.map((k) => k.toLowerCase())),
+      ];
+    }
+
     const updatedSeoData = await SeoData.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updateBody,
       {
         new: true,
         runValidators: true,
-      },
+      }
     );
+
     if (!updatedSeoData) {
       return res.status(404).json({ message: "SEO data not found" });
     }
     res.status(200).json({ success: true, data: updatedSeoData });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Server Error" });
   }
 });
+
 
 module.exports = router;

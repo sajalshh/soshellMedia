@@ -29,6 +29,7 @@ const SeoDataSchema = new mongoose.Schema({
   ogImage: {
     type: String, // URL to the social sharing image
   },
+  keywords: { type: [String], default: [] },
 });
 
 module.exports = mongoose.model("SeoData", SeoDataSchema);
