@@ -19,6 +19,11 @@ const SeoDataSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  keywords: {
+    type: [String],
+    default: [],
+  },
+
   // --- Open Graph Tags for Social Media ---
   ogTitle: {
     type: String,
@@ -29,7 +34,21 @@ const SeoDataSchema = new mongoose.Schema({
   ogImage: {
     type: String, // URL to the social sharing image
   },
-  keywords: { type: [String], default: [] },
+
+  // =================== NEW FIELDS ===================
+  ogUrl: {
+    type: String, // The full URL that social media should link to
+  },
+  ogImageAlt: {
+    type: String, // Alt text for the og:image
+  },
+  canonicalUrl: {
+    type: String, // The preferred URL for this page to prevent duplicate content
+  },
+  schemaMarkup: {
+    type: String, // A string to hold JSON-LD schema markup
+  },
+  // ==================================================
 });
 
 module.exports = mongoose.model("SeoData", SeoDataSchema);

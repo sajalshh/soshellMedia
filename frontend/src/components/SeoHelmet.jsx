@@ -15,7 +15,6 @@ const createExcerpt = (htmlString, length = 155) => {
 const normalizeKeywordsToString = (keywords) => {
   if (!keywords) return "";
   if (Array.isArray(keywords)) {
-    // trim and remove empty items
     return keywords
       .map((k) => (typeof k === "string" ? k.trim() : ""))
       .filter(Boolean)
@@ -24,7 +23,6 @@ const normalizeKeywordsToString = (keywords) => {
   if (typeof keywords === "string") {
     return keywords;
   }
-  // fallback: try to stringify
   try {
     return String(keywords);
   } catch {
@@ -37,10 +35,14 @@ const SeoHelmet = ({ pageUrl, title, description, keywords, canonical }) => {
     title: "Soshell Media",
     metaDescription: "Performance-driven content studio.",
     keywords: "",
-    canonical: "",
     ogTitle: "",
     ogDescription: "",
     ogImage: "",
+    // --- New State Fields ---
+    ogUrl: "",
+    ogImageAlt: "",
+    canonicalUrl: "",
+    schemaMarkup: "",
   });
 
   useEffect(() => {
@@ -50,10 +52,14 @@ const SeoHelmet = ({ pageUrl, title, description, keywords, canonical }) => {
         title: `${title} | Soshell Media`,
         metaDescription: createExcerpt(description),
         keywords: normalizeKeywordsToString(keywords),
-        canonical: canonical || "",
+        canonicalUrl: canonical || "",
         ogTitle: `${title} | Soshell Media`,
         ogDescription: createExcerpt(description),
         ogImage: "",
+        // --- Default new fields for manual mode ---
+        ogUrl: "",
+        ogImageAlt: "",
+        schemaMarkup: "",
       });
       return;
     }
@@ -72,18 +78,20 @@ const SeoHelmet = ({ pageUrl, title, description, keywords, canonical }) => {
               metaDescription:
                 data.metaDescription || "Performance-driven content studio.",
               keywords: normalizeKeywordsToString(data.keywords),
-              canonical: data.canonical || "",
               ogTitle: data.ogTitle || data.title || "",
               ogDescription: data.ogDescription || data.metaDescription || "",
               ogImage: data.ogImage || "",
+              // --- Set new fields from API data ---
+              ogUrl: data.ogUrl || "",
+              ogImageAlt: data.ogImageAlt || "",
+              canonicalUrl: data.canonicalUrl || "",
+              schemaMarkup: data.schemaMarkup || "",
             });
           } else {
-            // If API returned nothing, keep defaults (no crash)
             setSeo((prev) => ({ ...prev }));
           }
         } catch (error) {
           console.error(`Failed to fetch SEO data for ${pageUrl}`, error);
-          // keep previous/default seo state
         }
       };
 
@@ -97,16 +105,22 @@ const SeoHelmet = ({ pageUrl, title, description, keywords, canonical }) => {
       {seo.metaDescription && (
         <meta name="description" content={seo.metaDescription} />
       )}
-      {/* Only render keywords meta if there is content */}
       {seo.keywords ? <meta name="keywords" content={seo.keywords} /> : null}
-      {seo.canonical && <link rel="canonical" href={seo.canonical} />}
 
-      {/* Open Graph */}
+      {/* =================== UPDATED & NEW TAGS START =================== */}
+      {/* Canonical URL Tag */}
+      {seo.canonicalUrl && <link rel="canonical" href={seo.canonicalUrl} />}
+
+      {/* Open Graph Tags */}
       {seo.ogTitle && <meta property="og:title" content={seo.ogTitle} />}
+      {seo.ogUrl && <meta property="og:url" content={seo.ogUrl} />}
       {seo.ogDescription && (
         <meta property="og:description" content={seo.ogDescription} />
       )}
       {seo.ogImage && <meta property="og:image" content={seo.ogImage} />}
+      {seo.ogImageAlt && (
+        <meta property="og:image:alt" content={seo.ogImageAlt} />
+      )}
 
       {/* Twitter card fallbacks */}
       {seo.ogTitle && <meta name="twitter:title" content={seo.ogTitle} />}
@@ -114,6 +128,12 @@ const SeoHelmet = ({ pageUrl, title, description, keywords, canonical }) => {
         <meta name="twitter:description" content={seo.ogDescription} />
       )}
       {seo.ogImage && <meta name="twitter:image" content={seo.ogImage} />}
+
+      {/* JSON-LD Schema Markup Script */}
+      {seo.schemaMarkup && (
+        <script type="application/ld+json">{seo.schemaMarkup}</script>
+      )}
+      {/* =================== UPDATED & NEW TAGS END =================== */}
     </Helmet>
   );
 };

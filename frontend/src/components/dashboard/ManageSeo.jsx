@@ -47,7 +47,6 @@ const ManageSeo = () => {
     setSavingId(id);
 
     try {
-      // Send the object as-is — backend will normalize keywords whether it's a string or array
       await privateApi.put(`/seo/${id}`, dataToSave);
       setSaveState({
         status: "success",
@@ -104,6 +103,25 @@ const ManageSeo = () => {
               />
             </div>
 
+            {/* =================== NEW FIELD START =================== */}
+            <div className="mb-3 form-group">
+              <label className="form-label">Canonical URL</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="https://yourdomain.com/preferred-url"
+                value={data.canonicalUrl || ""}
+                onChange={(e) =>
+                  handleChange(data._id, "canonicalUrl", e.target.value)
+                }
+              />
+              <small className="form-text text-muted">
+                The preferred URL for this page. Leave blank to use the page's
+                default URL.
+              </small>
+            </div>
+            {/* =================== NEW FIELD END =================== */}
+
             <hr />
             <h6 className="mt-3 seo-section-subtitle">
               Social Media / Open Graph
@@ -145,7 +163,38 @@ const ManageSeo = () => {
               />
             </div>
 
-            {/* ---------------- Keywords input ---------------- */}
+            {/* =================== NEW FIELDS START =================== */}
+            <div className="mb-3 form-group">
+              <label className="form-label">Social Image Alt Text</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="A descriptive caption for the social image"
+                value={data.ogImageAlt || ""}
+                onChange={(e) =>
+                  handleChange(data._id, "ogImageAlt", e.target.value)
+                }
+              />
+            </div>
+
+            <div className="mb-3 form-group">
+              <label className="form-label">Social URL</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="https://yourdomain.com/page-url"
+                value={data.ogUrl || ""}
+                onChange={(e) =>
+                  handleChange(data._id, "ogUrl", e.target.value)
+                }
+              />
+              <small className="form-text text-muted">
+                The URL social platforms will use. Defaults to the page URL if
+                blank.
+              </small>
+            </div>
+            {/* =================== NEW FIELDS END =================== */}
+
             <div className="mb-3 form-group">
               <label className="form-label">Keywords (comma-separated)</label>
               <input
@@ -165,6 +214,29 @@ const ManageSeo = () => {
                 Enter comma-separated keywords. They will be normalized on save.
               </small>
             </div>
+
+            {/* =================== NEW FIELD START =================== */}
+            <hr />
+            <h6 className="mt-3 seo-section-subtitle">
+              Advanced / Structured Data
+            </h6>
+            <div className="mb-3 form-group">
+              <label className="form-label">Schema Markup (JSON-LD)</label>
+              <textarea
+                className="form-control"
+                rows="6"
+                placeholder='e.g. { "@context": "https://schema.org", ... }'
+                value={data.schemaMarkup || ""}
+                onChange={(e) =>
+                  handleChange(data._id, "schemaMarkup", e.target.value)
+                }
+              />
+              <small className="form-text text-muted">
+                Paste your JSON-LD schema script content here. Do not include
+                &lt;script&gt; tags.
+              </small>
+            </div>
+            {/* =================== NEW FIELD END =================== */}
 
             <button
               className="btn btn-primary mt-2"
