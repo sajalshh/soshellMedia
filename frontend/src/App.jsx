@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
+import usePageViews from "./hooks/usePageViews";
 
 // Your existing page imports
 import HomePage from "./pages/HomePage";
@@ -32,6 +33,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
+
+  usePageViews();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000);
