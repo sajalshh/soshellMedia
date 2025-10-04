@@ -24,6 +24,7 @@
     "magnific-popup": "^1.2.0",
     "react": "^18.2.0",
     "react-awesome-reveal": "^4.3.1",
+    "react-beautiful-dnd": "^13.1.1",
     "react-day-picker": "^9.8.1",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.5",

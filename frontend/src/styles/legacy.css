@@ -758,7 +758,64 @@
   transform: scale(0.9);
   transform-origin: center;
 }
+/*
+=====================================================
+  FIX: Desktop Styles for 4-Item Counter (Compact)
+=====================================================
+*/
 
+/* 1. Main container for the 4 items */
+.counter-wrapper.counter-one {
+  display: flex;
+  align-items: center;
+  justify-content: space-around; 
+  flex-wrap: wrap; 
+  gap: 20px; /* REDUCED: Was 30px. This is the main space between each counter. */
+  padding: 20px 0; 
+  transform: scale(0.95);
+  transform-origin: center;
+}
+
+/* 2. Individual counter item (icon + text) */
+.counter-items {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* REDUCED: Was 15px. This is the space between the icon and text. */
+}
+
+/* 3. The icon's circular background */
+.counter-items .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: var(--tp-theme-primary, #00ffcc);
+  flex-shrink: 0; 
+}
+
+/* 4. The icon itself (SVG) */
+.counter-items .icon svg {
+  color: #0b0c0c !important; 
+  font-size: 22px; 
+}
+
+/* 5. The text content (Number and Label) */
+.counter-items .content h2 {
+  font-size: 34px; /* REDUCED: Was 36px. This makes the numbers slightly smaller. */
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1;
+}
+
+.counter-items .content p {
+  font-size: 15px;
+  color: #cdcdcd;
+  margin: 4px 0 0 0;
+  white-space: nowrap; 
+}
 .login {
   color: #000000;
 }

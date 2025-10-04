@@ -79,6 +79,7 @@ export default function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/dashboard/blog" element={<ManageBlog />} />
+            <Route path="/dashboard/seo" element={<ManageSeo />} />
             <Route path="/adminblog" element={<AdminBlogEditor />} />
             <Route path="/adminblog/edit/:id" element={<AdminBlogEditor />} />
           </Route>

@@ -1,5 +1,6 @@
 import React from "react";
-import { FaEye, FaHandshake, FaVideo } from "react-icons/fa"; 
+// 1. Import the new FaBullhorn icon
+import { FaEye, FaHandshake, FaVideo, FaBullhorn } from "react-icons/fa";
 import Counter from "./Counter";
 
 export default function AboutPage() {
@@ -26,6 +27,13 @@ export default function AboutPage() {
                 suffix="+"
                 label="Videos Created"
                 icon={FaVideo}
+              />
+              {/* 2. Add the new Counter component */}
+              <Counter
+                end={300}
+                suffix="+"
+                label="Campaigns delivered"
+                icon={FaBullhorn}
               />
             </div>
           </div>

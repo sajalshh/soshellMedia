@@ -19,11 +19,12 @@ export default function HomePage() {
       <SeoHelmet pageUrl="/" />
       <Hero />
       <Counter1 />
+      <Showcase />
       <About />
       <StickyCardScroller />
       <Projects />
       <WorkProcess />
-      <Showcase />
+
       {/* <Faq /> */}
       {/* <Pricing /> */}
       <Message />
