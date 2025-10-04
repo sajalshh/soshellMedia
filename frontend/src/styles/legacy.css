@@ -753,69 +753,86 @@
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
+/* =====================================================
+   Full-Width 4-Item Counter (Bigger, Forced)
+===================================================== */
 
+/* Base counter wrapper scaling */
 .counter-one {
-  transform: scale(0.9);
-  transform-origin: center;
+  transform: scale(1) !important;
+  transform-origin: center !important;
 }
-/*
-=====================================================
-  FIX: Desktop Styles for 4-Item Counter (Compact)
-=====================================================
-*/
 
 /* 1. Main container for the 4 items */
 .counter-wrapper.counter-one {
-  display: flex;
-  align-items: center;
-  justify-content: space-around; 
-  flex-wrap: wrap; 
-  gap: 20px; /* REDUCED: Was 30px. This is the main space between each counter. */
-  padding: 20px 0; 
-  transform: scale(0.95);
-  transform-origin: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important; /* Spread across full width */
+  flex-wrap: nowrap !important; /* Keep in one line on desktop */
+  gap: 10px !important; /* more spacing between counters */
+  padding: 30px 0 !important;
+  width: 100% !important; /* take full screen width */
 }
 
 /* 2. Individual counter item (icon + text) */
 .counter-items {
-  display: flex;
-  align-items: center;
-  gap: 12px; /* REDUCED: Was 15px. This is the space between the icon and text. */
+  display: flex !important;
+  align-items: center !important;
+  gap: 20px !important; /* more space between icon and text */
+  flex: 1 !important; /* grow to fill available space */
+  min-width: 220px !important; /* larger base width */
 }
 
-/* 3. The icon's circular background */
-.counter-items .icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  background-color: var(--tp-theme-primary, #00ffcc);
-  flex-shrink: 0; 
-}
-
-/* 4. The icon itself (SVG) */
+/* 3. The icon itself (SVG only, no shape) */
 .counter-items .icon svg {
-  color: #0b0c0c !important; 
-  font-size: 22px; 
+  font-size: 48px !important; /* bigger icons */
+  color: #ffffff !important;
 }
 
-/* 5. The text content (Number and Label) */
+/* 4. The text content (Number and Label) */
 .counter-items .content h2 {
-  font-size: 34px; /* REDUCED: Was 36px. This makes the numbers slightly smaller. */
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0;
-  line-height: 1;
+  font-size: 38px !important; /* bigger numbers */
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
 }
 
 .counter-items .content p {
-  font-size: 15px;
-  color: #cdcdcd;
-  margin: 4px 0 0 0;
-  white-space: nowrap; 
+  font-size: 20px !important; /* bigger labels */
+  color: #cdcdcd !important;
+  margin: 6px 0 0 0 !important;
+  white-space: nowrap !important;
 }
+
+/* Responsive: stack on mobile */
+@media (max-width: 768px) {
+  .counter-wrapper.counter-one {
+    flex-wrap: wrap !important; /* allow wrapping */
+    justify-content: center !important;
+    gap: 40px !important;
+  }
+
+  .counter-items {
+    min-width: 160px !important;
+    flex: none !important;
+  }
+
+  .counter-items .icon svg {
+    font-size: 36px !important;
+  }
+
+  .counter-items .content h2 {
+    font-size: 32px !important;
+  }
+
+  .counter-items .content p {
+    font-size: 16px !important;
+  }
+}
+
+
+
 .login {
   color: #000000;
 }
