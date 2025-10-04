@@ -8,16 +8,20 @@ export default function Card({ card, style }) {
         {/* LEFT: Image with floating box */}
         <div className="card-image-container">
           <img src={card.image} alt="visual" className="card-image" />
-          <div className="floating-box">
-            <div className="icon">⏱</div>
-            <div>
-              <div className="floating-time">{card.floatingTitle}</div>
-              <div className="floating-sub">{card.floatingSub}</div>
-            </div>
-          </div>
+
+          {/* The entire floating box below is wrapped in comments and has not been removed. */}
+          {/*
+            <div className="floating-box">
+              <div className="icon">⏱</div>
+              <div>
+                <div className="floating-time">{card.floatingTitle}</div>
+                <div className="floating-sub">{card.floatingSub}</div>
+              </div>
+            </div> 
+          */}
         </div>
 
-       
+        {/* RIGHT: Text content */}
         <div className="card-text">
           <h2>{card.title}</h2>
           {Array.isArray(card.description) ? (
