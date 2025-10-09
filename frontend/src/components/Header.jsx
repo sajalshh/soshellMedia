@@ -31,6 +31,11 @@ const NavLinks = ({ closeMenu }) => (
         </Link>
       </li>
       <li>
+        <Link to="/casestudies" onClick={closeMenu}>
+          Case Studies
+        </Link>
+      </li>
+      <li>
         <Link to="/contact" onClick={closeMenu}>
           Contact
         </Link>

@@ -1,11 +1,11 @@
-// src/components/dashboard/AdminBlogEditor.jsx
+// src/components/dashboard/AdminCaseStudyEditor.jsx
 
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Editor } from "@tinymce/tinymce-react";
 import usePrivateApi from "../../hooks/usePrivateApi";
 
-const AdminBlogEditor = () => {
+const AdminCaseStudyEditor = () => {
   const { id } = useParams();
   const isEditing = Boolean(id);
   const navigate = useNavigate();
@@ -14,6 +14,8 @@ const AdminBlogEditor = () => {
 
   const [formData, setFormData] = useState({
     title: "",
+    client: "",
+    industry: "",
     metaTitle: "",
     metaDescription: "",
     canonicalTag: "",
@@ -29,32 +31,34 @@ const AdminBlogEditor = () => {
     error: false,
   });
 
-  // Fetch data if we are in "edit" mode
+  // ... (rest of your useEffect and handler functions remain the same) ...
   useEffect(() => {
     if (isEditing) {
-      const fetchPost = async () => {
+      const fetchCaseStudy = async () => {
         try {
-          const response = await privateApi.get(`/blog/id/${id}`);
-          const post = response.data.data;
+          const response = await privateApi.get(`/casestudies/id/${id}`);
+          const study = response.data.data;
           setFormData({
-            title: post.title || "",
-            metaTitle: post.metaTitle || "",
-            metaDescription: post.metaDescription || "",
-            keywords: post.keywords || "",
-            url: post.slug || "",
-            alt_tag: post.altTag || "",
-            canonicalTag: post.canonicalTag || "",
+            title: study.title || "",
+            client: study.client || "",
+            industry: study.industry || "",
+            metaTitle: study.metaTitle || "",
+            metaDescription: study.metaDescription || "",
+            keywords: study.keywords || "",
+            url: study.slug || "",
+            alt_tag: study.altTag || "",
+            canonicalTag: study.canonicalTag || "",
           });
-          setContent(post.content || "");
+          setContent(study.content || "");
         } catch (error) {
           setStatus({
             loading: false,
-            message: "Could not load post data.",
+            message: "Could not load case study data.",
             error: true,
           });
         }
       };
-      fetchPost();
+      fetchCaseStudy();
     }
   }, [id, isEditing, privateApi]);
 
@@ -76,6 +80,8 @@ const AdminBlogEditor = () => {
 
     const data = new FormData();
     data.append("title", formData.title);
+    data.append("client", formData.client);
+    data.append("industry", formData.industry);
     data.append("metaTitle", formData.metaTitle);
     data.append("metaDescription", formData.metaDescription);
     data.append("canonicalTag", formData.canonicalTag);
@@ -83,7 +89,7 @@ const AdminBlogEditor = () => {
     data.append("url", formData.url);
     data.append("alt_tag", formData.alt_tag);
     data.append("content", editorContent);
-    data.append("excerpt", formData.metaDescription);
+    data.append("excerpt", formData.metaDescription); // Using meta desc as excerpt
 
     if (featuredImageFile) {
       data.append("featuredImage", featuredImageFile);
@@ -91,34 +97,33 @@ const AdminBlogEditor = () => {
 
     try {
       if (isEditing) {
-        await privateApi.put(`/blog/${id}`, data);
+        await privateApi.put(`/casestudies/${id}`, data);
       } else {
-        await privateApi.post("/blog", data);
+        await privateApi.post("/casestudies", data);
       }
       setStatus({
         loading: false,
-        message: "Post saved successfully!",
+        message: "Case study saved successfully!",
         error: false,
       });
-      setTimeout(() => navigate("/dashboard/blog"), 1500);
+      setTimeout(() => navigate("/dashboard/casestudies"), 1500);
     } catch (error) {
       setStatus({
         loading: false,
-        message: "Failed to save post. Check required fields.",
+        message: "Failed to save. Check required fields.",
         error: true,
       });
       console.error("Save error:", error.response?.data || error);
     }
   };
 
-  // ✅ NEW: This function handles image uploads from the editor
   const imageUploadHandler = (blobInfo, progress) =>
     new Promise((resolve, reject) => {
       const formData = new FormData();
       formData.append("file", blobInfo.blob(), blobInfo.filename());
 
       privateApi
-        .post("/blog/upload-image", formData)
+        .post("/casestudies/upload-image", formData)
         .then((response) => {
           if (response.data.location) {
             resolve(response.data.location);
@@ -135,13 +140,15 @@ const AdminBlogEditor = () => {
 
   return (
     <div className="container-fluid py-4">
-      <h3 className="mb-4">{isEditing ? "Edit Blog" : "Create New Blog"}</h3>
+      <h3 className="mb-4">
+        {isEditing ? "Edit Case Study" : "Create New Case Study"}
+      </h3>
       <form onSubmit={handleSubmit}>
         <div className="card">
           <div className="card-body">
-            {/* ... All your form inputs for title, meta, etc. remain the same ... */}
+            {/* ... (your form inputs for title, client, etc.) ... */}
             <div className="mb-3">
-              <label className="form-label">Blog Title</label>
+              <label className="form-label">Case Study Title</label>
               <input
                 type="text"
                 name="title"
@@ -151,8 +158,33 @@ const AdminBlogEditor = () => {
                 required
               />
             </div>
+
+            <div className="row">
+              <div className="col-md-6 mb-3">
+                <label className="form-label">Client Name</label>
+                <input
+                  type="text"
+                  name="client"
+                  value={formData.client}
+                  onChange={handleInputChange}
+                  className="form-control"
+                />
+              </div>
+              <div className="col-md-6 mb-3">
+                <label className="form-label">Industry</label>
+                <input
+                  type="text"
+                  name="industry"
+                  value={formData.industry}
+                  onChange={handleInputChange}
+                  className="form-control"
+                />
+              </div>
+            </div>
+
             <hr />
             <h5 className="text-muted">SEO Details</h5>
+            {/* --- All SEO inputs are the same as the blog editor --- */}
             <div className="mb-3">
               <label className="form-label">Meta Title</label>
               <input
@@ -164,7 +196,7 @@ const AdminBlogEditor = () => {
               />
             </div>
             <div className="mb-3">
-              <label className="form-label">Meta Description</label>
+              <label className="form-label">Meta Description (Excerpt)</label>
               <textarea
                 name="metaDescription"
                 value={formData.metaDescription}
@@ -206,7 +238,7 @@ const AdminBlogEditor = () => {
             <hr />
             <h5 className="text-muted">Featured Image</h5>
             <div className="mb-3">
-              <label className="form-label">Blog Feature Image</label>
+              <label className="form-label">Case Study Feature Image</label>
               <input
                 type="file"
                 name="featuredImage"
@@ -216,7 +248,7 @@ const AdminBlogEditor = () => {
               />
             </div>
             <div className="mb-3">
-              <label className="form-label">alt_tag</label>
+              <label className="form-label">Image Alt Tag</label>
               <input
                 type="text"
                 name="alt_tag"
@@ -229,37 +261,19 @@ const AdminBlogEditor = () => {
             <div className="mb-3">
               <label className="form-label">Content</label>
               <Editor
+                // ✅ FIX: Replace the placeholder with your actual API key
                 apiKey="mx8v2xw2bvbrj4wzn796afgy4qicr5xojrh5zilsywpjggsa"
                 onInit={(evt, editor) => (editorRef.current = editor)}
                 initialValue={content}
                 init={{
                   height: 500,
                   menubar: false,
-                  plugins: [
-                    "advlist",
-                    "autolink",
-                    "lists",
-                    "link",
-                    "image",
-                    "charmap",
-                    "preview",
-                    "anchor",
-                    "searchreplace",
-                    "visualblocks",
-                    "code",
-                    "fullscreen",
-                    "insertdatetime",
-                    "media",
-                    "table",
-                    "help",
-                    "wordcount",
-                  ],
-                  // ✅ MODIFIED: Added 'image' to the toolbar
+                  plugins:
+                    "advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table help wordcount",
                   toolbar:
                     "undo redo | blocks | bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | removeformat | help",
                   content_style:
                     "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                  // ✅ NEW: Added image upload handler
                   images_upload_handler: imageUploadHandler,
                   file_picker_types: "image",
                   automatic_uploads: true,
@@ -276,8 +290,8 @@ const AdminBlogEditor = () => {
               {status.loading
                 ? "Saving..."
                 : isEditing
-                ? "Update Blog"
-                : "Create Blog"}
+                ? "Update Case Study"
+                : "Create Case Study"}
             </button>
             {status.message && (
               <span className={status.error ? "text-danger" : "text-success"}>
@@ -291,5 +305,4 @@ const AdminBlogEditor = () => {
   );
 };
 
-export default AdminBlogEditor;
-// checking rules one two three
+export default AdminCaseStudyEditor;

@@ -25,7 +25,10 @@ import ManageSeo from "./components/dashboard/ManageSeo";
 import RegisterPage from "./pages/RegisterPage"; 
 import ServiceDetailsPage from "./pages/ServiceDetailsPage";
 import AppointmentPage from "./pages/AppointmentPage";
-
+import ManageCaseStudies from "./components/dashboard/ManageCaseStudies";
+import AdminCaseStudyEditor from "./components/dashboard/AdminCaseStudyEditor";
+import CaseStudiesPage from "./pages/CaseStudiesPage";
+import CaseStudyDetailsPage from "./pages/CaseStudyDetailsPage";
 
 // 1. Import the new components for the dashboard
 import DashboardPage from "./pages/DashboardPage";
@@ -69,6 +72,11 @@ export default function App() {
             />
             <Route path="blog" element={<BlogPage />} />
             <Route path="blog-details/:slug" element={<NewsDetailsPage />} />
+            <Route path="casestudies" element={<CaseStudiesPage />} />
+            <Route
+              path="casestudy-details/:slug"
+              element={<CaseStudyDetailsPage />}
+            />
             <Route path="appointment" element={<AppointmentPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
@@ -82,6 +90,15 @@ export default function App() {
             <Route path="/dashboard/seo" element={<ManageSeo />} />
             <Route path="/adminblog" element={<AdminBlogEditor />} />
             <Route path="/adminblog/edit/:id" element={<AdminBlogEditor />} />
+            <Route
+              path="/dashboard/casestudies"
+              element={<ManageCaseStudies />}
+            />
+            <Route path="/admincasestudy" element={<AdminCaseStudyEditor />} />
+            <Route
+              path="/admincasestudy/edit/:id"
+              element={<AdminCaseStudyEditor />}
+            />
           </Route>
         </Routes>
       )}

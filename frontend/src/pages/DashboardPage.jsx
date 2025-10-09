@@ -14,6 +14,7 @@ import ManageAboutVideo from "../components/dashboard/homepage/ManageAboutVideo"
 import ManagePortfolio from "../components/dashboard/ManagePortfolio";
 import ManagePortfolioCategories from "../components/dashboard/ManagePortfolioCategories";
 import ManageServices from "../components/dashboard/ManageServices";
+import ManageCaseStudies from "../components/dashboard/ManageCaseStudies";
 
 const DashboardPage = () => {
   const { logout } = useAuth();
@@ -51,6 +52,8 @@ const DashboardPage = () => {
         return <ManageTeam />;
       case "blog":
         return <ManageBlog />;
+      case "caseStudies":
+        return <ManageCaseStudies />;
       case "portfolio":
         return (
           <>
@@ -96,7 +99,7 @@ const DashboardPage = () => {
                     Hero Section
                   </a>
                 </li>
-              
+
                 <li className="nav-item">
                   <a
                     href="#aboutTabs"
@@ -169,6 +172,17 @@ const DashboardPage = () => {
                     onClick={() => setActiveTab("blog")}
                   >
                     Blog Posts
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    href="#caseStudies"
+                    className={`nav-link ${
+                      activeTab === "caseStudies" ? "active" : ""
+                    }`}
+                    onClick={() => setActiveTab("caseStudies")}
+                  >
+                    Case Studies
                   </a>
                 </li>
                 <li className="nav-item">

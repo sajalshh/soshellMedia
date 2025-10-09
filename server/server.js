@@ -22,6 +22,7 @@ const portfolioRoutes = require("./routes/portfolioRoutes");
 const appointmentRoutes = require("./routes/appointmentRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const serviceRoutes = require("./routes/serviceRoutes");
+const caseStudyRoutes = require("./routes/caseStudyRoutes");
 
 
 // Connect to Database
@@ -54,6 +55,7 @@ app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/appointments", appointmentRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/services", serviceRoutes);
+app.use("/api/casestudies", caseStudyRoutes);
 // Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
