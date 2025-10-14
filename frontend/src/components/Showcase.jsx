@@ -1,10 +1,9 @@
-// src/components/Showcase.jsx
-
 import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import api from "../api/axiosConfig";
+import { Fade } from "react-awesome-reveal"; // Import the Fade component
 
 export default function Showcase() {
   const [projects, setProjects] = useState([]);
@@ -15,7 +14,16 @@ export default function Showcase() {
       setLoading(true);
       try {
         const response = await api.get("/portfolio");
-        setProjects(response.data.data);
+        let fetchedProjects = response.data.data;
+
+        if (fetchedProjects.length > 0 && fetchedProjects.length < 10) {
+          const originalProjects = [...fetchedProjects];
+          while (fetchedProjects.length < 10) {
+            fetchedProjects = [...fetchedProjects, ...originalProjects];
+          }
+        }
+
+        setProjects(fetchedProjects.slice(0, 10));
       } catch (error) {
         console.error("Failed to fetch projects for showcase:", error);
       } finally {
@@ -28,33 +36,47 @@ export default function Showcase() {
 
   return (
     <section className="showcase-section fix section-padding-2 section-bg">
-      <div className="container"></div>
-      <div className="container-fluid">
+      {/* --- CHANGE: Added the consistent header text section --- */}
+      <div className="container">
+        <div className="section-title text-center mx-auto">
+          <Fade direction="up" triggerOnce>
+            <h6>
+              <img src="/assets/img/star.png" alt="img" /> OUR LATEST WORK
+            </h6>
+          </Fade>
+          <Fade direction="up" delay={200} triggerOnce>
+            <h2>
+              Explore Our Project <b>Showcase</b>
+            </h2>
+          </Fade>
+        </div>
+      </div>
+
+      <div className="container-fluid mt-5">
         {!loading && (
           <Swiper
             modules={[Autoplay]}
             spaceBetween={30}
-            speed={2000}
+            speed={3000} // Slightly slower for a smoother feel
             loop={true}
             autoplay={{
-              delay: 2000,
+              delay: 1, // Use 1 for a continuous, seamless scroll
               disableOnInteraction: false,
             }}
-            // --- CHANGE IS HERE ---
             breakpoints={{
               0: { slidesPerView: 1 },
               575: { slidesPerView: 2 },
               991: { slidesPerView: 3 },
-              1200: { slidesPerView: 4 }, // Show 4 slides on screens 1200px and wider
+              1200: { slidesPerView: 6 },
             }}
             className="showcase-slider"
           >
-            {projects.map((project) => (
-              <SwiperSlide key={project._id}>
+            {projects.map((project, index) => (
+              <SwiperSlide key={`${project._id}-${index}`}>
                 <div className="showcase-items">
                   <div className="portfolio-video-wrapper">
                     <iframe
-                      src={`${project.videoUrl}?autoplay=1&loop=1&mute=1&playsinline=1&controlsVisibleOnLoad=false&videoFoam=true`}
+                      src={`${project.videoUrl}?autoplay=1&loop=1&mute=1&playsinline=1&controls=0`}
                       title={project.title}
                       allow="autoplay; fullscreen"
                       frameBorder="0"

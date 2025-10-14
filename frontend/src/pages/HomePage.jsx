@@ -3,10 +3,10 @@ import Hero from "../components/Hero";
 import About from "../components/About";
 // import Services from "../components/Services";
 import Projects from "../components/Projects";
-// import Faq from "../components/Faq";
+import Faq from "../components/Faq";
 // import Paralax from "../components/Paralax";
 import Counter1 from "../components/counter1"
-// import Pricing from "../components/Pricing";
+import Pricing from "../components/Pricing";
 import Message from "../components/Message";
 import StickyCardScroller from "../components/StickyCardScroller";
 import WorkProcess from "../components/WorkProcess";
@@ -24,9 +24,8 @@ export default function HomePage() {
       <StickyCardScroller />
       <Projects />
       <WorkProcess />
-
-      {/* <Faq /> */}
-      {/* <Pricing /> */}
+      <Pricing />
+      <Faq />
       <Message />
     </>
   );

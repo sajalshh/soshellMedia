@@ -1,27 +1,144 @@
-import React from "react";
+import React, { useState } from "react";
+import { ArrowRight } from "lucide-react"; // Lightweight icon for the button
+
+// A custom Checkmark component styled to match your theme's primary color
 const Checkmark = () => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
     width="20"
-    height="12"
-    viewBox="0 0 20 12"
+    height="15"
+    viewBox="0 0 20 15"
     fill="none"
+    xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M10.3553 12C10.0508 12 9.84772 11.8857 9.64467 11.6571L5.38071 6.85714C4.97462 6.4 4.97462 5.71429 5.38071 5.25714C5.7868 4.8 6.39594 4.8 6.80203 5.25714L10.3553 9.25714L18.2741 0.342857C18.6802 -0.114286 19.2893 -0.114286 19.6954 0.342857C20.1015 0.8 20.1015 1.48571 19.6954 1.94286L11.066 11.6571C10.9645 11.8857 10.6599 12 10.3553 12Z"
-      fill="#CDCDCD"
-    />
-    <path
-      d="M5.27919 12C4.97462 12 4.77157 11.8857 4.56853 11.6571L0.304569 6.85714C-0.101523 6.4 -0.101523 5.71429 0.304569 5.25714C0.71066 4.8 1.3198 4.8 1.72589 5.25714L5.98985 10.0571C6.39594 10.5143 6.39594 11.2 5.98985 11.6571C5.88833 11.8857 5.58376 12 5.27919 12ZM10.6599 6.05714C10.3553 6.05714 10.1523 5.94286 9.94924 5.71429C9.54315 5.25714 9.54315 4.57143 9.94924 4.11429L13.198 0.342857C13.6041 -0.114286 14.2132 -0.114286 14.6193 0.342857C15.0254 0.8 15.0254 1.48571 14.6193 1.94286L11.3706 5.71429C11.1675 5.94286 10.9645 6.05714 10.6599 6.05714Z"
-      fill="#CDCDCD"
+      d="M18.5 1.5L7 13L1.5 7.5"
+      stroke="var(--tp-theme-primary)"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
 
-export default function Pricing() {
+// --- Data for the pricing plans (no changes here) ---
+const monthlyPlans = [
+  {
+    name: "Standard",
+    price: "$25",
+    description: "Ideal for personal project",
+    features: [
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+      "Discord access",
+    ],
+    highlighted: false,
+    delay: ".2s",
+  },
+  {
+    name: "Professional",
+    price: "$39",
+    description: "Ideal for personal project",
+    features: [
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+      "Discord access",
+    ],
+    highlighted: false,
+    delay: ".4s",
+  },
+  {
+    name: "Business",
+    price: "$79",
+    description: "Ideal for personal project",
+    features: [
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+      "Discord access",
+    ],
+    highlighted: true,
+    delay: ".6s",
+  },
+  {
+    name: "Enterprise",
+    price: "$149",
+    description: "Ideal for personal project",
+    features: [
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+      "Discord access",
+    ],
+    highlighted: false,
+    delay: ".8s",
+  },
+];
+const annualPlans = [
+  {
+    name: "Standard",
+    price: "$250",
+    description: "Save $50 a year",
+    features: [
+      "2 months free",
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+    ],
+    highlighted: false,
+    delay: ".2s",
+  },
+  {
+    name: "Professional",
+    price: "$390",
+    description: "Save $78 a year",
+    features: [
+      "2 months free",
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+    ],
+    highlighted: false,
+    delay: ".4s",
+  },
+  {
+    name: "Business",
+    price: "$790",
+    description: "Save $158 a year",
+    features: [
+      "2 months free",
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+    ],
+    highlighted: true,
+    delay: ".6s",
+  },
+  {
+    name: "Enterprise",
+    price: "$1490",
+    description: "Save $298 a year",
+    features: [
+      "2 months free",
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+    ],
+    highlighted: false,
+    delay: ".8s",
+  },
+];
+
+// --- The Main Pricing Page Component ---
+export default function PricingPage() {
+  const [billingCycle, setBillingCycle] = useState("monthly");
+  const plans = billingCycle === "monthly" ? monthlyPlans : annualPlans;
+
   return (
     <section className="pricing-section fix section-padding pt-0">
       <div className="container">
+        {/* === HEADING (no changes) === */}
         <div className="section-title-area">
           <div className="section-title ml-200">
             <h6 className="wow fadeInUp">
@@ -30,191 +147,87 @@ export default function Pricing() {
             <h2 className="wow fadeInUp" data-wow-delay=".3s">
               Competitive package <br />
               <span>
-                {" "}
                 best AI <b>expertise</b>
               </span>
             </h2>
           </div>
-          <ul className="nav">
-            <li className="nav-item wow fadeInUp" data-wow-delay=".3s">
-              <a href="#Annual" data-bs-toggle="tab" className="nav-link">
-                Annual
-              </a>
-            </li>
-            <li className="nav-item wow fadeInUp" data-wow-delay=".5s">
-              <a
-                href="#Monthly"
-                data-bs-toggle="tab"
-                className="nav-link active"
-              >
-                Monthly
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div className="tab-content">
-          <div id="Annual" className="tab-pane fade">
-            {/* Annual pricing content can be copied from the monthly one and adjusted */}
+
+          {/* === TOGGLE (no changes) === */}
+          <div className="tw-p-1 tw-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-[rgba(207,208,212,0.25)]">
+            <button
+              onClick={() => setBillingCycle("monthly")}
+              className={`tw-px-5 tw-py-2 tw-rounded-full tw-font-semibold tw-transition-colors tw-duration-300 ${
+                billingCycle === "monthly"
+                  ? "tw-bg-[#EFFB53] tw-text-black"
+                  : "tw-text-[#CDCDCD] hover:tw-text-white"
+              }`}
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setBillingCycle("annual")}
+              className={`tw-px-5 tw-py-2 tw-rounded-full tw-font-semibold tw-transition-colors tw-duration-300 ${
+                billingCycle === "annual"
+                  ? "tw-bg-[#EFFB53] tw-text-black"
+                  : "tw-text-[#CDCDCD] hover:tw-text-white"
+              }`}
+            >
+              Annual
+            </button>
           </div>
-          <div id="Monthly" className="tab-pane fade show active">
-            <div className="row">
+        </div>
+
+        {/* === PRICING CARDS === */}
+        <div className="tw-mt-12">
+          <div className="row">
+            {plans.map((plan) => (
               <div
+                key={plan.name}
                 className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 wow fadeInUp"
-                data-wow-delay=".2s"
+                data-wow-delay={plan.delay}
               >
-                <div className="pricing-box-items">
+                {/* Add relative and overflow-hidden for the ribbon effect */}
+                <div
+                  className={`pricing-box-items tw-relative tw-overflow-hidden tw-transition-all tw-duration-300 hover:-tw-translate-y-2 hover:tw-shadow-lg ${
+                    plan.highlighted
+                      ? "tw-border-2 tw-border-[var(--tp-theme-primary)]"
+                      : ""
+                  }`}
+                >
+                  {/* ✨ New: Corner Ribbon for Highlighted Plan */}
+                  {plan.highlighted && (
+                    <div className="tw-absolute tw-top-[25px] tw-right-[-45px] tw-w-48 tw-rotate-45 tw-bg-[var(--tp-theme-primary)] tw-py-2 tw-text-center tw-shadow-md">
+                      <span className="tw-text-sm tw-font-bold tw-uppercase tw-text-black">
+                        Most Popular
+                      </span>
+                    </div>
+                  )}
+
                   <div className="icon">
                     <img src="/assets/img/icon/02.svg" alt="img" />
                   </div>
                   <div className="pricing-header">
-                    <h3>Standard</h3>
-                    <p>Ideal for personal project</p>
-                    <h2>$25</h2>
+                    <h3>{plan.name}</h3>
+                    <p>{plan.description}</p>
+                    <h2>{plan.price}</h2>
                   </div>
                   <ul className="pricing-list">
-                    <li>
-                      <Checkmark />
-                      <span>Access AI tool</span>
-                    </li>
-                    <li>
-                      <Checkmark />
-                      <span>Exclusive feature</span>
-                    </li>
-                    <li>
-                      <Checkmark />
-                      <span>24/7 support</span>
-                    </li>
-                    <li>
-                      <Checkmark />
-                      <span>Discord access</span>
-                    </li>
+                    {plan.features.map((feature, index) => (
+                      <li key={index}>
+                        <Checkmark />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
                   </ul>
                   <div className="pricing-button">
                     <a href="pricing.html" className="theme-btn">
                       Start Now{" "}
-                      <i className="fa-sharp fa-regular fa-arrow-up-right"></i>
+                      <ArrowRight className="tw-inline tw-ml-1" size={16} />
                     </a>
                   </div>
                 </div>
               </div>
-              <div
-                className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 wow fadeInUp"
-                data-wow-delay=".4s"
-              >
-                <div className="pricing-box-items">
-                  <div className="icon">
-                    <img src="/assets/img/icon/02.svg" alt="img" />
-                  </div>
-                  <div className="pricing-header">
-                    <h3>Professional</h3>
-                    <p>Ideal for personal project</p>
-                    <h2>$29</h2>
-                  </div>
-                  <ul className="pricing-list">
-                    <li>
-                      <Checkmark />
-                      <span>Access AI tool</span>
-                    </li>
-                    <li>
-                      <Checkmark />
-                      <span>Exclusive feature</span>
-                    </li>
-                    <li>
-                      <Checkmark />
-                      <span>24/7 support</span>
-                    </li>
-                    <li>
-                      <Checkmark />
-                      <span>Discord access</span>
-                    </li>
-                  </ul>
-                  <div className="pricing-button">
-                    <a href="pricing.html" className="theme-btn">
-                      Start Now{" "}
-                      <i className="fa-sharp fa-regular fa-arrow-up-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 wow fadeInUp"
-                data-wow-delay=".6s"
-              >
-                <div className="pricing-box-items">
-                  <div className="icon">
-                    <img src="/assets/img/icon/02.svg" alt="img" />
-                  </div>
-                  <div className="pricing-header">
-                    <h3>Business</h3>
-                    <p>Ideal for personal project</p>
-                    <h2>$49</h2>
-                  </div>
-                  <ul className="pricing-list">
-                    <li>
-                      <Checkmark />
-                      <span>Access AI tool</span>
-                    </li>
-                    <li>
-                      <Checkmark />
-                      <span>Exclusive feature</span>
-                    </li>
-                    <li>
-                      <Checkmark />
-                      <span>24/7 support</span>
-                    </li>
-                    <li>
-                      <Checkmark />
-                      <span>Discord access</span>
-                    </li>
-                  </ul>
-                  <div className="pricing-button">
-                    <a href="pricing.html" className="theme-btn">
-                      Start Now{" "}
-                      <i className="fa-sharp fa-regular fa-arrow-up-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 wow fadeInUp"
-                data-wow-delay=".8s"
-              >
-                <div className="pricing-box-items">
-                  <div className="icon">
-                    <img src="/assets/img/icon/02.svg" alt="img" />
-                  </div>
-                  <div className="pricing-header">
-                    <h3>Enterprise</h3>
-                    <p>Ideal for personal project</p>
-                    <h2>$54</h2>
-                  </div>
-                  <ul className="pricing-list">
-                    <li>
-                      <Checkmark />
-                      <span>Access AI tool</span>
-                    </li>
-                    <li>
-                      <Checkmark />
-                      <span>Exclusive feature</span>
-                    </li>
-                    <li>
-                      <Checkmark />
-                      <span>24/7 support</span>
-                    </li>
-                    <li>
-                      <Checkmark />
-                      <span>Discord access</span>
-                    </li>
-                  </ul>
-                  <div className="pricing-button">
-                    <a href="pricing.html" className="theme-btn">
-                      Start Now{" "}
-                      <i className="fa-sharp fa-regular fa-arrow-up-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

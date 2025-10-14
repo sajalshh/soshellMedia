@@ -1,141 +1,171 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FaEnvelope } from "react-icons/fa"; 
+import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, Menu, X } from "lucide-react";
 
-const NavLinks = ({ closeMenu }) => (
-  <nav id="mobile-menu">
-    <ul>
-      <li>
-        <Link to="/" onClick={closeMenu}>
-          Home
-        </Link>
-      </li>
-      <li>
-        <Link to="/about" onClick={closeMenu}>
-          About Us
-        </Link>
-      </li>
-      <li>
-        <Link to="/service" onClick={closeMenu}>
-          Services
-        </Link>
-      </li>
-      <li>
-        <Link to="/project" onClick={closeMenu}>
-          Portfolio
-        </Link>
-      </li>
-      <li>
-        <Link to="/blog" onClick={closeMenu}>
-          Blog
-        </Link>
-      </li>
-      <li>
-        <Link to="/casestudies" onClick={closeMenu}>
-          Case Studies
-        </Link>
-      </li>
-      <li>
-        <Link to="/contact" onClick={closeMenu}>
-          Contact
-        </Link>
-      </li>
-    </ul>
-  </nav>
-);
+// --- Navigation Links Data (used for both mobile and desktop) ---
+const navLinks = [
+  { path: "/", label: "Home" },
+  { path: "/about", label: "About Us" },
+  { path: "/service", label: "Services" },
+  { path: "/project", label: "Portfolio" },
+  { path: "/blog", label: "Blog" },
+  { path: "/casestudies", label: "Case Studies" },
+  { path: "/contact", label: "Contact" },
+];
 
+// --- Desktop Navigation ---
+const DesktopNav = () => {
+  const location = useLocation();
+  return (
+    <nav className="tw-hidden lg:tw-flex">
+      <ul className="tw-flex tw-items-center tw-gap-8">
+        {navLinks.map((link) => (
+          <li key={link.path} className="tw-relative">
+            <Link
+              to={link.path}
+              className="tw-font-medium tw-text-white hover:tw-text-[var(--tp-theme-primary)] tw-transition-colors"
+            >
+              {link.label}
+            </Link>
+
+            {/* Active link underline animation */}
+            {location.pathname === link.path && (
+              <motion.span
+                className="tw-absolute -tw-bottom-2 tw-left-0 tw-right-0 tw-h-0.5 tw-bg-[var(--tp-theme-primary)]"
+                layoutId="underline"
+              />
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
+
+// --- Mobile Navigation (Full-Screen Overlay) ---
+const MobileNav = ({ closeMenu }) => {
+  return (
+    <motion.div
+      className="tw-fixed tw-inset-0 tw-bg-black/90 tw-backdrop-blur-lg tw-z-[9999] lg:tw-hidden"
+      initial={{ opacity: 0, y: "-100%" }}
+      animate={{ opacity: 1, y: "0%" }}
+      exit={{ opacity: 0, y: "-100%" }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="tw-container tw-h-full tw-flex tw-flex-col tw-justify-center">
+        <nav>
+          <motion.ul
+            className="tw-text-center"
+            variants={{ visible: { transition: { staggerChildren: 0.07 } } }}
+            initial="hidden"
+            animate="visible"
+          >
+            {navLinks.map((link) => (
+              <motion.li
+                key={link.path}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+              >
+                <Link
+                  to={link.path}
+                  onClick={closeMenu}
+                  className="tw-block tw-py-4 tw-text-3xl tw-font-semibold tw-text-white hover:tw-text-[var(--tp-theme-primary)]"
+                >
+                  {link.label}
+                </Link>
+              </motion.li>
+            ))}
+          </motion.ul>
+        </nav>
+      </div>
+    </motion.div>
+  );
+};
+
+// --- Main Header Component ---
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Detect scroll for sticky header
   useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY > 250);
-    };
+    const handleScroll = () => setIsSticky(window.scrollY > 100);
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
     <>
-      <div className="fix-area">
-        <div className={`offcanvas__info ${isSidebarOpen ? "info-open" : ""}`}>
-          <div className="offcanvas__wrapper">
-            <div className="offcanvas__content">
-              <div className="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
-                <div className="offcanvas__logo">
-                  <Link to="/" onClick={() => setIsSidebarOpen(false)}>
-                    <img src="/assets/img/logo/logo.png" alt="logo-img" />
-                  </Link>
-                </div>
-                <div className="offcanvas__close">
-                  <button
-                    onClick={() => setIsSidebarOpen(false)}
-                    aria-label="Close menu"
-                  >
-                    <i className="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div className="mobile-menu fix mb-3">
-                <NavLinks closeMenu={() => setIsSidebarOpen(false)} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className={`offcanvas__overlay ${isSidebarOpen ? "overlay-open" : ""}`}
-        onClick={() => setIsSidebarOpen(false)}
-      ></div>
-
       <header
-        id="header-sticky"
-        className={`header-1 ${isSticky ? "sticky" : ""}`}
+        className={`tw-fixed tw-top-0 tw-left-0 tw-w-full tw-z-[9998] tw-transition-all tw-duration-300 ${
+          isSticky
+            ? "tw-py-4 tw-bg-black/50 tw-backdrop-blur-lg tw-shadow-lg"
+            : "tw-py-6 tw-bg-black/30 lg:tw-bg-transparent"
+        }`}
       >
         <div className="container-fluid">
-          <div className="mega-menu-wrapper">
-            <div className="header-main">
-              <div className="header-left">
-                <div className="logo">
-                  <Link to="/" className="header-logo">
-                    <img
-                      src="/assets/img/logo/header.png"
-                      alt="header-logo"
-                      style={{ width: "184px", height: "68px" }}
-                    />
-                  </Link>
-                </div>
-                <div className="mean__menu-wrapper">
-                  <div className="main-menu">
-                    <NavLinks closeMenu={() => {}} />
-                  </div>
-                </div>
-              </div>
+          <div className="tw-flex tw-items-center tw-justify-between">
+            {/* --- Logo --- */}
+            <div className="logo">
+              <Link to="/" className="header-logo">
+                <img
+                  src="/assets/img/logo/header.png"
+                  alt="header-logo"
+                  style={{ width: "184px", height: "auto" }}
+                />
+              </Link>
+            </div>
 
-              {/* top-right section */}
-              <div className="header-right d-flex justify-content-end align-items-center">
-                <Link to="/appointment" className="theme-btn contact-btn">
-                  <FaEnvelope />
-                  <span>Book Appointment</span>
-                </Link>
+            {/* --- Desktop Navigation --- */}
+            <div className="tw-absolute tw-left-1/2 -tw-translate-x-1/2">
+              <DesktopNav />
+            </div>
 
-                {/* Icon for mobile */}
-                <div className="header__hamburger d-xl-block my-auto">
-                  <div
-                    className="sidebar__toggle"
-                    onClick={() => setIsSidebarOpen(true)}
+            {/* --- Right Side --- */}
+            <div className="tw-flex tw-items-center tw-gap-6 lg:tw-mr-6">
+              {/* Hidden on Mobile */}
+              <Link
+                to="/appointment"
+                className="theme-btn contact-btn !tw-hidden lg:!tw-inline-flex lg:tw-items-center lg:tw-gap-2.5"
+              >
+                <Mail size={18} />
+                <span>Book Appointment</span>
+              </Link>
+
+              {/* Hamburger Button */}
+              <button
+                onClick={toggleMobileMenu}
+                className="tw-z-[10000] tw-text-white lg:tw-hidden"
+                aria-label="Toggle menu"
+              >
+                <AnimatePresence initial={false} mode="wait">
+                  <motion.div
+                    key={isMobileMenuOpen ? "x" : "menu"}
+                    initial={{ rotate: -45, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 45, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    <i className="fas fa-bars"></i>
-                  </div>
-                </div>
-              </div>
+                    {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                  </motion.div>
+                </AnimatePresence>
+              </button>
             </div>
           </div>
         </div>
       </header>
+
+      {/* --- Mobile Menu --- */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <MobileNav closeMenu={() => setIsMobileMenuOpen(false)} />
+        )}
+      </AnimatePresence>
     </>
   );
 }

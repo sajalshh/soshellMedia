@@ -1,10 +1,11 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+module.exports = {
+  prefix: "tw-", // Keep the prefix, it's still essential!
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {},
   },
-  // ADD THIS SECTION TO DISABLE THE RESET
+  // Add this block to disable the global style reset
   corePlugins: {
     preflight: false,
   },
