@@ -99,7 +99,7 @@ export default function ContactPage() {
                       href="mailto:info@soshellmedia.com"
                       className="tw-text-gray-400 hover:tw-text-[var(--tp-theme-primary)]"
                     >
-                      info@soshellmedia.com
+                      info@soshellmedia.co
                     </a>
                   </div>
                 </div>
