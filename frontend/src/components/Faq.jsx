@@ -34,7 +34,7 @@ export default function Faq() {
                     <img src="/assets/img/star.png" alt="img" /> FAQs
                   </h6>
                   <h2>
-                    Got Questions?
+                    Got Questions? <br></br>
                     <span>
                       We’ve Got <b>Answers.</b>
                     </span>

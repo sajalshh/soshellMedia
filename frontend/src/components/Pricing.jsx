@@ -220,7 +220,7 @@ export default function PricingPage() {
                     ))}
                   </ul>
                   <div className="pricing-button">
-                    <a href="pricing.html" className="theme-btn">
+                    <a href="/appointment" className="theme-btn">
                       Start Now{" "}
                       <ArrowRight className="tw-inline tw-ml-1" size={16} />
                     </a>

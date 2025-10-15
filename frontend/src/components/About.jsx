@@ -56,16 +56,16 @@ export default function About() {
         <div className="section-title ml-200 text-center the-real">
           <Fade direction="up" triggerOnce>
             <h6>
-              <img src="/assets/img/star.png" alt="img" /> We Understand
+              <img src="/assets/img/star.png" alt="img" /> Process
             </h6>
           </Fade>
           <Fade direction="up" delay={300} triggerOnce>
             <h2>
               <div className="the-real">
-                The Real <span className="text-neon struggles">Struggles</span>
+                Create <span className="text-neon struggles">More</span>
               </div>
               <div>
-                You <span className="text-neon">Face</span>
+                With less <span className="text-neon">Efforts</span>
               </div>
             </h2>
           </Fade>
