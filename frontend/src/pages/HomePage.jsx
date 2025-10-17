@@ -24,7 +24,7 @@ export default function HomePage() {
       <StickyCardScroller />
       <Projects />
       <WorkProcess />
-      <Pricing />
+      {/* <Pricing /> */}
       <Faq />
       <Message />
     </>

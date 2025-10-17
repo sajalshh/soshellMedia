@@ -1,10 +1,9 @@
-// src/pages/ServicePage.jsx
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
 import SeoHelmet from "../components/SeoHelmet";
 import api from "../api/axiosConfig";
+import Pricing from "../components/Pricing";
 
 export default function ServicePage() {
   const [pageContent, setPageContent] = useState(null);
@@ -14,7 +13,6 @@ export default function ServicePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch both sets of data concurrently
         const [contentRes, servicesRes] = await Promise.all([
           api.get("/services/content"),
           api.get("/services/cards"),
@@ -51,7 +49,6 @@ export default function ServicePage() {
             </Fade>
             <Fade direction="up" delay={300} triggerOnce>
               <h1>
-                {/* DYNAMIC CONTENT */}
                 <span
                   dangerouslySetInnerHTML={{
                     __html:
@@ -66,7 +63,6 @@ export default function ServicePage() {
           </div>
           <div className="breadcrumb-description">
             <Fade direction="up" delay={500} triggerOnce>
-              {/* DYNAMIC CONTENT */}
               <p>{pageContent?.breadcrumbDescription}</p>
             </Fade>
           </div>
@@ -87,7 +83,6 @@ export default function ServicePage() {
             </Fade>
             <Fade direction="up" delay={300} triggerOnce>
               <h2>
-                {/* DYNAMIC CONTENT */}
                 {pageContent?.sectionTitle} <br />
                 <span>
                   {pageContent?.sectionSubtitle
@@ -105,12 +100,11 @@ export default function ServicePage() {
             </Fade>
           </div>
           <div className="row">
-            {/* DYNAMICALLY MAPPED SERVICES */}
             {services.map((service, index) => (
               <div
                 key={service.slug}
                 className="col-lg-6 col-md-12 wow fadeInUp"
-                data-wow-delay={`${(index * 0.2).toFixed(1)}s`} // Dynamic delay
+                data-wow-delay={`${(index * 0.2).toFixed(1)}s`}
               >
                 <div className="service-box-items">
                   <div className="service-image">
@@ -135,10 +129,8 @@ export default function ServicePage() {
         </div>
       </section>
 
-      {/* CTA Section (unchanged) */}
-      <div className="cta-section-4 fix">
-        {/* ... your existing CTA code ... */}
-      </div>
+      {/* 2. RENDER the PricingPage component at the end */}
+      <Pricing />
     </>
   );
 }

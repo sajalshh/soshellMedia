@@ -1,27 +1,9 @@
-import React, { useState } from "react";
-import { ArrowRight } from "lucide-react"; // Lightweight icon for the button
+import React, { useState, useEffect } from "react";
+import { ArrowRight } from "lucide-react";
+import api from "../api/axiosConfig"; // Import your API instance
 
-// A custom Checkmark component styled to match your theme's primary color
-const Checkmark = () => (
-  <svg
-    width="20"
-    height="15"
-    viewBox="0 0 20 15"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M18.5 1.5L7 13L1.5 7.5"
-      stroke="var(--tp-theme-primary)"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-// --- Data for the pricing plans (no changes here) ---
-const monthlyPlans = [
+// --- A. Fallback Data ---
+const fallbackMonthly = [
   {
     name: "Standard",
     price: "$25",
@@ -75,7 +57,7 @@ const monthlyPlans = [
     delay: ".8s",
   },
 ];
-const annualPlans = [
+const fallbackAnnual = [
   {
     name: "Standard",
     price: "$250",
@@ -130,15 +112,67 @@ const annualPlans = [
   },
 ];
 
-// --- The Main Pricing Page Component ---
+// --- B. Components (Checkmark, etc.) ---
+const Checkmark = () => (
+  <svg
+    width="20"
+    height="15"
+    viewBox="0 0 20 15"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M18.5 1.5L7 13L1.5 7.5"
+      stroke="var(--tp-theme-primary)"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+// --- C. Main Pricing Page Component ---
 export default function PricingPage() {
+  // ✅ Initialize state with the fallback data
+  const [monthlyPlans, setMonthlyPlans] = useState(fallbackMonthly);
+  const [annualPlans, setAnnualPlans] = useState(fallbackAnnual);
+  const [loading, setLoading] = useState(true);
+
+  // ✅ Fetch dynamic data from the API
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const response = await api.get("/pricing");
+        const fetchedPlans = response.data.data;
+
+        // Only update state if the API returns actual data
+        if (fetchedPlans && fetchedPlans.length > 0) {
+          setMonthlyPlans(
+            fetchedPlans.filter((p) => p.billingCycle === "monthly"),
+          );
+          setAnnualPlans(
+            fetchedPlans.filter((p) => p.billingCycle === "annual"),
+          );
+        }
+      } catch (error) {
+        console.error(
+          "Failed to fetch pricing plans, using fallback data.",
+          error,
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPlans();
+  }, []);
+
   const [billingCycle, setBillingCycle] = useState("monthly");
   const plans = billingCycle === "monthly" ? monthlyPlans : annualPlans;
 
   return (
     <section className="pricing-section fix section-padding pt-0">
       <div className="container">
-        {/* === HEADING (no changes) === */}
+        {/* === HEADING === */}
         <div className="section-title-area">
           <div className="section-title ml-200">
             <h6 className="wow fadeInUp">
@@ -151,8 +185,6 @@ export default function PricingPage() {
               </span>
             </h2>
           </div>
-
-          {/* === TOGGLE (no changes) === */}
           <div className="tw-p-1 tw-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-[rgba(207,208,212,0.25)]">
             <button
               onClick={() => setBillingCycle("monthly")}
@@ -180,54 +212,55 @@ export default function PricingPage() {
         {/* === PRICING CARDS === */}
         <div className="tw-mt-12">
           <div className="row">
-            {plans.map((plan) => (
-              <div
-                key={plan.name}
-                className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 wow fadeInUp"
-                data-wow-delay={plan.delay}
-              >
-                {/* Add relative and overflow-hidden for the ribbon effect */}
+            {loading ? (
+              <p>Loading plans...</p>
+            ) : (
+              plans.map((plan, index) => (
                 <div
-                  className={`pricing-box-items tw-relative tw-overflow-hidden tw-transition-all tw-duration-300 hover:-tw-translate-y-2 hover:tw-shadow-lg ${
-                    plan.highlighted
-                      ? "tw-border-2 tw-border-[var(--tp-theme-primary)]"
-                      : ""
-                  }`}
+                  key={plan.name || index}
+                  className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 wow fadeInUp"
+                  data-wow-delay={plan.delay || `${index * 0.2 + 0.2}s`}
                 >
-                  {/* ✨ New: Corner Ribbon for Highlighted Plan */}
-                  {plan.highlighted && (
-                    <div className="tw-absolute tw-top-[25px] tw-right-[-45px] tw-w-48 tw-rotate-45 tw-bg-[var(--tp-theme-primary)] tw-py-2 tw-text-center tw-shadow-md">
-                      <span className="tw-text-sm tw-font-bold tw-uppercase tw-text-black">
-                        Most Popular
-                      </span>
+                  <div
+                    className={`pricing-box-items tw-relative tw-overflow-hidden tw-transition-all tw-duration-300 hover:-tw-translate-y-2 hover:tw-shadow-lg ${
+                      plan.highlighted
+                        ? "tw-border-2 tw-border-[var(--tp-theme-primary)]"
+                        : ""
+                    }`}
+                  >
+                    {plan.highlighted && (
+                      <div className="tw-absolute tw-top-[25px] tw-right-[-45px] tw-w-48 tw-rotate-45 tw-bg-[var(--tp-theme-primary)] tw-py-2 tw-text-center tw-shadow-md">
+                        <span className="tw-text-sm tw-font-bold tw-uppercase tw-text-black">
+                          Most Popular
+                        </span>
+                      </div>
+                    )}
+                    <div className="icon">
+                      <img src="/assets/img/icon/02.svg" alt="img" />
                     </div>
-                  )}
-
-                  <div className="icon">
-                    <img src="/assets/img/icon/02.svg" alt="img" />
-                  </div>
-                  <div className="pricing-header">
-                    <h3>{plan.name}</h3>
-                    <p>{plan.description}</p>
-                    <h2>{plan.price}</h2>
-                  </div>
-                  <ul className="pricing-list">
-                    {plan.features.map((feature, index) => (
-                      <li key={index}>
-                        <Checkmark />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="pricing-button">
-                    <a href="/appointment" className="theme-btn">
-                      Start Now{" "}
-                      <ArrowRight className="tw-inline tw-ml-1" size={16} />
-                    </a>
+                    <div className="pricing-header">
+                      <h3>{plan.name}</h3>
+                      <p>{plan.description}</p>
+                      <h2>{plan.price}</h2>
+                    </div>
+                    <ul className="pricing-list">
+                      {plan.features.map((feature, idx) => (
+                        <li key={idx}>
+                          <Checkmark />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="pricing-button">
+                      <a href="/appointment" className="theme-btn">
+                        Start Now{" "}
+                        <ArrowRight className="tw-inline tw-ml-1" size={16} />
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </div>

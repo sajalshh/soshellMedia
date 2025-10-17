@@ -1,126 +1,225 @@
-import React, { useState, useEffect } from "react";
-import { Fade } from "react-awesome-reveal";
-import SeoHelmet from "../components/SeoHelmet";
-import api from "../api/axiosConfig";
+import React, { useState } from "react";
+import { ArrowRight } from "lucide-react";
 
-// REMOVE the hardcoded filters array
-// const filters = ["All", "Creative", "Marketing", "Development"];
+const Checkmark = () => (
+  <svg
+    width="20"
+    height="15"
+    viewBox="0 0 20 15"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M18.5 1.5L7 13L1.5 7.5"
+      stroke="var(--tp-theme-primary)"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
-export default function ProjectPage() {
-  const [allProjects, setAllProjects] = useState([]);
-  const [filteredProjects, setFilteredProjects] = useState([]);
-  const [categories, setCategories] = useState([]); // <-- ADD CATEGORIES STATE
-  const [activeFilter, setActiveFilter] = useState("All");
-  const [loading, setLoading] = useState(true);
+const monthlyPlans = [
+  {
+    name: "Standard",
+    price: "$25",
+    description: "Ideal for personal project",
+    features: [
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+      "Discord access",
+    ],
+    highlighted: false,
+    delay: ".2s",
+  },
+  {
+    name: "Professional",
+    price: "$39",
+    description: "Ideal for personal project",
+    features: [
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+      "Discord access",
+    ],
+    highlighted: false,
+    delay: ".4s",
+  },
+  {
+    name: "Business",
+    price: "$79",
+    description: "Ideal for personal project",
+    features: [
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+      "Discord access",
+    ],
+    highlighted: true,
+    delay: ".6s",
+  },
+  {
+    name: "Enterprise",
+    price: "$149",
+    description: "Ideal for personal project",
+    features: [
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+      "Discord access",
+    ],
+    highlighted: false,
+    delay: ".8s",
+  },
+];
+const annualPlans = [
+  {
+    name: "Standard",
+    price: "$250",
+    description: "Save $50 a year",
+    features: [
+      "2 months free",
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+    ],
+    highlighted: false,
+    delay: ".2s",
+  },
+  {
+    name: "Professional",
+    price: "$390",
+    description: "Save $78 a year",
+    features: [
+      "2 months free",
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+    ],
+    highlighted: false,
+    delay: ".4s",
+  },
+  {
+    name: "Business",
+    price: "$790",
+    description: "Save $158 a year",
+    features: [
+      "2 months free",
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+    ],
+    highlighted: true,
+    delay: ".6s",
+  },
+  {
+    name: "Enterprise",
+    price: "$1490",
+    description: "Save $298 a year",
+    features: [
+      "2 months free",
+      "Access AI tool",
+      "Exclusive feature",
+      "24/7 support",
+    ],
+    highlighted: false,
+    delay: ".8s",
+  },
+];
 
-  useEffect(() => {
-    const fetchPortfolioData = async () => {
-      setLoading(true);
-      try {
-        // Fetch both projects and categories
-        const [projectsResponse, categoriesResponse] = await Promise.all([
-          api.get("/portfolio"),
-          api.get("/categories"),
-        ]);
-
-        setAllProjects(projectsResponse.data.data);
-        setFilteredProjects(projectsResponse.data.data);
-        setCategories(categoriesResponse.data.data);
-      } catch (error) {
-        console.error("Failed to fetch portfolio data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPortfolioData();
-  }, []);
-
-  useEffect(() => {
-    if (activeFilter === "All") {
-      setFilteredProjects(allProjects);
-    } else {
-      // --- UPDATE FILTERING LOGIC ---
-      const newProjects = allProjects.filter(
-        (project) => project.category?.name === activeFilter,
-      );
-      setFilteredProjects(newProjects);
-    }
-  }, [activeFilter, allProjects]);
+export default function PricingPage() {
+  const [billingCycle, setBillingCycle] = useState("monthly");
+  const plans = billingCycle === "monthly" ? monthlyPlans : annualPlans;
 
   return (
-    <>
-      {/* ... SeoHelmet and Breadcrumb ... */}
-
-      {/* Portfolio Section */}
-      <section className="portfolio-section section-padding section-bg">
-        <div className="container">
-          {/* Filter Navigation */}
-          <ul className="nav">
-            <Fade direction="up" cascade damping={0.1} triggerOnce>
-              {/* --- DYNAMICALLY RENDER 'ALL' FILTER --- */}
-              <li key="All" className="nav-item">
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setActiveFilter("All");
-                  }}
-                  className={`nav-link ${
-                    activeFilter === "All" ? "active" : ""
-                  }`}
-                >
-                  All
-                </a>
-              </li>
-              {/* --- DYNAMICALLY RENDER CATEGORY FILTERS --- */}
-              {categories.map((category) => (
-                <li key={category._id} className="nav-item">
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setActiveFilter(category.name);
-                    }}
-                    className={`nav-link ${
-                      activeFilter === category.name ? "active" : ""
-                    }`}
-                  >
-                    {category.name}
-                  </a>
-                </li>
-              ))}
-            </Fade>
-          </ul>
-
-          {/* Video Grid */}
-          <div className="tab-content">
-            <div className="tab-pane fade show active">
-              <div className="row">
-                {loading ? (
-                  <p>Loading portfolio...</p>
-                ) : (
-                  filteredProjects.map((project, index) => (
-                    <div key={project._id} className="col-lg-4 col-md-6 col-12">
-                      <Fade direction="up" delay={index * 100} triggerOnce>
-                        <div className="portfolio-video-card">
-                          {/* ... iframe ... */}
-                          <div className="portfolio-video-content">
-                            <h6>
-                              {/* --- UPDATE CATEGORY DISPLAY --- */}
-                              <span>//</span> {project.category?.name}
-                            </h6>
-                            <h3>{project.title}</h3>
-                          </div>
-                        </div>
-                      </Fade>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
+    <section className="pricing-section fix section-padding pt-0">
+      <div className="container">
+        <div className="section-title-area">
+          <div className="section-title ml-200">
+            <h6 className="wow fadeInUp">
+              <img src="/assets/img/star.png" alt="img" /> popular package
+            </h6>
+            <h2 className="wow fadeInUp" data-wow-delay=".3s">
+              Competitive package <br />
+              <span>
+                best AI <b>expertise</b>
+              </span>
+            </h2>
+          </div>
+          <div className="tw-p-1 tw-flex tw-items-center tw-gap-2 tw-rounded-full tw-border tw-border-[rgba(207,208,212,0.25)]">
+            <button
+              onClick={() => setBillingCycle("monthly")}
+              className={`tw-px-5 tw-py-2 tw-rounded-full tw-font-semibold tw-transition-colors tw-duration-300 ${
+                billingCycle === "monthly"
+                  ? "tw-bg-[#EFFB53] tw-text-black"
+                  : "tw-text-[#CDCDCD] hover:tw-text-white"
+              }`}
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setBillingCycle("annual")}
+              className={`tw-px-5 tw-py-2 tw-rounded-full tw-font-semibold tw-transition-colors tw-duration-300 ${
+                billingCycle === "annual"
+                  ? "tw-bg-[#EFFB53] tw-text-black"
+                  : "tw-text-[#CDCDCD] hover:tw-text-white"
+              }`}
+            >
+              Annual
+            </button>
           </div>
         </div>
-      </section>
-    </>
+        <div className="tw-mt-12">
+          <div className="row">
+            {plans.map((plan) => (
+              <div
+                key={plan.name}
+                className="col-xxl-3 col-xl-4 col-lg-4 col-md-6 wow fadeInUp"
+                data-wow-delay={plan.delay}
+              >
+                <div
+                  className={`pricing-box-items tw-relative tw-overflow-hidden tw-transition-all tw-duration-300 hover:-tw-translate-y-2 hover:tw-shadow-lg ${
+                    plan.highlighted
+                      ? "tw-border-2 tw-border-[var(--tp-theme-primary)]"
+                      : ""
+                  }`}
+                >
+                  {plan.highlighted && (
+                    <div className="tw-absolute tw-top-[25px] tw-right-[-45px] tw-w-48 tw-rotate-45 tw-bg-[var(--tp-theme-primary)] tw-py-2 tw-text-center tw-shadow-md">
+                      <span className="tw-text-sm tw-font-bold tw-uppercase tw-text-black">
+                        Most Popular
+                      </span>
+                    </div>
+                  )}
+                  <div className="icon">
+                    <img src="/assets/img/icon/02.svg" alt="img" />
+                  </div>
+                  <div className="pricing-header">
+                    <h3>{plan.name}</h3>
+                    <p>{plan.description}</p>
+                    <h2>{plan.price}</h2>
+                  </div>
+                  <ul className="pricing-list">
+                    {plan.features.map((feature, index) => (
+                      <li key={index}>
+                        <Checkmark />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="pricing-button">
+                    <a href="/appointment" className="theme-btn">
+                      Start Now{" "}
+                      <ArrowRight className="tw-inline tw-ml-1" size={16} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

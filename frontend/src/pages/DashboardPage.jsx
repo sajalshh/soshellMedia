@@ -15,6 +15,9 @@ import ManagePortfolio from "../components/dashboard/ManagePortfolio";
 import ManagePortfolioCategories from "../components/dashboard/ManagePortfolioCategories";
 import ManageServices from "../components/dashboard/ManageServices";
 import ManageCaseStudies from "../components/dashboard/ManageCaseStudies";
+import ManageWorkProcess from "../components/dashboard/ManageWorkProcess";
+import ManagePricing from "../components/dashboard/ManagePricing";
+
 
 const DashboardPage = () => {
   const { logout } = useAuth();
@@ -42,10 +45,14 @@ const DashboardPage = () => {
             <ManageAboutVideo /> <ManageAboutTabs />{" "}
           </>
         );
+      case "workProcess":
+        return <ManageWorkProcess />;
       case "serviceCards":
         return <ManageServiceCards />;
       case "projects":
         return <ManageProjects />;
+      case "pricing":
+        return <ManagePricing />;
       case "servicesPage":
         return <ManageServices />;
       case "team":
@@ -113,6 +120,17 @@ const DashboardPage = () => {
                 </li>
                 <li className="nav-item">
                   <a
+                    href="#workProcess"
+                    className={`nav-link ${
+                      activeTab === "workProcess" ? "active" : ""
+                    }`}
+                    onClick={() => setActiveTab("workProcess")}
+                  >
+                    Work Process Steps
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
                     href="#serviceCards"
                     className={`nav-link ${
                       activeTab === "serviceCards" ? "active" : ""
@@ -131,6 +149,17 @@ const DashboardPage = () => {
                     onClick={() => setActiveTab("projects")}
                   >
                     Projects
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    href="#pricing"
+                    className={`nav-link ${
+                      activeTab === "pricing" ? "active" : ""
+                    }`}
+                    onClick={() => setActiveTab("pricing")}
+                  >
+                    Pricing Page
                   </a>
                 </li>
 

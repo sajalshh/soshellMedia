@@ -56,6 +56,8 @@ app.use("/api/appointments", appointmentRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/casestudies", caseStudyRoutes);
+app.use("/api/work-process", require("./routes/workProcessRoutes"));
+app.use("/api/pricing", require("./routes/pricingRoutes"));
 // Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
