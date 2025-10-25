@@ -52,7 +52,7 @@ export default function About() {
         <div className="section-title ml-200 text-center the-real">
           <Fade direction="up" triggerOnce>
             <h6>
-              <img src="/assets/img/star.png" alt="img" /> Process
+              <img src="/assets/img/star.png" alt="img" />The Process
             </h6>
           </Fade>
           <Fade direction="up" delay={300} triggerOnce>
@@ -133,7 +133,7 @@ export default function About() {
             </div>
           </div>
           <div className="tw-flex tw-items-center tw-justify-center">
-            <div className="tw-bg-black/20 tw-p-3 tw-rounded-2xl tw-border tw-border-white/10 tw-w-full tw-max-w-xs">
+            <div className=" tw-p-3 tw-rounded-2xl tw-w-full tw-max-w-[230px]">
               {videoUrl && (
                 <div className="tw-aspect-[9/16] tw-rounded-lg tw-overflow-hidden">
                   <iframe

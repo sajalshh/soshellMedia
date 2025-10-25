@@ -2,12 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import api from "../api/axiosConfig";
 
-// This component remains the same
-const ProcessStep = ({ imageUrl, title, description, scale, borderColor }) => (
+// --- CHANGE 1: ProcessStep component is modified ---
+const ProcessStep = ({ imageUrl, title, description, scale }) => (
   <div className="tw-text-center tw-flex tw-flex-col tw-items-center">
+    {/* This motion.div no longer has the bg, border, or borderColor style */}
     <motion.div
-      className="tw-relative tw-mb-6 tw-w-32 tw-h-32 tw-rounded-full tw-bg-[#151518] tw-flex tw-items-center tw-justify-center tw-border-4 tw-overflow-hidden"
-      style={{ scale, borderColor }}
+      className="tw-relative tw-mb-6 tw-w-45 tw-h-45 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-overflow-hidden"
+      style={{ scale }}
     >
       <img
         src={imageUrl}
@@ -15,15 +16,15 @@ const ProcessStep = ({ imageUrl, title, description, scale, borderColor }) => (
         className="tw-w-full tw-h-full tw-object-cover"
       />
     </motion.div>
-    <div className="tw-bg-[#151518] tw-relative tw-p-2">
+    {/* This div is now styled as a separate, rounded block */}
+    <div className="tw-bg-[#151518] tw-relative tw-p-4 tw-rounded-lg tw-w-full tw-max-w-[220px]">
       <h3 className="tw-text-xl tw-font-bold tw-text-white mb-2">{title}</h3>
       <p className="tw-text-[#CDCDCD] tw-text-sm">{description}</p>
     </div>
   </div>
 );
 
-// --- CHANGE 1: Create a new component for the animated content ---
-// This component will only render when data is ready.
+// --- CHANGE 2: AnimatedWorkProcess is modified to remove borderColor logic ---
 const AnimatedWorkProcess = ({ processData }) => {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -31,31 +32,22 @@ const AnimatedWorkProcess = ({ processData }) => {
     offset: ["start end", "end start"],
   });
 
-  // All the animation logic is now safely inside this component
   const pathLength = useTransform(scrollYProgress, [0.1, 0.7], [0, 1]);
   const themeColor = "var(--tp-theme-primary)";
-  const inactiveColor = "rgba(207, 208, 212, 0.1)";
+  // const inactiveColor = "rgba(207, 208, 212, 0.1)"; // No longer needed
   const activationPoints = [0.01, 0.2, 0.4, 0.6, 0.8];
 
+  // The 'borderColor' transform has been removed
   const animations = processData.map((_, index) => {
     const start = activationPoints[index];
     const end = start + 0.1;
     return {
-      borderColor: useTransform(
-        pathLength,
-        [start - 0.01, start],
-        [inactiveColor, themeColor],
-      ),
       scale: useTransform(pathLength, [start - 0.01, start, end], [1, 1.1, 1]),
     };
   });
 
+  // The 'borderColor' transform has been removed here as well
   if (animations.length > 0) {
-    animations[0].borderColor = useTransform(
-      pathLength,
-      [0, 0.01],
-      [themeColor, themeColor],
-    );
     animations[0].scale = useTransform(
       pathLength,
       [0, 0.01, 0.1],
@@ -65,20 +57,20 @@ const AnimatedWorkProcess = ({ processData }) => {
 
   return (
     <section
-      ref={targetRef} // The ref is now guaranteed to exist when this renders
+      ref={targetRef}
       className="work-process-section fix section-padding-2 bg-cover"
       style={{ backgroundImage: "url('assets/img/work-process-bg.jpg')" }}
     >
       <div className="container">
         <div className="section-title text-center">
           <img src="/assets/img/title-icon.png" alt="img" className="mb-3" />
-          <h2 className="mb-3">
-            Watch Your <b>Brand</b> Scale
+          <h2 className="mb-2">
+            Our Core <b>Services</b>
           </h2>
-          <p>Stories That Move Your Audience</p>
+          <p>Video Production That Powers Growth</p>
         </div>
 
-        <div className="tw-relative tw-mt-24 tw-min-h-[400px]">
+        <div className="tw-relative tw-mt-5 tw-min-h-[400px]">
           {/* SVG paths remain the same */}
           <svg
             className="tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-full tw-hidden lg:tw-block tw-z-0"
@@ -162,7 +154,7 @@ const AnimatedWorkProcess = ({ processData }) => {
                   imageUrl={item.image}
                   title={item.title}
                   description={item.description}
-                  {...animations[index]}
+                  {...animations[index]} // This now only passes 'scale'
                 />
               </div>
             ))}
@@ -173,7 +165,7 @@ const AnimatedWorkProcess = ({ processData }) => {
   );
 };
 
-// --- CHANGE 2: The main export component now ONLY handles data fetching and loading states ---
+// --- This component remains the same ---
 export default function WorkProcess() {
   const [processData, setProcessData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -201,6 +193,5 @@ export default function WorkProcess() {
     );
   }
 
-  // Once loading is false, render the animated component with the fetched data
   return <AnimatedWorkProcess processData={processData} />;
 }

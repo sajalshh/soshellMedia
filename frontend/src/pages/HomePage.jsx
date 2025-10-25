@@ -21,9 +21,10 @@ export default function HomePage() {
       <Counter1 />
       <Showcase />
       <About />
+      <WorkProcess />
       <StickyCardScroller />
       <Projects />
-      <WorkProcess />
+
       {/* <Pricing /> */}
       <Faq />
       <Message />

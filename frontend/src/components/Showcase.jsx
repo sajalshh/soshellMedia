@@ -41,12 +41,12 @@ export default function Showcase() {
         <div className="section-title text-center mx-auto">
           <Fade direction="up" triggerOnce>
             <h6>
-              <img src="/assets/img/star.png" alt="img" /> OUR LATEST WORK
+              <img src="/assets/img/star.png" alt="img" /> Trusted by the Best
             </h6>
           </Fade>
           <Fade direction="up" delay={200} triggerOnce>
             <h2>
-              Explore Our Project <b>Showcase</b>
+              Global Clients who <b>trusts us</b>
             </h2>
           </Fade>
         </div>

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 
+// Import the images from their new location
+import faqImage1 from "../assets/faq/faq1.png";
+import faqImage2 from "../assets/faq/faq2.png";
+
 export default function Faq() {
-
   const [openItem, setOpenItem] = useState("faq1");
-
 
   const handleItemClick = (itemId) => {
     setOpenItem(openItem === itemId ? null : itemId);
@@ -12,20 +14,40 @@ export default function Faq() {
   return (
     <section className="faq-section fix section-padding">
       <div className="color-bg">
+        {/* Make sure this image path is correct if it's also in assets */}
         <img src="/assets/img/faq/color-bg.png" alt="img" />
       </div>
       <div className="container">
         <div className="faq-wrapper">
           <div className="row g-4">
             <div className="col-lg-6">
-              <div className="faq-image-items">
-                <div className="faq-image wow fadeInUp" data-wow-delay=".3s">
-                  <img src="/assets/img/faq/01.jpg" alt="img" />
+              {/* --- CHANGES START HERE --- */}
+              {/* Added flex, alignment to bottom, and gap for spacing */}
+              <div className="faq-image-items tw-flex tw-items-end tw-gap-6 tw-justify-center lg:tw-justify-start">
+                {/* First image container: smaller size */}
+                <div
+                  className="wow fadeInUp tw-rounded-xl tw-overflow-hidden tw-w-[270px] tw-h-[520px]" // Set specific width and height
+                  data-wow-delay=".3s"
+                >
+                  <img
+                    src={faqImage1}
+                    alt="faq image 1"
+                    className="tw-w-full tw-h-full tw-object-cover" // Ensure image fills its container
+                  />
                 </div>
-                <div className="faq-image wow fadeInUp" data-wow-delay=".5s">
-                  <img src="/assets/img/faq/02.jpg" alt="img" />
+                {/* Second image container: larger size */}
+                <div
+                  className="wow fadeInUp tw-rounded-xl tw-overflow-hidden tw-w-[417px] tw-h-[690px]" // Set specific width and height
+                  data-wow-delay=".5s"
+                >
+                  <img
+                    src={faqImage2}
+                    alt="faq image 2"
+                    className="tw-w-full tw-h-full tw-object-cover" // Ensure image fills its container
+                  />
                 </div>
               </div>
+              {/* --- CHANGES END HERE --- */}
             </div>
             <div className="col-lg-6">
               <div className="faq-content">
