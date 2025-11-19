@@ -15,13 +15,21 @@ const ServiceCard = require("../models/ServiceCard");
 const Project = require("../models/Project");
 const AboutSectionContent = require("../models/AboutSectionContent");
 
-// --- VIDEO STORAGE CONFIGURATION (VPS CDN) ---
+// --- SMART STORAGE CONFIGURATION ---
+// This works on both VPS (CDN) and Localhost (Mac)
 const videoStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // The exact folder we created on your VPS
-    const uploadPath = "/var/www/soshell-cdn/videos";
+    let uploadPath;
 
-    // Create the folder if it doesn't exist (avoids crashes)
+    // 1. Check if we are on the VPS (Does the CDN folder exist?)
+    if (fs.existsSync("/var/www/soshell-cdn/videos")) {
+      uploadPath = "/var/www/soshell-cdn/videos";
+    } else {
+      // 2. If not (Localhost), save to a local folder so it doesn't crash
+      uploadPath = path.join(__dirname, "../uploads/videos");
+    }
+
+    // Create folder if missing
     if (!fs.existsSync(uploadPath)) {
       fs.mkdirSync(uploadPath, { recursive: true });
     }
@@ -29,13 +37,13 @@ const videoStorage = multer.diskStorage({
     cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
-    // Generate a unique name: hero-TIMESTAMP-RANDOM.mp4
+    // Generate unique name: hero-123456789.mp4
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     cb(null, "hero-" + uniqueSuffix + path.extname(file.originalname));
   },
 });
 
-// Only allow MP4 files
+// Only allow MP4/WebM
 const videoFilter = (req, file, cb) => {
   if (file.mimetype === "video/mp4" || file.mimetype === "video/webm") {
     cb(null, true);
@@ -52,8 +60,6 @@ const uploadVideo = multer({
 });
 
 // @desc    Get Hero section content
-// @route   GET /api/homepage/hero
-// @access  Public
 router.get("/hero", async (req, res) => {
   try {
     const heroContent = await HeroContent.findOne();
@@ -63,36 +69,47 @@ router.get("/hero", async (req, res) => {
   }
 });
 
-// @desc    Update Hero section content
+// @desc    Update Hero section content (Text + Video)
 // @route   PUT /api/homepage/hero
-// @access  Private (Client)
-router.put("/hero", protect, authorize("client"), async (req, res) => {
-  try {
-    let updateData = { ...req.body };
+router.put(
+  "/hero",
+  protect,
+  authorize("client"),
+  uploadVideo.single("heroVideo"), // <--- THIS WAS MISSING!
+  async (req, res) => {
+    try {
+      let updateData = { ...req.body };
 
-    if (req.file) {
-      // This constructs the URL: https://cdn.soshellmedia.co/videos/filename.mp4
-      const videoUrl = `https://cdn.soshellmedia.co/videos/${req.file.filename}`;
-      updateData.videoUrl = videoUrl;
+      if (req.file) {
+        // If on VPS, use CDN URL. If Local, use a fake localhost URL just for testing.
+        const baseUrl = fs.existsSync("/var/www/soshell-cdn/videos")
+          ? "https://cdn.soshellmedia.co/videos"
+          : "http://localhost:3001/uploads/videos";
+
+        updateData.videoUrl = `${baseUrl}/${req.file.filename}`;
+      }
+
+      const updatedHeroContent = await HeroContent.findOneAndUpdate(
+        {},
+        updateData,
+        {
+          new: true,
+          upsert: true,
+          runValidators: true,
+        },
+      );
+
+      res.status(200).json({ success: true, data: updatedHeroContent });
+    } catch (error) {
+      console.error("Hero Upload Error:", error);
+      res.status(500).json({ message: "Server Error", error: error.message });
     }
-    const updatedHeroContent = await HeroContent.findOneAndUpdate(
-      {},
-      updateData,
-      {
-        new: true,
-        upsert: true,
-        runValidators: true,
-      },
-    );
-    res.status(200).json({ success: true, data: updatedHeroContent });
-  } catch (error) {
-    console.error("Hero Upload Error:", error);
-    res.status(500).json({ message: "Server Error", error: error.message });
-  }
-});
+  },
+);
+
+// --- (The rest of your file remains exactly the same) ---
 
 // About tabs
-
 router.get("/about-tabs", async (req, res) => {
   try {
     const aboutTabs = await AboutTab.find();
@@ -102,9 +119,6 @@ router.get("/about-tabs", async (req, res) => {
   }
 });
 
-// @desc    Update an About Tab
-// @route   PUT /api/homepage/about-tabs/:id
-// @access  Private (Client)
 router.put(
   "/about-tabs/:id",
   protect,
@@ -114,10 +128,7 @@ router.put(
       const updatedTab = await AboutTab.findByIdAndUpdate(
         req.params.id,
         req.body,
-        {
-          new: true,
-          runValidators: true,
-        },
+        { new: true, runValidators: true },
       );
       if (!updatedTab) {
         return res.status(404).json({ message: "Tab content not found" });
@@ -129,11 +140,6 @@ router.put(
   },
 );
 
-// ... after the about-tabs PUT route ...
-
-// @desc    Get About Section content (the video URL)
-// @route   GET /api/homepage/about-section
-// @access  Public
 router.get("/about-section", async (req, res) => {
   try {
     const sectionContent = await AboutSectionContent.findOne();
@@ -143,9 +149,6 @@ router.get("/about-section", async (req, res) => {
   }
 });
 
-// @desc    Update About Section content
-// @route   PUT /api/homepage/about-section
-// @access  Private (Client)
 router.put("/about-section", protect, authorize("client"), async (req, res) => {
   try {
     const updatedContent = await AboutSectionContent.findOneAndUpdate(
@@ -153,7 +156,7 @@ router.put("/about-section", protect, authorize("client"), async (req, res) => {
       req.body,
       {
         new: true,
-        upsert: true, // Creates the document if it doesn't exist
+        upsert: true,
         runValidators: true,
       },
     );
@@ -163,7 +166,6 @@ router.put("/about-section", protect, authorize("client"), async (req, res) => {
   }
 });
 
-// --- SERVICE CARDS ROUTES ---
 router.get("/service-cards", async (req, res) => {
   try {
     const serviceCards = await ServiceCard.find().sort({ displayOrder: "asc" });
@@ -173,9 +175,6 @@ router.get("/service-cards", async (req, res) => {
   }
 });
 
-// @desc    Update a Service Card
-// @route   PUT /api/homepage/service-cards/:id
-// @access  Private (Client)
 router.put(
   "/service-cards/:id",
   protect,
@@ -183,12 +182,10 @@ router.put(
   upload.single("image"),
   async (req, res) => {
     try {
-      // Because the description array is stringified on the frontend, we need to parse it back
       const updateData = {
         ...req.body,
         description: JSON.parse(req.body.description),
       };
-
       if (req.file) {
         const b64 = Buffer.from(req.file.buffer).toString("base64");
         let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
@@ -197,16 +194,11 @@ router.put(
         });
         updateData.image = result.secure_url;
       }
-
       const updatedCard = await ServiceCard.findByIdAndUpdate(
         req.params.id,
         updateData,
-        {
-          new: true,
-          runValidators: true,
-        },
+        { new: true, runValidators: true },
       );
-
       if (!updatedCard) {
         return res.status(404).json({ message: "Service card not found" });
       }
@@ -218,11 +210,6 @@ router.put(
   },
 );
 
-// === PROJECTS ===
-
-// @desc    Get all Projects
-// @route   GET /api/homepage/projects
-// @access  Public
 router.get("/projects", async (req, res) => {
   try {
     const projects = await Project.find().sort({ displayOrder: "asc" });
@@ -232,9 +219,6 @@ router.get("/projects", async (req, res) => {
   }
 });
 
-// @desc    Add a new Project
-// @route   POST /api/homepage/projects
-// @access  Private (Client)
 router.post(
   "/projects",
   protect,
@@ -253,7 +237,6 @@ router.post(
       const result = await cloudinary.uploader.upload(dataURI, {
         folder: "projects",
       });
-
       const newProject = await Project.create({
         title,
         date,
@@ -269,9 +252,6 @@ router.post(
   },
 );
 
-// @desc    Update a Project
-// @route   PUT /api/homepage/projects/:id
-// @access  Private (Client)
 router.put(
   "/projects/:id",
   protect,
@@ -281,7 +261,6 @@ router.put(
     try {
       const { title, date, description, projectLink, displayOrder } = req.body;
       let image = req.body.image;
-
       if (req.file) {
         const b64 = Buffer.from(req.file.buffer).toString("base64");
         let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
@@ -290,13 +269,11 @@ router.put(
         });
         image = result.secure_url;
       }
-
       const updatedProject = await Project.findByIdAndUpdate(
         req.params.id,
         { title, date, description, projectLink, displayOrder, image },
         { new: true, runValidators: true },
       );
-
       if (!updatedProject) {
         return res.status(404).json({ message: "Project not found" });
       }
@@ -307,9 +284,6 @@ router.put(
   },
 );
 
-// @desc    Delete a Project
-// @route   DELETE /api/homepage/projects/:id
-// @access  Private (Client)
 router.delete(
   "/projects/:id",
   protect,
