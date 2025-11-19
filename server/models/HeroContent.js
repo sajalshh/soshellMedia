@@ -28,6 +28,10 @@ const HeroContentSchema = new mongoose.Schema({
     required: true,
     default: "/contact",
   },
+  videoUrl: {
+    type: String,
+    required: false, // It is optional
+  },
 });
 
 // We only need one document for the Hero content

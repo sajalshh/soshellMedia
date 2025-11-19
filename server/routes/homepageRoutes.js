@@ -1,8 +1,11 @@
 // server/routes/homepageRoutes.js
 
 const express = require("express");
+const path = require("path");
+const fs = require("fs");
+const multer = require("multer");
 const router = express.Router();
-const upload = require("../middleware/uploadMiddleware"); 
+const upload = require("../middleware/uploadMiddleware");
 const cloudinary = require("../config/cloudinary");
 
 const { protect, authorize } = require("../middleware/authMiddleware");
@@ -11,6 +14,42 @@ const AboutTab = require("../models/AboutTab");
 const ServiceCard = require("../models/ServiceCard");
 const Project = require("../models/Project");
 const AboutSectionContent = require("../models/AboutSectionContent");
+
+// --- VIDEO STORAGE CONFIGURATION (VPS CDN) ---
+const videoStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    // The exact folder we created on your VPS
+    const uploadPath = "/var/www/soshell-cdn/videos";
+
+    // Create the folder if it doesn't exist (avoids crashes)
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+
+    cb(null, uploadPath);
+  },
+  filename: function (req, file, cb) {
+    // Generate a unique name: hero-TIMESTAMP-RANDOM.mp4
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, "hero-" + uniqueSuffix + path.extname(file.originalname));
+  },
+});
+
+// Only allow MP4 files
+const videoFilter = (req, file, cb) => {
+  if (file.mimetype === "video/mp4" || file.mimetype === "video/webm") {
+    cb(null, true);
+  } else {
+    cb(new Error("Only MP4 or WebM video files are allowed!"), false);
+  }
+};
+
+// Initialize the uploader
+const uploadVideo = multer({
+  storage: videoStorage,
+  limits: { fileSize: 100 * 1024 * 1024 }, // 100MB limit
+  fileFilter: videoFilter,
+});
 
 // @desc    Get Hero section content
 // @route   GET /api/homepage/hero
@@ -29,29 +68,28 @@ router.get("/hero", async (req, res) => {
 // @access  Private (Client)
 router.put("/hero", protect, authorize("client"), async (req, res) => {
   try {
-    // Since there's only one hero document, we find and update it.
-    // The 'new: true' option returns the document after it has been updated.
+    let updateData = { ...req.body };
+
+    if (req.file) {
+      // This constructs the URL: https://cdn.soshellmedia.co/videos/filename.mp4
+      const videoUrl = `https://cdn.soshellmedia.co/videos/${req.file.filename}`;
+      updateData.videoUrl = videoUrl;
+    }
     const updatedHeroContent = await HeroContent.findOneAndUpdate(
       {},
-      req.body,
+      updateData,
       {
         new: true,
+        upsert: true,
         runValidators: true,
       },
     );
-
-    if (!updatedHeroContent) {
-      // If it doesn't exist for some reason, create it.
-      const newHeroContent = await HeroContent.create(req.body);
-      return res.status(201).json({ success: true, data: newHeroContent });
-    }
-
     res.status(200).json({ success: true, data: updatedHeroContent });
   } catch (error) {
-    res.status(500).json({ message: "Server Error" });
+    console.error("Hero Upload Error:", error);
+    res.status(500).json({ message: "Server Error", error: error.message });
   }
 });
-
 
 // About tabs
 
@@ -110,27 +148,29 @@ router.get("/about-section", async (req, res) => {
 // @access  Private (Client)
 router.put("/about-section", protect, authorize("client"), async (req, res) => {
   try {
-    const updatedContent = await AboutSectionContent.findOneAndUpdate({}, req.body, {
-      new: true,
-      upsert: true, // Creates the document if it doesn't exist
-      runValidators: true,
-    });
+    const updatedContent = await AboutSectionContent.findOneAndUpdate(
+      {},
+      req.body,
+      {
+        new: true,
+        upsert: true, // Creates the document if it doesn't exist
+        runValidators: true,
+      },
+    );
     res.status(200).json({ success: true, data: updatedContent });
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
   }
 });
 
-
-
 // --- SERVICE CARDS ROUTES ---
 router.get("/service-cards", async (req, res) => {
-    try {
-        const serviceCards = await ServiceCard.find().sort({ displayOrder: 'asc' });
-        res.status(200).json({ success: true, data: serviceCards });
-    } catch (error) {
-        res.status(500).json({ message: "Server Error" });
-    }
+  try {
+    const serviceCards = await ServiceCard.find().sort({ displayOrder: "asc" });
+    res.status(200).json({ success: true, data: serviceCards });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
 });
 
 // @desc    Update a Service Card
@@ -178,88 +218,114 @@ router.put(
   },
 );
 
-
 // === PROJECTS ===
 
 // @desc    Get all Projects
 // @route   GET /api/homepage/projects
 // @access  Public
 router.get("/projects", async (req, res) => {
-    try {
-        const projects = await Project.find().sort({ displayOrder: 'asc' });
-        res.status(200).json({ success: true, data: projects });
-    } catch (error) {
-        res.status(500).json({ message: "Server Error" });
-    }
+  try {
+    const projects = await Project.find().sort({ displayOrder: "asc" });
+    res.status(200).json({ success: true, data: projects });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
 });
 
 // @desc    Add a new Project
 // @route   POST /api/homepage/projects
 // @access  Private (Client)
-router.post("/projects", protect, authorize("client"), upload.single('image'), async (req, res) => {
+router.post(
+  "/projects",
+  protect,
+  authorize("client"),
+  upload.single("image"),
+  async (req, res) => {
     try {
-        const { title, date, description, projectLink, displayOrder } = req.body;
-        if (!req.file) {
-            return res.status(400).json({ message: 'Please upload a project image' });
-        }
-        const b64 = Buffer.from(req.file.buffer).toString("base64");
-        let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
-        const result = await cloudinary.uploader.upload(dataURI, { folder: "projects" });
+      const { title, date, description, projectLink, displayOrder } = req.body;
+      if (!req.file) {
+        return res
+          .status(400)
+          .json({ message: "Please upload a project image" });
+      }
+      const b64 = Buffer.from(req.file.buffer).toString("base64");
+      let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+      const result = await cloudinary.uploader.upload(dataURI, {
+        folder: "projects",
+      });
 
-        const newProject = await Project.create({
-            title, date, description, projectLink, displayOrder,
-            image: result.secure_url
-        });
-        res.status(201).json({ success: true, data: newProject });
+      const newProject = await Project.create({
+        title,
+        date,
+        description,
+        projectLink,
+        displayOrder,
+        image: result.secure_url,
+      });
+      res.status(201).json({ success: true, data: newProject });
     } catch (error) {
-        res.status(500).json({ message: "Server Error" });
+      res.status(500).json({ message: "Server Error" });
     }
-});
+  },
+);
 
 // @desc    Update a Project
 // @route   PUT /api/homepage/projects/:id
 // @access  Private (Client)
-router.put("/projects/:id", protect, authorize("client"), upload.single('image'), async (req, res) => {
+router.put(
+  "/projects/:id",
+  protect,
+  authorize("client"),
+  upload.single("image"),
+  async (req, res) => {
     try {
-        const { title, date, description, projectLink, displayOrder } = req.body;
-        let image = req.body.image;
+      const { title, date, description, projectLink, displayOrder } = req.body;
+      let image = req.body.image;
 
-        if (req.file) {
-            const b64 = Buffer.from(req.file.buffer).toString("base64");
-            let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
-            const result = await cloudinary.uploader.upload(dataURI, { folder: "projects" });
-            image = result.secure_url;
-        }
+      if (req.file) {
+        const b64 = Buffer.from(req.file.buffer).toString("base64");
+        let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+        const result = await cloudinary.uploader.upload(dataURI, {
+          folder: "projects",
+        });
+        image = result.secure_url;
+      }
 
-        const updatedProject = await Project.findByIdAndUpdate(
-            req.params.id,
-            { title, date, description, projectLink, displayOrder, image },
-            { new: true, runValidators: true }
-        );
+      const updatedProject = await Project.findByIdAndUpdate(
+        req.params.id,
+        { title, date, description, projectLink, displayOrder, image },
+        { new: true, runValidators: true },
+      );
 
-        if (!updatedProject) {
-            return res.status(404).json({ message: 'Project not found' });
-        }
-        res.status(200).json({ success: true, data: updatedProject });
+      if (!updatedProject) {
+        return res.status(404).json({ message: "Project not found" });
+      }
+      res.status(200).json({ success: true, data: updatedProject });
     } catch (error) {
-        res.status(500).json({ message: "Server Error" });
+      res.status(500).json({ message: "Server Error" });
     }
-});
+  },
+);
 
 // @desc    Delete a Project
 // @route   DELETE /api/homepage/projects/:id
 // @access  Private (Client)
-router.delete("/projects/:id", protect, authorize("client"), async (req, res) => {
+router.delete(
+  "/projects/:id",
+  protect,
+  authorize("client"),
+  async (req, res) => {
     try {
-        const project = await Project.findById(req.params.id);
-        if (!project) {
-            return res.status(404).json({ message: 'Project not found' });
-        }
-        await project.deleteOne();
-        res.status(200).json({ success: true, data: {} });
+      const project = await Project.findById(req.params.id);
+      if (!project) {
+        return res.status(404).json({ message: "Project not found" });
+      }
+      await project.deleteOne();
+      res.status(200).json({ success: true, data: {} });
     } catch (error) {
-        res.status(500).json({ message: "Server Error" });
+      res.status(500).json({ message: "Server Error" });
     }
-});
+  },
+);
 
 module.exports = router;

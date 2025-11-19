@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import usePrivateApi from "../../../hooks/usePrivateApi";
 
 const ManageHero = () => {
+  // State for text content
   const [heroContent, setHeroContent] = useState({
     headingLine1: "",
     headingLine2: "",
@@ -11,10 +12,16 @@ const ManageHero = () => {
     subheading: "",
     buttonText: "",
     buttonLink: "",
+    videoUrl: "", // Added videoUrl here to display current link
   });
+
+  // State for the new video file upload
+  const [videoFile, setVideoFile] = useState(null);
+
   const [saveState, setSaveState] = useState({ status: "idle", message: "" });
   const privateApi = usePrivateApi();
 
+  // 1. Fetch current data on load
   useEffect(() => {
     const fetchHeroContent = async () => {
       try {
@@ -32,6 +39,7 @@ const ManageHero = () => {
     fetchHeroContent();
   }, [privateApi]);
 
+  // 2. Clear messages after 4 seconds
   useEffect(() => {
     if (saveState.status === "success" || saveState.status === "error") {
       const timer = setTimeout(() => {
@@ -41,21 +49,52 @@ const ManageHero = () => {
     }
   }, [saveState.status]);
 
+  // 3. Handle text changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setHeroContent((prev) => ({ ...prev, [name]: value }));
   };
 
+  // 4. Handle Form Submit (With File Support)
   const handleSaveChanges = async (e) => {
     e.preventDefault();
     setSaveState({ status: "loading", message: "Saving..." });
+
+    // Create a FormData object to hold text + file
+    const formData = new FormData();
+
+    // Append text fields
+    formData.append("headingLine1", heroContent.headingLine1);
+    formData.append("headingLine2", heroContent.headingLine2);
+    formData.append("headingLine3", heroContent.headingLine3);
+    formData.append("subheading", heroContent.subheading);
+    formData.append("buttonText", heroContent.buttonText);
+    formData.append("buttonLink", heroContent.buttonLink);
+
+    // Append Video File (only if user selected a new one)
+    // Note: 'heroVideo' must match the name in your backend route: uploadVideo.single('heroVideo')
+    if (videoFile) {
+      formData.append("heroVideo", videoFile);
+    }
+
     try {
-      await privateApi.put("/homepage/hero", heroContent);
+      // Send as FormData (Axios handles headers automatically)
+      const response = await privateApi.put("/homepage/hero", formData);
+
+      // Update local state with the new data returned from server
+      if (response.data.data) {
+        setHeroContent(response.data.data);
+      }
+
       setSaveState({
         status: "success",
         message: "Hero content updated successfully!",
       });
+
+      // Clear the file input state
+      setVideoFile(null);
     } catch (error) {
+      console.error("Upload Error:", error);
       setSaveState({
         status: "error",
         message: "Error: Could not save changes.",
@@ -106,6 +145,7 @@ const ManageHero = () => {
               />
             </div>
           </div>
+
           <div className="mb-3">
             <label className="form-label">Subheading</label>
             <textarea
@@ -116,7 +156,8 @@ const ManageHero = () => {
               rows="3"
             ></textarea>
           </div>
-          <div className="row">
+
+          <div className="row mb-3">
             <div className="col-md-6 mb-3">
               <label className="form-label">Button Text</label>
               <input
@@ -139,7 +180,49 @@ const ManageHero = () => {
             </div>
           </div>
 
-          {/* --- CORRECTED JSX FOR BUTTON AND STATUS MESSAGE --- */}
+          {/* --- NEW VIDEO UPLOAD SECTION --- */}
+          <div className="mb-4 p-3 border rounded bg-light">
+            <label className="form-label fw-bold">Background Video (MP4)</label>
+
+            {/* File Input */}
+            <input
+              type="file"
+              className="form-control mb-2"
+              accept="video/mp4"
+              onChange={(e) => setVideoFile(e.target.files[0])}
+            />
+
+            {/* Current Video Display */}
+            {heroContent.videoUrl ? (
+              <div className="mt-2">
+                <small className="text-success fw-bold">
+                  ✓ Current Video Active:
+                </small>
+                <br />
+                <a
+                  href={heroContent.videoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-break"
+                  style={{ fontSize: "0.85rem" }}
+                >
+                  {heroContent.videoUrl}
+                </a>
+              </div>
+            ) : (
+              <small className="text-muted">
+                No custom video uploaded yet.
+              </small>
+            )}
+
+            <div className="form-text text-muted mt-2">
+              <i className="fas fa-info-circle me-1"></i>
+              Recommended: Compress video using Handbrake (Web Optimized). Keep
+              under 10MB for speed. Max upload: 100MB.
+            </div>
+          </div>
+
+          {/* --- SUBMIT BUTTON --- */}
           <div className="d-flex align-items-center mt-3">
             <button
               type="submit"
@@ -147,11 +230,12 @@ const ManageHero = () => {
               disabled={saveState.status === "loading"}
             >
               {saveState.status === "loading"
-                ? "Saving..."
+                ? "Uploading & Saving..."
                 : "Save Hero Content"}
             </button>
+
             {saveState.status !== "idle" && (
-              <span className={`status-message ${saveState.status}`}>
+              <span className={`status-message ${saveState.status} fw-bold`}>
                 {saveState.message}
               </span>
             )}
