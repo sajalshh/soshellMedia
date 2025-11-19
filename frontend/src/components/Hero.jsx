@@ -1,8 +1,7 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import api from "../api/axiosConfig"; 
-import '../styles/legacy.css';
+import api from "../api/axiosConfig";
+import "../styles/legacy.css";
 
 const parseNeonText = (text) => {
   if (!text) return "";
@@ -19,12 +18,22 @@ const parseNeonText = (text) => {
 };
 
 export default function Hero() {
-  const videoRef = useRef(null);
-  const [scale, setScale] = useState(1);
+  // Ref for the container (parallax effect)
+  const containerRef = useRef(null);
+  // Ref specifically for the video player (to control audio)
+  const playerRef = useRef(null);
 
+  const [scale, setScale] = useState(1);
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Function to toggle audio on click
+  const toggleAudio = () => {
+    if (playerRef.current) {
+      // If muted, unmute it. If unmuted, mute it.
+      playerRef.current.muted = !playerRef.current.muted;
+    }
+  };
 
   useEffect(() => {
     const fetchHeroContent = async () => {
@@ -33,7 +42,6 @@ export default function Hero() {
         setContent(response.data.data);
       } catch (error) {
         console.error("Failed to fetch hero content:", error);
-        
         setContent({
           headingLine1: "We *Don't* Just *Post*",
           headingLine2: "We Create *Content*",
@@ -50,10 +58,10 @@ export default function Hero() {
     fetchHeroContent();
   }, []);
 
+  // Parallax Scroll Logic
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-
       const minScale = 0.8;
       const maxScale = 1;
       const scrollRange = 400;
@@ -65,18 +73,14 @@ export default function Hero() {
           minScale + (scrollTop / scrollRange) * (maxScale - minScale),
         ),
       );
-
       setScale(newScale);
     };
 
     window.addEventListener("scroll", handleScroll);
-
-    handleScroll(); 
-
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  
   if (loading) {
     return (
       <section
@@ -98,7 +102,7 @@ export default function Hero() {
               <div className="color-bg">
                 <img src="/assets/img/hero/color-bg.png" alt="img" />
               </div>
-              
+
               <h1
                 className="wow img-custom-anim-left"
                 data-wow-duration="1.5s"
@@ -128,27 +132,56 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* BACKGROUND VIDEO CONTAINER */}
       <div
         className="hero-video-bg"
-        ref={videoRef}
+        ref={containerRef}
         style={{
           transform: `scale(${scale})`,
           transition: "transform 0.2s ease-out",
           transformOrigin: "center center",
+          // Removed overflow: hidden to allow shadows/glows if you have them
         }}
       >
-        <iframe
-          src="https://fast.wistia.net/embed/iframe/djiv5ywnyy?autoplay=1&loop=1&mute=1&playsinline=1&controlsVisibleOnLoad=false&videoFoam=true"
-          title="Hero background video"
-          allow="autoplay; fullscreen"
-          allowtransparency="true"
-          frameBorder="0"
-          scrolling="no"
-          className="wistia_embed"
-          name="wistia_embed"
-          width="80%"
-          height="100%"
-        ></iframe>
+        {content?.videoUrl ? (
+          <video
+            ref={playerRef}
+            onClick={toggleAudio}
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/assets/img/hero/hero-bg-3.png"
+            // 👇 UPDATED STYLES: Removed "absolute", "top", "left", "100% width"
+            // Now it relies on your legacy.css to set the width to 940px
+            style={{
+              objectFit: "cover",
+              display: "block",
+              zIndex: 0,
+              // If you need to force the size in JS (optional, but CSS is better):
+              // maxWidth: "940px",
+              // width: "100%",
+              // borderRadius: "12px"
+            }}
+          >
+            <source src={content.videoUrl} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          // Fallback to Wistia
+          <iframe
+            src="https://fast.wistia.net/embed/iframe/djiv5ywnyy?autoplay=1&loop=1&mute=1&playsinline=1&controlsVisibleOnLoad=false&videoFoam=true"
+            title="Hero background video"
+            allow="autoplay; fullscreen"
+            allowtransparency="true"
+            frameBorder="0"
+            scrolling="no"
+            className="wistia_embed"
+            name="wistia_embed"
+            width="80%"
+            height="100%"
+          ></iframe>
+        )}
       </div>
     </section>
   );
