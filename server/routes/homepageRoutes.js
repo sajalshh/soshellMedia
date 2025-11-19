@@ -149,19 +149,30 @@ router.get("/about-section", async (req, res) => {
   }
 });
 
-router.put("/about-section", protect, authorize("client"), async (req, res) => {
+// @desc    Update About Section content (Video Upload)
+// @route   PUT /api/homepage/about-section
+router.put("/about-section", protect, authorize("client"), uploadVideo.single("aboutVideo"), async (req, res) => {
   try {
-    const updatedContent = await AboutSectionContent.findOneAndUpdate(
-      {},
-      req.body,
-      {
-        new: true,
-        upsert: true,
-        runValidators: true,
-      },
-    );
+    let updateData = { ...req.body };
+
+    // Handle Video Upload
+    if (req.file) {
+      // Logic: If VPS folder exists, use CDN. Else use localhost for dev.
+      const baseUrl = fs.existsSync("/var/www/soshell-cdn/videos")
+          ? "https://cdn.soshellmedia.co/videos"
+          : "http://localhost:3001/uploads/videos";
+
+      updateData.videoUrl = `${baseUrl}/${req.file.filename}`;
+    }
+
+    const updatedContent = await AboutSectionContent.findOneAndUpdate({}, updateData, {
+      new: true,
+      upsert: true, // Creates the document if it doesn't exist
+      runValidators: true,
+    });
     res.status(200).json({ success: true, data: updatedContent });
   } catch (error) {
+    console.error("About Video Upload Error:", error);
     res.status(500).json({ message: "Server Error" });
   }
 });

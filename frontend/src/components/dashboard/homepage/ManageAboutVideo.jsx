@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import usePrivateApi from "../../../hooks/usePrivateApi";
 
 const ManageAboutVideo = () => {
-  const [videoUrl, setVideoUrl] = useState("");
+  const [videoUrl, setVideoUrl] = useState(""); // Stores the current URL
+  const [videoFile, setVideoFile] = useState(null); // Stores the new file to upload
   const [saveState, setSaveState] = useState({ status: "idle", message: "" });
   const privateApi = usePrivateApi();
 
@@ -33,17 +34,41 @@ const ManageAboutVideo = () => {
   }, [saveState.status]);
 
   const handleSave = async () => {
-    setSaveState({ status: "loading", message: "Saving..." });
+    setSaveState({ status: "loading", message: "Uploading & Saving..." });
+
+    const formData = new FormData();
+
+    // Append the file if selected
+    if (videoFile) {
+      // 'aboutVideo' MUST match the backend route name
+      formData.append("aboutVideo", videoFile);
+    } else {
+      // If no new file, we might just want to save the text URL (optional fallback)
+      formData.append("videoUrl", videoUrl);
+    }
+
     try {
-      await privateApi.put("/homepage/about-section", { videoUrl });
+      // Send FormData
+      const response = await privateApi.put(
+        "/homepage/about-section",
+        formData,
+      );
+
+      // Update local state with new URL from server
+      if (response.data.data) {
+        setVideoUrl(response.data.data.videoUrl);
+      }
+
       setSaveState({
         status: "success",
-        message: "Video URL updated successfully!",
+        message: "Video updated successfully!",
       });
+      setVideoFile(null); // Reset file input
     } catch (error) {
+      console.error(error);
       setSaveState({
         status: "error",
-        message: "Error: Could not save video URL.",
+        message: "Error: Could not save video.",
       });
     }
   };
@@ -52,30 +77,57 @@ const ManageAboutVideo = () => {
     <div className="card mt-4">
       <div className="card-body">
         <h3 className="card-title">Edit 'We Understand' Section Video</h3>
+
         {saveState.status !== "idle" && (
           <div className={`alert mt-3 status-message ${saveState.status}`}>
             {saveState.message}
           </div>
         )}
-        <div className="mb-3">
-          <label className="form-label">Wistia Video URL</label>
+
+        <div className="mb-4 p-3 border rounded bg-light">
+          <label className="form-label fw-bold">Upload Video (MP4)</label>
+
+          {/* File Input */}
           <input
-            type="text"
-            className="form-control"
-            value={videoUrl}
-            onChange={(e) => setVideoUrl(e.target.value)}
-            placeholder="https://fast.wistia.net/embed/iframe/..."
+            type="file"
+            className="form-control mb-2"
+            accept="video/mp4"
+            onChange={(e) => setVideoFile(e.target.files[0])}
           />
-          <small className="form-text text-muted">
-            Enter the full Wistia embed URL here.
-          </small>
+
+          {/* Current Video Display */}
+          {videoUrl ? (
+            <div className="mt-2">
+              <small className="text-success fw-bold">
+                ✓ Current Active Video:
+              </small>
+              <br />
+              <a
+                href={videoUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="text-break text-primary"
+                style={{ fontSize: "0.85rem" }}
+              >
+                {videoUrl}
+              </a>
+            </div>
+          ) : (
+            <small className="text-muted">No video uploaded yet.</small>
+          )}
+
+          <div className="form-text text-muted mt-2">
+            <i className="fas fa-info-circle me-1"></i>
+            Max file size: 100MB. Please compress before uploading.
+          </div>
         </div>
+
         <button
           className="btn btn-primary"
           onClick={handleSave}
           disabled={saveState.status === "loading"}
         >
-          {saveState.status === "loading" ? "Saving..." : "Save Video URL"}
+          {saveState.status === "loading" ? "Saving..." : "Save Video"}
         </button>
       </div>
     </div>
