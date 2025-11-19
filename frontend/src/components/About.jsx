@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Fade } from "react-awesome-reveal";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,6 +9,15 @@ export default function About() {
   const [tabsData, setTabsData] = useState([]);
   const [videoUrl, setVideoUrl] = useState("");
   const [loading, setLoading] = useState(true);
+
+  const videoRef = useRef(null);
+
+  // Function to toggle audio on click
+  const toggleAudio = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+    }
+  };
 
   useEffect(() => {
     const fetchAboutContent = async () => {
@@ -52,7 +61,8 @@ export default function About() {
         <div className="section-title ml-200 text-center the-real">
           <Fade direction="up" triggerOnce>
             <h6>
-              <img src="/assets/img/star.png" alt="img" />The Process
+              <img src="/assets/img/star.png" alt="img" />
+              The Process
             </h6>
           </Fade>
           <Fade direction="up" delay={300} triggerOnce>
@@ -67,7 +77,6 @@ export default function About() {
           </Fade>
         </div>
 
-        {/* --- CHANGE 1: Use 'tw-items-start' for top alignment --- */}
         <div className="tw-mt-16 tw-grid tw-grid-cols-1 lg:tw-grid-cols-3 tw-gap-8 lg:tw-gap-12 tw-items-start">
           <div className="tw-flex lg:tw-flex-col tw-gap-4">
             {tabsData.map((tab) => (
@@ -85,14 +94,11 @@ export default function About() {
             ))}
           </div>
 
-          {/* --- CHANGE 2: Refactored content column for fixed button --- */}
-          {/* This is the CORRECT structure */}
           <div className="tw-flex tw-flex-col tw-min-h-[350px]">
             <AnimatePresence mode="wait">
-              {/* The motion.div now ONLY wraps the content that needs to animate */}
               <motion.div
                 key={activeTab}
-                className="tw-flex-grow" // This makes the content area fill the space
+                className="tw-flex-grow"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -124,7 +130,6 @@ export default function About() {
               </motion.div>
             </AnimatePresence>
 
-            {/* The button is now OUTSIDE the animation but inside the flex container, so it stays fixed at the bottom */}
             <div className="tw-mt-6">
               <Link to="/project" className="theme-btn">
                 What Our clients say?{" "}
@@ -132,16 +137,27 @@ export default function About() {
               </Link>
             </div>
           </div>
+
+          {/* VIDEO SECTION */}
           <div className="tw-flex tw-items-center tw-justify-center">
-            <div className=" tw-p-3 tw-rounded-2xl tw-w-full tw-max-w-[230px]">
+            <div className="tw-p-3 tw-rounded-2xl tw-w-full tw-max-w-[230px]">
               {videoUrl && (
-                <div className="tw-aspect-[9/16] tw-rounded-lg tw-overflow-hidden">
-                  <iframe
-                    src={`${videoUrl}?autoplay=1&loop=1&mute=1&playsinline=1&controls=0`}
-                    title="About Us Video"
-                    allow="autoplay; fullscreen"
-                    className="wistia_embed tw-w-full tw-h-full"
-                  ></iframe>
+                <div className="tw-aspect-[9/16] tw-rounded-lg tw-overflow-hidden tw-relative tw-bg-black">
+                  {/* HTML5 VIDEO PLAYER */}
+                  <video
+                    ref={videoRef}
+                    onClick={toggleAudio}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="tw-w-full tw-h-full tw-object-cover tw-cursor-pointer"
+                  >
+                    <source src={videoUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+
+                  {/* Optional: Mute Icon overlay could go here */}
                 </div>
               )}
             </div>
