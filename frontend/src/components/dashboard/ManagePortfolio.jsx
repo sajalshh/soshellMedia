@@ -15,8 +15,12 @@ const ManagePortfolio = () => {
   // Separate state for the file
   const [videoFile, setVideoFile] = useState(null);
 
+  // --- NEW: Loading & Progress States ---
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+
   const [isEditing, setIsEditing] = useState(false);
-  const [editId, setEditId] = useState(null); // Track ID specifically
+  const [editId, setEditId] = useState(null);
   const privateApi = usePrivateApi();
 
   const fetchItems = async () => {
@@ -64,13 +68,11 @@ const ManagePortfolio = () => {
       return;
     }
 
-    // Prepare FormData for file upload
     const formData = new FormData();
     formData.append("title", currentItem.title);
     formData.append("category", currentItem.category);
     formData.append("displayOrder", currentItem.displayOrder);
 
-    // Only append file if one is selected
     if (videoFile) {
       formData.append("videoFile", videoFile);
     }
@@ -78,14 +80,31 @@ const ManagePortfolio = () => {
     const method = isEditing ? "put" : "post";
     const url = isEditing ? `/portfolio/${editId}` : "/portfolio";
 
+    // --- START UPLOAD ---
+    setIsUploading(true);
+    setUploadProgress(0);
+
     try {
-      // Important: Allow axios to set the Content-Type header for FormData automatically
-      await privateApi[method](url, formData);
+      // Pass configuration with onUploadProgress
+      await privateApi[method](url, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total,
+          );
+          setUploadProgress(percentCompleted);
+        },
+      });
+
       resetForm();
       fetchItems();
     } catch (error) {
       console.error("Failed to save item:", error);
       alert("Failed to save. Check console for details.");
+    } finally {
+      // --- END UPLOAD ---
+      setIsUploading(false);
+      setUploadProgress(0);
     }
   };
 
@@ -97,7 +116,7 @@ const ManagePortfolio = () => {
       category: item.category?._id || "",
       displayOrder: item.displayOrder,
     });
-    setVideoFile(null); // Reset file input on edit
+    setVideoFile(null);
   };
 
   const handleDelete = async (id) => {
@@ -120,8 +139,9 @@ const ManagePortfolio = () => {
       displayOrder: 0,
     });
     setVideoFile(null);
-    // Reset file input visually
-    document.getElementById("videoFileInput").value = "";
+    if (document.getElementById("videoFileInput")) {
+      document.getElementById("videoFileInput").value = "";
+    }
   };
 
   return (
@@ -140,6 +160,7 @@ const ManagePortfolio = () => {
               value={currentItem.title}
               onChange={handleInputChange}
               required
+              disabled={isUploading} // Disable while uploading
             />
           </div>
           <div className="mb-3">
@@ -150,6 +171,7 @@ const ManagePortfolio = () => {
               value={currentItem.category}
               onChange={handleInputChange}
               required
+              disabled={isUploading} // Disable while uploading
             >
               <option value="" disabled>
                 -- Select a Category --
@@ -162,7 +184,6 @@ const ManagePortfolio = () => {
             </select>
           </div>
 
-          {/* CHANGED: File Input instead of URL Text */}
           <div className="mb-3">
             <label className="form-label">Upload Video (MP4/WebM)</label>
             <input
@@ -171,7 +192,8 @@ const ManagePortfolio = () => {
               className="form-control"
               onChange={handleFileChange}
               accept="video/mp4, video/webm"
-              required={!isEditing} // Required only on create
+              required={!isEditing}
+              disabled={isUploading} // Disable while uploading
             />
             {isEditing && (
               <small className="text-muted">
@@ -188,12 +210,43 @@ const ManagePortfolio = () => {
               name="displayOrder"
               value={currentItem.displayOrder}
               onChange={handleInputChange}
+              disabled={isUploading} // Disable while uploading
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            {isEditing ? "Update Item" : "Add Item"}
+
+          {/* --- PROGRESS BAR SECTION --- */}
+          {isUploading && (
+            <div className="mb-3">
+              <label className="form-label text-primary fw-bold">
+                Uploading Video... {uploadProgress}%
+              </label>
+              <div className="progress" style={{ height: "25px" }}>
+                <div
+                  className="progress-bar progress-bar-striped progress-bar-animated"
+                  role="progressbar"
+                  style={{ width: `${uploadProgress}%` }}
+                  aria-valuenow={uploadProgress}
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                >
+                  {uploadProgress}%
+                </div>
+              </div>
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={isUploading} // Prevent double clicks
+          >
+            {isUploading
+              ? "Uploading..."
+              : isEditing
+              ? "Update Item"
+              : "Add Item"}
           </button>
-          {isEditing && (
+          {isEditing && !isUploading && (
             <button
               type="button"
               className="btn btn-secondary ms-2"
@@ -224,12 +277,14 @@ const ManagePortfolio = () => {
                 <button
                   className="btn btn-sm btn-outline-primary me-2"
                   onClick={() => handleEdit(item)}
+                  disabled={isUploading}
                 >
                   Edit
                 </button>
                 <button
                   className="btn btn-sm btn-outline-danger"
                   onClick={() => handleDelete(item._id)}
+                  disabled={isUploading}
                 >
                   Delete
                 </button>
