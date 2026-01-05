@@ -4,13 +4,19 @@ import usePrivateApi from "../../hooks/usePrivateApi";
 const ManagePortfolio = () => {
   const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
+
+  // State for text fields
   const [currentItem, setCurrentItem] = useState({
     title: "",
-    category: "", 
-    videoUrl: "",
+    category: "",
     displayOrder: 0,
   });
+
+  // Separate state for the file
+  const [videoFile, setVideoFile] = useState(null);
+
   const [isEditing, setIsEditing] = useState(false);
+  const [editId, setEditId] = useState(null); // Track ID specifically
   const privateApi = usePrivateApi();
 
   const fetchItems = async () => {
@@ -22,13 +28,11 @@ const ManagePortfolio = () => {
     }
   };
 
-
   const fetchCategories = async () => {
     try {
       const response = await privateApi.get("/categories");
       setCategories(response.data.data);
       if (response.data.data.length > 0 && !isEditing) {
-        // Set a default category for the "Add New" form
         setCurrentItem((prev) => ({
           ...prev,
           category: response.data.data[0]._id,
@@ -42,11 +46,15 @@ const ManagePortfolio = () => {
   useEffect(() => {
     fetchItems();
     fetchCategories();
-  }, []); // Runs on component mount
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCurrentItem({ ...currentItem, [name]: value });
+  };
+
+  const handleFileChange = (e) => {
+    setVideoFile(e.target.files[0]);
   };
 
   const handleSave = async (e) => {
@@ -55,21 +63,41 @@ const ManagePortfolio = () => {
       alert("Please select a category.");
       return;
     }
+
+    // Prepare FormData for file upload
+    const formData = new FormData();
+    formData.append("title", currentItem.title);
+    formData.append("category", currentItem.category);
+    formData.append("displayOrder", currentItem.displayOrder);
+
+    // Only append file if one is selected
+    if (videoFile) {
+      formData.append("videoFile", videoFile);
+    }
+
     const method = isEditing ? "put" : "post";
-    const url = isEditing ? `/portfolio/${currentItem._id}` : "/portfolio";
+    const url = isEditing ? `/portfolio/${editId}` : "/portfolio";
 
     try {
-      await privateApi[method](url, currentItem);
+      // Important: Allow axios to set the Content-Type header for FormData automatically
+      await privateApi[method](url, formData);
       resetForm();
       fetchItems();
     } catch (error) {
       console.error("Failed to save item:", error);
+      alert("Failed to save. Check console for details.");
     }
   };
 
   const handleEdit = (item) => {
     setIsEditing(true);
-    setCurrentItem({ ...item, category: item.category?._id || "" });
+    setEditId(item._id);
+    setCurrentItem({
+      title: item.title,
+      category: item.category?._id || "",
+      displayOrder: item.displayOrder,
+    });
+    setVideoFile(null); // Reset file input on edit
   };
 
   const handleDelete = async (id) => {
@@ -85,12 +113,15 @@ const ManagePortfolio = () => {
 
   const resetForm = () => {
     setIsEditing(false);
+    setEditId(null);
     setCurrentItem({
       title: "",
       category: categories.length > 0 ? categories[0]._id : "",
-      videoUrl: "",
       displayOrder: 0,
     });
+    setVideoFile(null);
+    // Reset file input visually
+    document.getElementById("videoFileInput").value = "";
   };
 
   return (
@@ -130,18 +161,25 @@ const ManagePortfolio = () => {
               ))}
             </select>
           </div>
+
+          {/* CHANGED: File Input instead of URL Text */}
           <div className="mb-3">
-            <label className="form-label">Wistia Video URL</label>
+            <label className="form-label">Upload Video (MP4/WebM)</label>
             <input
-              type="text"
+              type="file"
+              id="videoFileInput"
               className="form-control"
-              name="videoUrl"
-              value={currentItem.videoUrl}
-              onChange={handleInputChange}
-              placeholder="https://fast.wistia.net/embed/iframe/..."
-              required
+              onChange={handleFileChange}
+              accept="video/mp4, video/webm"
+              required={!isEditing} // Required only on create
             />
+            {isEditing && (
+              <small className="text-muted">
+                Leave empty to keep current video
+              </small>
+            )}
           </div>
+
           <div className="mb-3">
             <label className="form-label">Display Order</label>
             <input

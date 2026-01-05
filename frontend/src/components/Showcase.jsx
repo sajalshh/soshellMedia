@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import api from "../api/axiosConfig";
-import { Fade } from "react-awesome-reveal"; // Import the Fade component
+import { Fade } from "react-awesome-reveal";
 
 export default function Showcase() {
   const [projects, setProjects] = useState([]);
@@ -36,7 +36,6 @@ export default function Showcase() {
 
   return (
     <section className="showcase-section fix section-padding-2 section-bg">
-      {/* --- CHANGE: Added the consistent header text section --- */}
       <div className="container">
         <div className="section-title text-center mx-auto">
           <Fade direction="up" triggerOnce>
@@ -57,10 +56,10 @@ export default function Showcase() {
           <Swiper
             modules={[Autoplay]}
             spaceBetween={30}
-            speed={3000} // Slightly slower for a smoother feel
+            speed={3000}
             loop={true}
             autoplay={{
-              delay: 1, // Use 1 for a continuous, seamless scroll
+              delay: 1,
               disableOnInteraction: false,
             }}
             breakpoints={{
@@ -75,14 +74,23 @@ export default function Showcase() {
               <SwiperSlide key={`${project._id}-${index}`}>
                 <div className="showcase-items">
                   <div className="portfolio-video-wrapper">
-                    <iframe
-                      src={`${project.videoUrl}?autoplay=1&loop=1&mute=1&playsinline=1&controls=0`}
-                      title={project.title}
-                      allow="autoplay; fullscreen"
-                      frameBorder="0"
-                      scrolling="no"
-                      className="wistia_embed"
-                    ></iframe>
+                    {/* UPDATED: Native Video Tag for VPS/CDN Storage */}
+                    <video
+                      src={project.videoUrl}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-100"
+                      style={{
+                        objectFit: "cover",
+                        height: "100%",
+                        width: "100%",
+                        pointerEvents: "none", // Prevents user from clicking/pausing
+                      }}
+                    >
+                      Your browser does not support the video tag.
+                    </video>
                   </div>
                 </div>
               </SwiperSlide>
