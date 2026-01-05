@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Fade } from "react-awesome-reveal";
-import { Play } from "lucide-react";
+import { Volume2, VolumeX } from "lucide-react"; // Changed icons to Volume for better context
 import SeoHelmet from "../components/SeoHelmet";
 import api from "../api/axiosConfig";
 
-// --- Skeleton Loader Component for a beautiful loading state ---
+// --- Skeleton Loader Component ---
 const SkeletonCard = () => (
   <div className="tw-w-full tw-animate-pulse">
     <div className="tw-aspect-[9/16] tw-bg-gray-800 tw-rounded-xl"></div>
@@ -21,6 +21,9 @@ export default function ProjectPage() {
   const [categories, setCategories] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
   const [loading, setLoading] = useState(true);
+
+  // --- NEW: State to track which video has sound ON ---
+  const [activeVideoId, setActiveVideoId] = useState(null);
 
   useEffect(() => {
     const fetchPortfolioData = async () => {
@@ -48,11 +51,18 @@ export default function ProjectPage() {
       setFilteredProjects(allProjects);
     } else {
       const newProjects = allProjects.filter(
-        (project) => project.category?.name === activeFilter
+        (project) => project.category?.name === activeFilter,
       );
       setFilteredProjects(newProjects);
     }
   }, [activeFilter, allProjects]);
+
+  // --- NEW: Handle Click to Toggle Sound ---
+  const handleVideoClick = (id) => {
+    // If clicking the same video, toggle it off (null)
+    // If clicking a new video, set it as the active ID (turning others off)
+    setActiveVideoId((prevId) => (prevId === id ? null : id));
+  };
 
   return (
     <>
@@ -95,7 +105,6 @@ export default function ProjectPage() {
                     }`}
                   >
                     {filter}
-                    {/* Underline animation */}
                     <span
                       className={`tw-absolute tw-bottom-0 tw-left-0 tw-block tw-h-0.5 tw-bg-[var(--tp-theme-primary)] tw-transition-all tw-duration-300 ${
                         activeFilter === filter ? "tw-w-full" : "tw-w-0"
@@ -108,12 +117,10 @@ export default function ProjectPage() {
           </div>
 
           {/* Video Grid */}
-          {/* This wrapper div makes the videos smaller on desktop */}
           <div className="tw-max-w-6xl tw-mx-auto">
             <div className="row">
               {loading
-                ? // Creative Skeleton Loading State
-                  Array.from({ length: 8 }).map((_, index) => (
+                ? Array.from({ length: 8 }).map((_, index) => (
                     <div
                       key={index}
                       className="col-lg-3 col-md-4 col-sm-6 col-12 tw-mb-8"
@@ -121,36 +128,76 @@ export default function ProjectPage() {
                       <SkeletonCard />
                     </div>
                   ))
-                : filteredProjects.map((project) => (
-                    <div
-                      key={project._id}
-                      className="col-lg-3 col-md-4 col-sm-6 col-12 tw-mb-8"
-                    >
-                      <Fade direction="up" triggerOnce>
-                        <div className="portfolio-video-card tw-group">
-                          <div className="portfolio-video-wrapper tw-relative tw-overflow-hidden tw-rounded-xl tw-shadow-lg tw-transition-all tw-duration-300 group-hover:tw-scale-105 group-hover:tw-shadow-[0_0_25px_rgba(3,220,176,0.5)]">
-                            <iframe
-                              src={`${project.videoUrl}?autoplay=1&loop=1&mute=1&playsinline=1&controls=0`}
-                              title={project.title}
-                              allow="autoplay; fullscreen"
-                              frameBorder="0"
-                              className="wistia_embed"
-                            ></iframe>
-                            {/* Play Icon Overlay */}
-                            <div className="tw-absolute tw-inset-0 tw-bg-black/20 tw-flex tw-items-center tw-justify-center tw-opacity-0 group-hover:tw-opacity-100 tw-transition-opacity">
-                              <Play size={48} className="tw-text-white" />
+                : filteredProjects.map((project) => {
+                    const isUnmuted = activeVideoId === project._id;
+
+                    return (
+                      <div
+                        key={project._id}
+                        className="col-lg-3 col-md-4 col-sm-6 col-12 tw-mb-8"
+                      >
+                        <Fade direction="up" triggerOnce>
+                          <div
+                            className="portfolio-video-card tw-group tw-cursor-pointer"
+                            onClick={() => handleVideoClick(project._id)}
+                          >
+                            <div
+                              className={`portfolio-video-wrapper tw-relative tw-overflow-hidden tw-rounded-xl tw-shadow-lg tw-transition-all tw-duration-300 group-hover:tw-scale-105 ${
+                                isUnmuted
+                                  ? "tw-shadow-[0_0_25px_rgba(3,220,176,0.5)] tw-border-2 tw-border-[var(--tp-theme-primary)]"
+                                  : ""
+                              }`}
+                            >
+                              {/* UPDATED: Native Video Tag for correct audio control */}
+                              <video
+                                src={project.videoUrl}
+                                autoPlay
+                                loop
+                                playsInline
+                                // Logic: Muted unless it matches the active ID
+                                muted={!isUnmuted}
+                                className="tw-w-full tw-h-full tw-object-cover tw-aspect-[9/16]"
+                              />
+
+                              {/* Sound Icon Overlay */}
+                              <div className="tw-absolute tw-bottom-4 tw-right-4 tw-z-20 tw-bg-black/50 tw-p-2 tw-rounded-full tw-backdrop-blur-sm tw-transition-all tw-duration-300">
+                                {isUnmuted ? (
+                                  <Volume2
+                                    size={20}
+                                    className="tw-text-[var(--tp-theme-primary)]"
+                                  />
+                                ) : (
+                                  <VolumeX
+                                    size={20}
+                                    className="tw-text-white/70"
+                                  />
+                                )}
+                              </div>
+
+                              {/* Hover Overlay Hint */}
+                              <div
+                                className={`tw-absolute tw-inset-0 tw-bg-black/20 tw-flex tw-items-center tw-justify-center tw-transition-opacity tw-duration-300 ${
+                                  isUnmuted
+                                    ? "tw-opacity-0"
+                                    : "tw-opacity-0 group-hover:tw-opacity-100"
+                                }`}
+                              >
+                                <p className="tw-text-white tw-font-bold tw-tracking-wider tw-text-sm tw-bg-black/50 tw-px-3 tw-py-1 tw-rounded-full">
+                                  CLICK FOR SOUND
+                                </p>
+                              </div>
+                            </div>
+                            <div className="portfolio-video-content">
+                              <h6>
+                                <span>//</span> {project.category?.name}
+                              </h6>
+                              <h3>{project.title}</h3>
                             </div>
                           </div>
-                          <div className="portfolio-video-content">
-                            <h6>
-                              <span>//</span> {project.category?.name}
-                            </h6>
-                            <h3>{project.title}</h3>
-                          </div>
-                        </div>
-                      </Fade>
-                    </div>
-                  ))}
+                        </Fade>
+                      </div>
+                    );
+                  })}
             </div>
           </div>
         </div>
