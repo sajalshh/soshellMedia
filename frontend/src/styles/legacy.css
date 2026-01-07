@@ -2920,3 +2920,30 @@ Responsive Styles for Showcase.jsx
   }
 }
 
+/* ===== PROBLEM COLUMN NEON BORDER ===== */
+.problem-box {
+  position: relative;
+  padding: 32px 28px;
+  border-radius: 18px;
+
+  /* ↓ reduce visual dominance */
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 255, 200, 0.25);
+  opacity: 0.75;
+}
+
+/* soften glow */
+.problem-box::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 18px;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 255, 200, 0.6),
+    rgba(0, 180, 255, 0.3)
+  );
+  filter: blur(14px);
+  opacity: 0.25;
+  z-index: -1;
+}
