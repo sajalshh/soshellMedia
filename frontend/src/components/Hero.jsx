@@ -108,7 +108,10 @@ export default function Hero() {
                 data-wow-duration="1.5s"
                 data-wow-delay="0.1s"
               >
-                {parseNeonText(content.headingLine1)} <br />
+                <span className="hero-line-1">
+                  {parseNeonText(content.headingLine1)}
+                </span>
+                <br />
                 <span className="text-2">
                   {parseNeonText(content.headingLine2)}
                 </span>
@@ -117,6 +120,7 @@ export default function Hero() {
                   {parseNeonText(content.headingLine3)}
                 </span>
               </h1>
+
               <p className="sub">{content.subheading}</p>
               <div className="hero-button">
                 <Link

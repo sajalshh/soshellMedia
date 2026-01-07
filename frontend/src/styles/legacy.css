@@ -266,16 +266,33 @@
 
 
 .hero-secton .hero-content h1 {
-  font-size: clamp(40px, 8vw, 90px);
+  font-size: clamp(60px, 6vw, 64px);
   width: 100%;
 }
 
 .hero-content h1 b {
   margin-left: 0.2em; 
 }
+.hero-content h1 .hero-line-1 {
+  font-size: clamp(68px, 7vw, 95px);
+  font-weight: 300;
+  line-height: 1.15;
+  display: inline-block;
+}
+
+
+.hero-content h1 .text-2 {
+  font-weight: 700;
+}
+.hero-content h1 .hero-line-1 .text-neon {
+  font-weight: 100;
+}
 
 .text-neon {
   color: #03dcb0;
+}
+.hero-content h1 .text-2 .text-neon {
+  font-weight:bolder;
 }
 
 .neon {
@@ -1313,9 +1330,9 @@
     line-height: 1.1 !important;
   }
 
-  .hero-content h1 .text-2 {
-    font-size: 50px !important;
-  }
+ .hero-content h1 .text-2 {
+  font-size: 90px !important;
+}
 
   .hero-content p.sub {
     margin-left: auto !important;
@@ -1336,11 +1353,12 @@
   }
 
   .hero-content h1 {
-    font-size: 60px !important;
+    font-size: 40px !important;
   }
 
+
   .hero-content h1 .text-2 {
-    font-size: 60px !important;
+    font-size: 52px !important;
     font-weight: inherit !important;
   }
 
@@ -2786,5 +2804,41 @@ Responsive Styles for Showcase.jsx
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+
+@media (max-width: 575px) {
+  /* Center the hero content */
+  .hero-content {
+    text-align: center;
+    align-items: center;
+  }
+
+  /* ---- LINE 1: You Grow / Your Business ---- */
+  .hero-content h1 .hero-line-1 {
+    display: block;
+    font-size: 42px;
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+
+  /* Make neon inside first line ALSO light */
+  .hero-content h1 .hero-line-1 .text-neon {
+    font-weight: 300;
+  }
+
+  /* ---- LINE 2 & 3: Your AI Twin Handles / The Content ---- */
+  .hero-content h1 .text-2 {
+    display: block;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  /* Stronger neon emphasis for AI TWIN / CONTENT */
+  .hero-content h1 .text-2 .text-neon {
+    font-weight: 900;
   }
 }
