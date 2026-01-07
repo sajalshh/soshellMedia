@@ -122,16 +122,14 @@ export default function Message() {
               </Link>
             </motion.div>
             <p className="tw-max-w-xl tw-mx-auto tw-mt-8 tw-text-[#CDCDCD]">
-              Duise sagittis accumsan magna on adipiscing laoreet ultrices magna
-              consectetuer eiaculis rutrum morbie habitasse orci libero
-              porttitor scelerisque acid vivamus molestie mollise
+              Start with one recording. We handle the rest.
             </p>
           </div>
         </div>
       </div>
 
       {/* --- 4. Refined Brand Carousel --- */}
-      <div className="brand-section section-padding pb-0">
+      {/* <div className="brand-section section-padding pb-0">
         <div className="container">
           <Swiper
             modules={[Autoplay]}
@@ -161,7 +159,7 @@ export default function Message() {
             ))}
           </Swiper>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

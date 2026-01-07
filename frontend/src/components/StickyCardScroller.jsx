@@ -81,12 +81,12 @@ export default function StickyCardScroller() {
       <div className="section-title text-center">
         <h6 className="wow fadeInUp">
           <img src="/assets/img/star.png" alt="img" />
-          Our Services
+          What We Do
         </h6>
         <h2 className="wow fadeInUp" data-wow-delay=".3s">
-          We Don’t <b>Build</b> Hype. <br />
+          One <b>System</b> <br />
           <strong className="we-build">
-            We Build <b>Lasting</b> Brands.
+            Multiple <b>Content</b> Outcomes
           </strong>
         </h2>
       </div>

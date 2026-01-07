@@ -5,7 +5,6 @@ import About from "../components/About";
 import Projects from "../components/Projects";
 import Faq from "../components/Faq";
 // import Paralax from "../components/Paralax";
-import Counter1 from "../components/counter1"
 import Pricing from "../components/Pricing";
 import Message from "../components/Message";
 import StickyCardScroller from "../components/StickyCardScroller";
@@ -18,13 +17,11 @@ export default function HomePage() {
     <>
       <SeoHelmet pageUrl="/" />
       <Hero />
-      <Counter1 />
       <Showcase />
       <About />
-      <WorkProcess />
       <StickyCardScroller />
-      <Projects />
-
+      <WorkProcess />
+      {/* <Projects /> */}
       {/* <Pricing /> */}
       <Faq />
       <Message />

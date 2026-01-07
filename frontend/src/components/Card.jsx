@@ -27,9 +27,7 @@ export default function Card({ card, style }) {
           {Array.isArray(card.description) ? (
             <ul className="card-bullets">
               {card.description.map((item, idx) => (
-                <li key={idx}>
-                  <strong>{item.heading}</strong> – {item.text}
-                </li>
+                <li key={idx}>{item.text}</li>
               ))}
             </ul>
           ) : (

@@ -7681,16 +7681,7 @@ input.main-search-input::placeholder {
   font-size: 55px;
   margin-top: 10px;
 }
-.pricing-box-items .pricing-list {
-  margin-top: 30px;
-}
-.pricing-box-items .pricing-list li span {
-  display: inline-block;
-  padding-left: 10px;
-}
-.pricing-box-items .pricing-list li:not(:last-child) {
-  margin-bottom: 15px;
-}
+
 .pricing-box-items .pricing-button {
   margin-top: 40px;
 }

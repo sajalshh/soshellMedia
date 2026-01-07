@@ -64,10 +64,10 @@ const AnimatedWorkProcess = ({ processData }) => {
       <div className="container">
         <div className="section-title text-center">
           <img src="/assets/img/title-icon.png" alt="img" className="mb-3" />
+          <p>We also Do this</p>
           <h2 className="mb-2">
-            Our Core <b>Services</b>
+            Everything Your <b>AI Twin</b> Needs to <b>Win</b>
           </h2>
-          <p>Video Production That Powers Growth</p>
         </div>
 
         <div className="tw-relative tw-mt-5 tw-min-h-[400px]">

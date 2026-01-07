@@ -10,31 +10,10 @@ export default function AboutPage() {
         <div className="counter-section section-padding pb-0">
           <div className="container">
             <div className="counter-wrapper counter-one">
-              <Counter
-                end={250}
-                suffix="M+"
-                label="Views Generated"
-                icon={FaEye}
-              />
-              <Counter
-                end={6}
-                suffix="+ years"
-                label="Growth Partner"
-                icon={FaHandshake}
-              />
-              <Counter
-                end={5000}
-                suffix="+"
-                label="Videos Created"
-                icon={FaVideo}
-              />
-              {/* 2. Add the new Counter component */}
-              <Counter
-                end={300}
-                suffix="+"
-                label="Campaigns delivered"
-                icon={FaBullhorn}
-              />
+              <Counter end={250} suffix="M+" label="Views Generated" />
+              <Counter end={6} suffix="+" label="Growth Experience" />
+              <Counter end={5000} suffix="+" label="Videos Created" />
+              <Counter end={300} suffix="+" label="Campaigns Delivered" />
             </div>
           </div>
         </div>
