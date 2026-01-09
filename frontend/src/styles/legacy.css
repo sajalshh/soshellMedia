@@ -2956,3 +2956,166 @@ Responsive Styles for Showcase.jsx
   width: 100%;
   line-height: 1.1;
 }
+
+
+/* =====================================================
+   MOBILE COUNTER: 2 x 2 GRID (ONLY MOBILE)
+===================================================== */
+
+@media (max-width: 767px) {
+  .counter-wrapper.counter-one {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px 10px !important; /* row gap | column gap */
+    justify-items: center !important;
+    margin-top: 0 !important;
+  }
+
+  .counter-wrapper.counter-one .counter-items {
+    flex-basis: auto !important;   /* OVERRIDES 100% */
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .counter-items .content h2 {
+    font-size: 36px !important;
+    line-height: 1.1 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .counter-items .content p {
+    font-size: 14px !important;
+    margin-top: 0 !important;
+  }
+}
+
+
+
+/* =====================================================
+   MOBILE: MAKE SHOWCASE SECTION & VIDEOS SMALLER
+===================================================== */
+
+@media (max-width: 767px) {
+  /* Reduce vertical space of the section */
+  .showcase-section.section-padding-2 {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+
+  /* Reduce space above slider */
+  .showcase-section .container-fluid {
+    margin-top: 20px !important;
+  }
+
+  /* Make video cards smaller */
+  .portfolio-video-wrapper {
+    max-width: 240px !important; /* ↓ overall card width */
+    aspect-ratio: 9 / 16 !important;
+    border-radius: 16px !important;
+  }
+
+  /* Center the smaller cards */
+  .showcase-items {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+
+/* =====================================================
+   MOBILE FIX: FORCE ABOUT TITLE INTO 2 CLEAN LINES
+===================================================== */
+
+@media (max-width: 575px) {
+  .the-real h2 {
+    line-height: 1.15 !important;
+  }
+
+  /* Line 1 */
+  .the-real h2 .the-real {
+    font-size: 36px !important;
+    line-height: 1.15 !important;
+    white-space: normal !important;
+    margin: 0 !important;
+    text-align: center !important;
+  }
+
+  /* Line 2 */
+  .the-real h2 div:last-child {
+    font-size: 36px !important;
+    line-height: 1.15 !important;
+    margin-top: 6px !important;
+    text-align: center !important;
+  }
+
+  /* Remove desktop spacing pollution */
+  .the-real h2 div,
+  .the-real h6 {
+    margin-right: 0 !important;
+  }
+}
+
+
+/* =====================================================
+   MOBILE REDESIGN: WORK PROCESS (COMPACT)
+===================================================== */
+
+@media (max-width: 767px) {
+  /* Reduce section padding */
+  .work-process-section.section-padding-2 {
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+  }
+
+  /* Reduce overall vertical height */
+  .work-process-section .tw-min-h-\[400px\] {
+    min-height: auto !important;
+  }
+
+  /* Make grid compact */
+  .work-process-section .tw-grid {
+    row-gap: 40px !important;
+  }
+
+  /* Remove desktop translate offsets */
+  .work-process-section [class*="translate-y"] {
+    transform: none !important;
+  }
+
+  /* Process step layout: image + text side-by-side */
+  .work-process-section .tw-flex.tw-flex-col.tw-items-center {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 14px !important;
+    text-align: left !important;
+  }
+
+  /* Shrink the circular image */
+  .work-process-section .tw-w-45.tw-h-45 {
+    width: 64px !important;
+    height: 64px !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Text card becomes compact */
+  .work-process-section .tw-bg-\[\#151518\] {
+    padding: 12px !important;
+    max-width: none !important;
+  }
+
+  .work-process-section h3 {
+    font-size: 15px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .work-process-section p {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Reduce SVG vertical line height */
+  .work-process-section svg[viewBox="0 0 4 1800"] {
+    height: 100% !important;
+  }
+}
