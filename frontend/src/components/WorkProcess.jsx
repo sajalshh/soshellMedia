@@ -63,7 +63,7 @@ const AnimatedWorkProcess = ({ processData }) => {
     >
       <div className="container">
         <div className="section-title text-center">
-          <img src="/assets/img/title-icon.png" alt="img" className="mb-3" />
+          {/* <img src="/assets/img/title-icon.png" alt="img" className="mb-3" /> */}
           <p>We also Do this</p>
           <h2 className="mb-2">
             Everything Your <b>AI Twin</b> Needs to <b>Win</b>
