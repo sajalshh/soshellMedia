@@ -90,7 +90,7 @@ export default function Hero() {
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <div className="hero-content">
+            <div className="hero-content hero-glow-wrapper">
               {/* ===== HERO HEADING (FIXED 2 LINES) ===== */}
               <h1 className="hero-heading wow img-custom-anim-left">
                 <span className="hero-line hero-line-1">

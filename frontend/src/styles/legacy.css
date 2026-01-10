@@ -3119,3 +3119,56 @@ Responsive Styles for Showcase.jsx
     height: 100% !important;
   }
 }
+
+
+/* ===============================
+   HERO NEON SEMI-CIRCLE GLOW
+================================ */
+
+.hero-glow-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* Glow Layer */
+.hero-glow-wrapper::before {
+  content: "";
+  position: absolute;
+
+  /* Center behind text */
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  /* Size of glow */
+  width: 900px;
+  height: 450px;
+
+  /* Semi-circle shape */
+  border-radius: 0 0 900px 900px;
+
+  /* Neon gradient */
+  background: radial-gradient(
+    ellipse at center,
+    rgba(3, 220, 176, 0.45) 0%,
+    rgba(3, 220, 176, 0.25) 35%,
+    rgba(3, 220, 176, 0.12) 55%,
+    rgba(3, 220, 176, 0.05) 70%,
+    transparent 100%
+  );
+
+  /* Glow softness */
+  filter: blur(60px);
+
+  /* Place behind text */
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Ensure text stays above glow */
+.hero-glow-wrapper h1,
+.hero-glow-wrapper p,
+.hero-glow-wrapper .hero-button {
+  position: relative;
+  z-index: 2;
+}
