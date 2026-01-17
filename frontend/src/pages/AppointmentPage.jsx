@@ -161,7 +161,10 @@ export default function AppointmentPage() {
 
             {/* RIGHT SIDE: Slots + Form */}
             <div className="col-lg-7">
-              <div className="tw-rounded-2xl tw-bg-black/40 tw-border tw-border-white/10 tw-p-6 tw-backdrop-blur-lg">
+              <div
+                className="tw-rounded-2xl tw-border tw-border-white/10 tw-p-6 tw-backdrop-blur-lg
+tw-bg-gradient-to-br tw-from-[#00ffcc1a] tw-via-[#184940cc] tw-to-[#0b1f1c]"
+              >
                 {/* Header */}
                 <div className="tw-flex tw-items-start tw-justify-between tw-gap-4 tw-flex-wrap">
                   <div>
