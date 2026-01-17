@@ -24,6 +24,7 @@ export default function Hero() {
   const [scale, setScale] = useState(1);
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [videoReady, setVideoReady] = useState(false);
 
   const toggleAudio = () => {
     if (playerRef.current) {
@@ -53,6 +54,21 @@ export default function Hero() {
     };
     fetchHeroContent();
   }, []);
+  useEffect(() => {
+    if (!content?.videoUrl) return;
+
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "video";
+    link.href = content.videoUrl;
+    link.type = "video/mp4";
+    document.head.appendChild(link);
+
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, [content?.videoUrl]);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -139,8 +155,15 @@ export default function Hero() {
             loop
             muted
             playsInline
+            preload="auto"
             poster="/assets/img/hero/hero-bg-3.png"
-            style={{ objectFit: "cover", display: "block" }}
+            onCanPlayThrough={() => setVideoReady(true)}
+            style={{
+              objectFit: "cover",
+              display: "block",
+              opacity: videoReady ? 1 : 0,
+              transition: "opacity 0.4s ease",
+            }}
           >
             <source src={content.videoUrl} type="video/mp4" />
           </video>
