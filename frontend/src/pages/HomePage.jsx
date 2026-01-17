@@ -23,7 +23,7 @@ export default function HomePage() {
       <WorkProcess />
       {/* <Projects /> */}
       {/* <Pricing /> */}
-      <Faq />
+      {/* <Faq /> */}
       <Message />
     </>
   );

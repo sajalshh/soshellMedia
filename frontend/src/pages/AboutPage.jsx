@@ -1,17 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { FaEye, FaHandshake, FaVideo } from "react-icons/fa";
 import { Fade } from "react-awesome-reveal";
-import Counter from "../components/Counter";
 import api from "../api/axiosConfig";
 import SeoHelmet from "../components/SeoHelmet";
-
-// Helper to map icon names from the database to actual components
-const iconMap = {
-  FaEye: FaEye,
-  FaHandshake: FaHandshake,
-  FaVideo: FaVideo,
-};
+import Counter1 from "../components/counter1";
 
 export default function AboutPage() {
   const [pageData, setPageData] = useState(null);
@@ -21,7 +12,6 @@ export default function AboutPage() {
   useEffect(() => {
     const fetchAboutPageContent = async () => {
       try {
-        // This URL must match the endpoint on your Node.js server
         const response = await api.get("/content/about");
         setPageData(response.data);
       } catch (err) {
@@ -33,14 +23,12 @@ export default function AboutPage() {
     };
 
     fetchAboutPageContent();
-  }, []); // The empty array ensures this effect runs only once when the component mounts
+  }, []);
 
-  // Render a loading state
   if (loading) {
     return <div className="section-padding text-center">Loading...</div>;
   }
 
-  // Render an error state
   if (error) {
     return (
       <div className="section-padding text-center fs-4 text-danger">
@@ -49,10 +37,10 @@ export default function AboutPage() {
     );
   }
 
-  // Once data is loaded, render the full page
   return (
     <>
       <SeoHelmet pageUrl="/about" />
+
       {/* Breadcrumb Section */}
       <div
         className="breadcrumb-wrapper bg-cover"
@@ -60,11 +48,8 @@ export default function AboutPage() {
       >
         <div className="container">
           <div className="section-title text-center mx-auto">
-            <Fade direction="up" triggerOnce>
-              <h6>
-                <img src="/assets/img/star.png" alt="img" /> Who we are
-              </h6>
-            </Fade>
+            <Fade direction="up" triggerOnce></Fade>
+
             <Fade direction="up" delay={300} triggerOnce>
               <h2>
                 <span className="about">About </span>{" "}
@@ -82,15 +67,16 @@ export default function AboutPage() {
             <div className="col-lg-10">
               <div className="about-content text-center">
                 <Fade direction="up" triggerOnce>
-                  {pageData.pageContent &&
-                    pageData.pageContent.paragraphs.map((paragraph, index) => (
+                  {pageData?.pageContent?.paragraphs?.map(
+                    (paragraph, index) => (
                       <p
                         key={index}
                         className={`fs-5 ${index > 0 ? "mt-4" : ""}`}
                       >
                         {paragraph}
                       </p>
-                    ))}
+                    ),
+                  )}
                 </Fade>
               </div>
             </div>
@@ -98,23 +84,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Counter Section */}
-      <div className="counter-section section-padding pb-0">
-        <div className="container">
-          <div className="counter-wrapper counter-one">
-            {pageData.stats.map((stat) => (
-              <Counter
-                key={stat._id} // Using the database ID as the key
-                end={stat.end}
-                suffix={stat.suffix}
-                label={stat.label}
-                icon={iconMap[stat.icon]} // Dynamically select the icon
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
+      <Counter1/>
       {/* Team Section */}
       <section className="team-section fix section-padding section-bg">
         <div className="container">
@@ -124,21 +94,23 @@ export default function AboutPage() {
                 <img src="/assets/img/star.png" alt="img" /> dedicated member
               </h6>
             </Fade>
+
             <Fade direction="up" delay={300} triggerOnce>
               <h2>
                 The People Behind <br /> <span>the Purpose</span>
               </h2>
             </Fade>
           </div>
+
           <div className="row">
-            {pageData.teamMembers.map((member, index) => (
+            {pageData?.teamMembers?.map((member, index) => (
               <div key={member._id} className="col-xl-3 col-lg-4 col-md-6">
                 <Fade direction="up" delay={200 * (index + 1)} triggerOnce>
                   <div className="team-box-items">
                     <div className="team-image">
                       <img src={member.imgSrc} alt={member.name} />
-                      {/* Social links can be added here later */}
                     </div>
+
                     <div className="team-content">
                       <h3>{member.name}</h3>
                       <p>{member.title}</p>

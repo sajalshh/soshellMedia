@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Fade } from "react-awesome-reveal";
-import { Volume2, VolumeX } from "lucide-react"; // Changed icons to Volume for better context
+import { Volume2, VolumeX } from "lucide-react";
 import SeoHelmet from "../components/SeoHelmet";
 import api from "../api/axiosConfig";
 
@@ -22,7 +22,6 @@ export default function ProjectPage() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [loading, setLoading] = useState(true);
 
-  // --- NEW: State to track which video has sound ON ---
   const [activeVideoId, setActiveVideoId] = useState(null);
 
   useEffect(() => {
@@ -43,6 +42,7 @@ export default function ProjectPage() {
         setLoading(false);
       }
     };
+
     fetchPortfolioData();
   }, []);
 
@@ -57,10 +57,7 @@ export default function ProjectPage() {
     }
   }, [activeFilter, allProjects]);
 
-  // --- NEW: Handle Click to Toggle Sound ---
   const handleVideoClick = (id) => {
-    // If clicking the same video, toggle it off (null)
-    // If clicking a new video, set it as the active ID (turning others off)
     setActiveVideoId((prevId) => (prevId === id ? null : id));
   };
 
@@ -68,26 +65,31 @@ export default function ProjectPage() {
     <>
       <SeoHelmet pageUrl="/project" />
 
-      {/* === HEADER === */}
-      <div
-        className="breadcrumb-wrapper bg-cover"
-        style={{ backgroundImage: "url('/assets/img/breadcrumb-bg.jpg')" }}
+      {/* === PORTFOLIO SECTION (Small Top Space + Small Heading) === */}
+      <section
+        className="portfolio-section section-bg"
+        style={{
+          paddingTop: "100px",
+          paddingBottom: "60px",
+        }}
       >
         <div className="container">
-          <div className="page-heading">
+          {/* Small Heading */}
+          <div
+            className="tw-text-center tw-mb-10"
+            style={{ marginTop: "40px" }}
+          >
             <Fade direction="up" triggerOnce>
-              <h1>
-                Creative <span>Portfolio</span>
-              </h1>
+              <h2 className="tw-text-3xl md:tw-text-4xl tw-font-bold tw-text-white">
+                Creative{" "}
+                <span className="tw-text-[var(--tp-theme-primary)]">
+                  Portfolio
+                </span>
+              </h2>
             </Fade>
           </div>
-        </div>
-      </div>
 
-      {/* === PORTFOLIO SECTION === */}
-      <section className="portfolio-section section-padding section-bg">
-        <div className="container">
-          {/* Elegant Filter Bar */}
+          {/* Filter Bar */}
           <div className="tw-flex tw-justify-center tw-mb-12">
             <ul className="tw-flex tw-flex-wrap tw-gap-4 md:tw-gap-8">
               {["All", ...categories.map((c) => c.name)].map((filter) => (
@@ -148,13 +150,11 @@ export default function ProjectPage() {
                                   : ""
                               }`}
                             >
-                              {/* UPDATED: Native Video Tag for correct audio control */}
                               <video
                                 src={project.videoUrl}
                                 autoPlay
                                 loop
                                 playsInline
-                                // Logic: Muted unless it matches the active ID
                                 muted={!isUnmuted}
                                 className="tw-w-full tw-h-full tw-object-cover tw-aspect-[9/16]"
                               />
@@ -174,7 +174,7 @@ export default function ProjectPage() {
                                 )}
                               </div>
 
-                              {/* Hover Overlay Hint */}
+                              {/* Hover Hint */}
                               <div
                                 className={`tw-absolute tw-inset-0 tw-bg-black/20 tw-flex tw-items-center tw-justify-center tw-transition-opacity tw-duration-300 ${
                                   isUnmuted
@@ -187,6 +187,7 @@ export default function ProjectPage() {
                                 </p>
                               </div>
                             </div>
+
                             <div className="portfolio-video-content">
                               <h6>
                                 <span>//</span> {project.category?.name}

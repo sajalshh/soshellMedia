@@ -1,153 +1,211 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Instagram,
+  Linkedin,
+  Twitter,
+} from "lucide-react";
+
+// Same links as Navbar
+const navLinks = [
+  { path: "/", label: "Home" },
+  { path: "/about", label: "About Us" },
+  { path: "/service", label: "Services" },
+  { path: "/project", label: "Portfolio" },
+  { path: "/blog", label: "Blog" },
+  { path: "/casestudies", label: "Case Studies" },
+  { path: "/contact", label: "Contact" },
+];
+
+// Footer services
+const serviceLinks = [
+  { path: "/service", label: "AI Avatar" },
+  { path: "/service", label: "Video Editing" },
+  { path: "/service", label: "SEO & Optimization" },
+  { path: "/service", label: "Performance Marketing" },
+  { path: "/service", label: "AI Calling Agents" },
+];
 
 export default function Footer() {
   return (
-    <footer className="footer-section footer-bg">
-      <div className="container">
-        <div className="footer-widgets-wrapper">
-          <div className="row">
-            <div
-              className="col-xl-4 col-lg-4 col-md-6 wow fadeInUp"
-              data-wow-delay=".2s"
-            >
-              <div className="single-footer-widget">
-                <div className="footer-content">
-                  <h3 className="mb-3">Subscribe our newsletter</h3>
-                  <p>Join us today, get update everyday</p>
-                  <div className="footer-input">
-                    <input
-                      type="email"
-                      id="email"
-                      placeholder="Enter email..."
-                    />
-                    <button
-                      className="newsletter-btn"
-                      type="submit"
-                      aria-label="Subscribe to newsletter"
+    <footer className="footer-section footer-bg tw-relative tw-overflow-hidden">
+      {/* Top Part */}
+      <div className="container tw-py-16">
+        <div className="row tw-gap-y-10">
+          {/* Logo + About */}
+          <div className="col-xl-4 col-lg-4 col-md-6">
+            <div className="single-footer-widget">
+              <div className="footer-content">
+                <Link to="/" className="tw-inline-block">
+                  <img
+                    src="/assets/img/logo/logo.png"
+                    alt="Soshell Media"
+                    style={{ width: "164px", height: "62px" }}
+                  />
+                </Link>
+
+                <p className="tw-mt-4 tw-text-white/70 tw-leading-relaxed">
+                  Soshell Media helps brands grow with modern design,
+                  development, and marketing solutions. We build experiences
+                  that look premium and perform better.
+                </p>
+
+                {/* Social Icons */}
+                <div className="tw-mt-5 tw-flex tw-items-center tw-gap-3">
+                  <a
+                    href="#"
+                    className="tw-w-10 tw-h-10 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-bg-white/10 hover:tw-bg-[var(--tp-theme-primary)] tw-transition"
+                    aria-label="Instagram"
+                  >
+                    <Instagram size={18} className="tw-text-white" />
+                  </a>
+
+                  <a
+                    href="#"
+                    className="tw-w-10 tw-h-10 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-bg-white/10 hover:tw-bg-[var(--tp-theme-primary)] tw-transition"
+                    aria-label="LinkedIn"
+                  >
+                    <Linkedin size={18} className="tw-text-white" />
+                  </a>
+
+                  <a
+                    href="#"
+                    className="tw-w-10 tw-h-10 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-bg-white/10 hover:tw-bg-[var(--tp-theme-primary)] tw-transition"
+                    aria-label="Twitter"
+                  >
+                    <Twitter size={18} className="tw-text-white" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="col-xl-2 col-lg-4 col-md-6">
+            <div className="single-footer-widget">
+              <div className="widget-head">
+                <h3 className="tw-text-white">Quick Links</h3>
+              </div>
+
+              <ul className="list-items tw-mt-4 tw-space-y-2">
+                {navLinks.map((link) => (
+                  <li key={link.path}>
+                    <Link
+                      to={link.path}
+                      className="tw-text-white/70 hover:tw-text-[var(--tp-theme-primary)] tw-transition"
                     >
-                      <img src="/assets/img/circle-check.png" alt="img" />
-                    </button>
-                  </div>
-                </div>
-              </div>
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div
-              className="col-xl-2 col-lg-4 col-md-6 ps-lg-5 wow fadeInUp"
-              data-wow-delay=".4s"
-            >
-              <div className="single-footer-widget">
-                <div className="widget-head">
-                  <h3>Company</h3>
-                </div>
-                <ul className="list-items">
-                  <li>
-                    <a href="/about">About us</a>
-                  </li>
-                  <li>
-                    <a href="/contact">Opportunity</a>
-                  </li>
-                  <li>
-                    <a href="/contact">Consulting</a>
-                  </li>
-                  <li>
-                    <a href="/blog">Our blog</a>
-                  </li>
-                  <li>
-                    <a href="/contact">Contact us</a>
-                  </li>
-                  <li>
-                    <a href="/contact">Careers</a>
-                  </li>
-                </ul>
+          </div>
+
+          {/* Services */}
+          <div className="col-xl-3 col-lg-4 col-md-6">
+            <div className="single-footer-widget">
+              <div className="widget-head">
+                <h3 className="tw-text-white">Services</h3>
               </div>
+
+              <ul className="list-items tw-mt-4 tw-space-y-2">
+                {serviceLinks.map((item, index) => (
+                  <li key={index}>
+                    <Link
+                      to={item.path}
+                      className="tw-text-white/70 hover:tw-text-[var(--tp-theme-primary)] tw-transition"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div
-              className="col-xl-3 col-lg-4 col-md-6 ps-lg-5 wow fadeInUp"
-              data-wow-delay=".6s"
-            >
-              <div className="single-footer-widget">
-                <div className="widget-head">
-                  <h3>Company</h3>
-                </div>
-                <ul className="list-items">
-                  <li>
-                    <a href="/service">Software Development</a>
-                  </li>
-                  <li>
-                    <a href="/service">Marketing</a>
-                  </li>
-                  <li>
-                    <a href="/service">SEO and Optimization</a>
-                  </li>
-                  <li>
-                    <a href="/service">Video Editing</a>
-                  </li>
-                </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div className="col-xl-3 col-lg-4 col-md-6">
+            <div className="single-footer-widget">
+              <div className="widget-head">
+                <h3 className="tw-text-white">Contact</h3>
               </div>
-            </div>
-            <div
-              className="col-xl-3 col-lg-4 col-md-6 ps-lg-3 wow fadeInUp"
-              data-wow-delay=".8s"
-            >
-              {/* <div className="single-footer-widget">
-                <div className="widget-head">
-                  <h3>Instagram</h3>
+
+              <div className="tw-mt-4 tw-space-y-4">
+                <div className="tw-flex tw-items-start tw-gap-3">
+                  <MapPin
+                    size={18}
+                    className="tw-text-[var(--tp-theme-primary)] tw-mt-1"
+                  />
+                  <p className="tw-text-white/70 tw-leading-relaxed">
+                    Windsor, Ontario, Canada
+                  </p>
                 </div>
-                <div className="row g-3">
-                  <div className="col-md-6 col-sm-4 col-4">
-                    <div className="footer-thumb">
-                      <img src="/assets/img/footer/gallery-1.jpg" alt="img" />
-                      <a href="index.html" className="icon">
-                        <i className="fa-brands fa-instagram"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-sm-4 col-4">
-                    <div className="footer-thumb">
-                      <img src="/assets/img/footer/gallery-2.jpg" alt="img" />
-                      <a href="index.html" className="icon">
-                        <i className="fa-brands fa-instagram"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-sm-4 col-4">
-                    <div className="footer-thumb">
-                      <img src="/assets/img/footer/gallery-3.jpg" alt="img" />
-                      <a href="index.html" className="icon">
-                        <i className="fa-brands fa-instagram"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="col-md-6 col-sm-4 col-4">
-                    <div className="footer-thumb">
-                      <img src="/assets/img/footer/gallery-4.jpg" alt="img" />
-                      <a href="index.html" className="icon">
-                        <i className="fa-brands fa-instagram"></i>
-                      </a>
-                    </div>
-                  </div>
+
+                <div className="tw-flex tw-items-center tw-gap-3">
+                  <Phone
+                    size={18}
+                    className="tw-text-[var(--tp-theme-primary)]"
+                  />
+                  <a
+                    href="tel:+10000000000"
+                    className="tw-text-white/70 hover:tw-text-[var(--tp-theme-primary)] tw-transition"
+                  >
+                    +1 (647) 897-0671
+                  </a>
                 </div>
-              </div> */}
+
+                <div className="tw-flex tw-items-center tw-gap-3">
+                  <Mail
+                    size={18}
+                    className="tw-text-[var(--tp-theme-primary)]"
+                  />
+                  <a
+                    href="mailto:hello@soshellmedia.com"
+                    className="tw-text-white/70 hover:tw-text-[var(--tp-theme-primary)] tw-transition"
+                  >
+                    info@soshellmedia.com
+                  </a>
+                </div>
+
+                {/* CTA Button */}
+                <Link
+                  to="/appointment"
+                  className="theme-btn contact-btn tw-mt-2 !tw-inline-flex tw-items-center tw-gap-2.5"
+                >
+                  <Mail size={18} />
+                  <span>Book Appointment</span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="footer-bottom">
+
+      {/* Bottom Part */}
+      <div className="footer-bottom tw-border-t tw-border-white/10">
         <div className="container">
-          <div className="footer-bottom-wrapper">
-            <div className="logo-img wow fadeInUp" data-wow-delay=".3s">
-              <a href="index.html">
-                <img
-                  src="/assets/img/logo/logo.png"
-                  alt="header"
-                  style={{ width: "164px", height: "62px" }}
-                />
-              </a>
-            </div>
-            <p className="wow fadeInUp" data-wow-delay=".5s">
-              Soshell Media © 2024. All Rights Reserved.
+          <div className="footer-bottom-wrapper tw-flex tw-flex-col md:tw-flex-row tw-items-center tw-justify-between tw-gap-4 tw-py-6">
+            <p className="tw-text-white/60 tw-text-sm tw-text-center md:tw-text-left">
+              Soshell Media © {new Date().getFullYear()}. All Rights Reserved.
             </p>
-            <div className="social-icon wow fadeInUp" data-wow-delay=".7s">
+
+            <div className="tw-flex tw-items-center tw-gap-5 tw-text-sm">
+              <Link
+                to="/privacy"
+                className="tw-text-white/60 hover:tw-text-[var(--tp-theme-primary)] tw-transition"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                to="/terms"
+                className="tw-text-white/60 hover:tw-text-[var(--tp-theme-primary)] tw-transition"
+              >
+                Terms & Conditions
+              </Link>
             </div>
           </div>
         </div>

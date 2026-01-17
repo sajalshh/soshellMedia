@@ -79,10 +79,10 @@ export default function StickyCardScroller() {
   return (
     <div className="sticky-scroll-wrapper">
       <div className="section-title text-center">
-        <h6 className="wow fadeInUp">
+        {/* <h6 className="wow fadeInUp">
           <img src="/assets/img/star.png" alt="img" />
           What We Do
-        </h6>
+        </h6> */}
         <h2 className="wow fadeInUp" data-wow-delay=".3s">
           One <b>System</b> <br />
           <strong className="we-build">

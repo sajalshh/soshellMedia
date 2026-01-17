@@ -45,20 +45,16 @@ export default function About() {
         {/* ================= TOP TITLE ================= */}
         <div className="section-title ml-200 text-center the-real">
           <Fade direction="up" triggerOnce>
-            <h6>
-              <img src="/assets/img/star.png" alt="img" />
-              The Process
-            </h6>
           </Fade>
 
           <Fade direction="up" delay={300} triggerOnce>
             <h2>
               <div className="the-real">
-                Content Is Killing{" "}
-                <span className="text-neon struggles">Your Consistency</span>
+                Ideas Don't{" "}
+                <span className="text-neon struggles">Scale</span>
               </div>
               <div>
-                Not Your <span className="text-neon">Ideas</span>
+                <span className="text-neon">Consistency</span> Does
               </div>
             </h2>
           </Fade>
@@ -165,7 +161,7 @@ export default function About() {
         {/* ================= CTA ================= */}
         <div className="tw-mt-16 tw-flex tw-justify-center">
           <Link to="/project" className="theme-btn">
-            What Our Clients Say?
+            Watch client Reviews
             <i className="fa-sharp fa-regular fa-arrow-up-right"></i>
           </Link>
         </div>

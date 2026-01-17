@@ -33,7 +33,7 @@ export default function Card({ card, style }) {
           ) : (
             <p>{card.description}</p>
           )}
-          <a href="/project" className="explore-button">
+          <a href="/Service" className="explore-button">
             Explore More
           </a>{" "}
           {/* Replace link */}

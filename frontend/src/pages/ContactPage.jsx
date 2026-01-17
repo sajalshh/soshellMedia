@@ -72,15 +72,15 @@ export default function ContactPage() {
                   <img src="/assets/img/star.png" alt="img" /> contact with us
                 </h6> */}
                 <h2>
-                  Contact our experts <br />
+                  Got Something you're <b>Building?</b>
+                  <br />
                   <span>
-                    any <b>assistance</b> you need
+                    Questions, ideas or half baked plans...<br></br>
+                    <b>We're all ears</b>
                   </span>
                 </h2>
                 <p className="tw-text-gray-300 tw-mt-4 tw-max-w-md">
-                  Have a project, a question, or just want to connect? We're
-                  here to help. Reach out directly or use the form to send us a
-                  message.
+                  Reach out directly or use the form to send us a message.
                 </p>
               </div>
               <div className="tw-mt-10 tw-space-y-8">

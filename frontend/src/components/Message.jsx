@@ -53,7 +53,7 @@ export default function Message() {
             transition={{ duration: 0.5 }}
             viewport={{ once: true, amount: 0.5 }}
           >
-            {"Have any query ".split(" ").map((word, i) => (
+            {"Start with one recording. ".split(" ").map((word, i) => (
               <motion.span
                 key={i}
                 className="tw-inline-block"
@@ -66,7 +66,7 @@ export default function Message() {
               </motion.span>
             ))}
             <span className="tw-block">
-              {"send us ".split(" ").map((word, i) => (
+              {"We handle the rest. ".split(" ").map((word, i) => (
                 <motion.span
                   key={i}
                   className="tw-inline-block"
@@ -78,20 +78,7 @@ export default function Message() {
                   {word}&nbsp;
                 </motion.span>
               ))}
-              <b className="tw-text-[var(--tp-theme-primary)]">
-                {"message".split(" ").map((word, i) => (
-                  <motion.span
-                    key={i}
-                    className="tw-inline-block"
-                    initial={{ y: 20, opacity: 0 }}
-                    whileInView={{ y: 0, opacity: 1 }}
-                    transition={{ delay: (i + 5) * 0.1, duration: 0.4 }}
-                    viewport={{ once: true }}
-                  >
-                    {word}
-                  </motion.span>
-                ))}
-              </b>
+            
             </span>
           </motion.h2>
 
@@ -104,7 +91,7 @@ export default function Message() {
               className="tw-inline-block"
             >
               <Link
-                to="/contact"
+                to="/appointment"
                 className="tw-relative tw-w-40 tw-h-40 tw-rounded-full tw-bg-[var(--tp-theme-primary)] tw-flex tw-flex-col tw-items-center tw-justify-center tw-text-black tw-font-bold tw-text-lg tw-shadow-lg"
               >
                 {/* Pulse Animation */}
@@ -121,9 +108,7 @@ export default function Message() {
                 <ArrowUpRight className="tw-relative" />
               </Link>
             </motion.div>
-            <p className="tw-max-w-xl tw-mx-auto tw-mt-8 tw-text-[#CDCDCD]">
-              Start with one recording. We handle the rest.
-            </p>
+
           </div>
         </div>
       </div>

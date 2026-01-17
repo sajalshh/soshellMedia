@@ -58,13 +58,11 @@ const AnimatedWorkProcess = ({ processData }) => {
   return (
     <section
       ref={targetRef}
-      className="work-process-section fix section-padding-2 bg-cover"
+      className="work-process-section teal-patch-bg fix section-padding-2 bg-cover"
       style={{ backgroundImage: "url('assets/img/work-process-bg.jpg')" }}
     >
       <div className="container">
         <div className="section-title text-center">
-          {/* <img src="/assets/img/title-icon.png" alt="img" className="mb-3" /> */}
-          <p>We also Do this</p>
           <h2 className="mb-2">
             Everything Your <b>AI Twin</b> Needs to <b>Win</b>
           </h2>

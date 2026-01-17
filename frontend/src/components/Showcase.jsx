@@ -38,20 +38,16 @@ export default function Showcase() {
     <section className="showcase-section fix section-padding-2 section-bg">
       <div className="container">
         <div className="section-title text-center mx-auto">
-          <Fade direction="up" triggerOnce>
-            <h6>
-              <img src="/assets/img/star.png" alt="img" /> Trusted by the Best
-            </h6>
-          </Fade>
+          <Fade direction="up" triggerOnce></Fade>
           <Fade direction="up" delay={200} triggerOnce>
             <h2>
-              Global Clients who <b>trusts us</b>
+              Global Clients who <b>trust us</b>
             </h2>
           </Fade>
         </div>
       </div>
 
-      <div className="container-fluid mt-5">
+      <div className="container-fluid mt-5 bg-gradient-to-{green}">
         {!loading && (
           <Swiper
             modules={[Autoplay]}
@@ -73,8 +69,7 @@ export default function Showcase() {
             {projects.map((project, index) => (
               <SwiperSlide key={`${project._id}-${index}`}>
                 <div className="showcase-items">
-                  <div className="portfolio-video-wrapper">
-                    {/* UPDATED: Native Video Tag for VPS/CDN Storage */}
+                  <div className="portfolio-video-wrapper glow-teal-border">
                     <video
                       src={project.videoUrl}
                       autoPlay
@@ -86,7 +81,8 @@ export default function Showcase() {
                         objectFit: "cover",
                         height: "100%",
                         width: "100%",
-                        pointerEvents: "none", // Prevents user from clicking/pausing
+                        pointerEvents: "none",
+                        borderRadius: "16px",
                       }}
                     >
                       Your browser does not support the video tag.
