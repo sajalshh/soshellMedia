@@ -4,6 +4,7 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import api from "../api/axiosConfig";
 import { Fade } from "react-awesome-reveal";
+import { Link } from "react-router-dom";
 
 export default function Showcase() {
   const [projects, setProjects] = useState([]);
@@ -47,7 +48,7 @@ export default function Showcase() {
         </div>
       </div>
 
-      <div className="container-fluid mt-5 bg-gradient-to-{green}">
+      <div className="container-fluid mt-5">
         {!loading && (
           <Swiper
             modules={[Autoplay]}
@@ -93,6 +94,13 @@ export default function Showcase() {
             ))}
           </Swiper>
         )}
+
+        {/* Button Center Bottom */}
+        <div className="tw-flex tw-justify-center tw-mt-10">
+          <Link to="/project" className="theme-btn">
+            Check Our Portfolio
+          </Link>
+        </div>
       </div>
     </section>
   );

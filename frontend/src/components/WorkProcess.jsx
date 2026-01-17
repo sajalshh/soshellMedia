@@ -2,13 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import api from "../api/axiosConfig";
 
-// --- CHANGE 1: ProcessStep component is modified ---
+// --- ProcessStep component (UPDATED: smaller image + teal border) ---
 const ProcessStep = ({ imageUrl, title, description, scale }) => (
   <div className="tw-text-center tw-flex tw-flex-col tw-items-center">
-    {/* This motion.div no longer has the bg, border, or borderColor style */}
     <motion.div
-      className="tw-relative tw-mb-6 tw-w-45 tw-h-45 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-overflow-hidden"
-      style={{ scale }}
+      className="tw-relative tw-mb-6 tw-w-32 tw-h-32 lg:tw-w-36 lg:tw-h-36 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-overflow-hidden"
+      style={{
+        scale,
+        border: "3px solid var(--tp-theme-primary)",
+        boxShadow: "0 0 18px rgba(0, 255, 204, 0.35)",
+      }}
     >
       <img
         src={imageUrl}
@@ -16,7 +19,7 @@ const ProcessStep = ({ imageUrl, title, description, scale }) => (
         className="tw-w-full tw-h-full tw-object-cover"
       />
     </motion.div>
-    {/* This div is now styled as a separate, rounded block */}
+
     <div className="tw-bg-[#151518] tw-relative tw-p-4 tw-rounded-lg tw-w-full tw-max-w-[220px]">
       <h3 className="tw-text-xl tw-font-bold tw-text-white mb-2">{title}</h3>
       <p className="tw-text-[#CDCDCD] tw-text-sm">{description}</p>
@@ -24,7 +27,7 @@ const ProcessStep = ({ imageUrl, title, description, scale }) => (
   </div>
 );
 
-// --- CHANGE 2: AnimatedWorkProcess is modified to remove borderColor logic ---
+// --- AnimatedWorkProcess component ---
 const AnimatedWorkProcess = ({ processData }) => {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -34,10 +37,8 @@ const AnimatedWorkProcess = ({ processData }) => {
 
   const pathLength = useTransform(scrollYProgress, [0.1, 0.7], [0, 1]);
   const themeColor = "var(--tp-theme-primary)";
-  // const inactiveColor = "rgba(207, 208, 212, 0.1)"; // No longer needed
   const activationPoints = [0.01, 0.2, 0.4, 0.6, 0.8];
 
-  // The 'borderColor' transform has been removed
   const animations = processData.map((_, index) => {
     const start = activationPoints[index];
     const end = start + 0.1;
@@ -46,7 +47,6 @@ const AnimatedWorkProcess = ({ processData }) => {
     };
   });
 
-  // The 'borderColor' transform has been removed here as well
   if (animations.length > 0) {
     animations[0].scale = useTransform(
       pathLength,
@@ -69,7 +69,7 @@ const AnimatedWorkProcess = ({ processData }) => {
         </div>
 
         <div className="tw-relative tw-mt-5 tw-min-h-[400px]">
-          {/* SVG paths remain the same */}
+          {/* Desktop Curved SVG Path */}
           <svg
             className="tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-full tw-hidden lg:tw-block tw-z-0"
             viewBox="0 0 1200 200"
@@ -102,6 +102,8 @@ const AnimatedWorkProcess = ({ processData }) => {
               </linearGradient>
             </defs>
           </svg>
+
+          {/* Mobile Vertical SVG Path */}
           <svg
             className="tw-absolute tw-top-0 tw-left-1/2 -tw-translate-x-1/2 tw-h-full tw-w-1 lg:tw-hidden tw-z-0"
             width="4"
@@ -152,7 +154,7 @@ const AnimatedWorkProcess = ({ processData }) => {
                   imageUrl={item.image}
                   title={item.title}
                   description={item.description}
-                  {...animations[index]} // This now only passes 'scale'
+                  {...animations[index]}
                 />
               </div>
             ))}
@@ -163,7 +165,7 @@ const AnimatedWorkProcess = ({ processData }) => {
   );
 };
 
-// --- This component remains the same ---
+// --- WorkProcess component ---
 export default function WorkProcess() {
   const [processData, setProcessData] = useState([]);
   const [loading, setLoading] = useState(true);
