@@ -1,4 +1,8 @@
 User-agent: *
-Disallow:
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
 
 Sitemap: https://soshellmedia.co/sitemap.xml
