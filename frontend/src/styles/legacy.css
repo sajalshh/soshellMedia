@@ -415,10 +415,7 @@
 
   transform-origin: center center;
 
-  /* glow */
-  box-shadow:
-    0 10px 40px rgba(0, 255, 26, 0.45),
-    0 0 20px rgb(0, 143, 114);
+
 
   transition: transform 0.3s ease;
 }

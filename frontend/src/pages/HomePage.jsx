@@ -11,6 +11,7 @@ import StickyCardScroller from "../components/StickyCardScroller";
 import WorkProcess from "../components/WorkProcess";
 import Showcase from "../components/Showcase";
 import SeoHelmet from "../components/SeoHelmet";
+import AIOperationalAgents from "../components/AIOperationalAgents";
 
 export default function HomePage() {
   return (
@@ -21,6 +22,7 @@ export default function HomePage() {
       <About />
       <StickyCardScroller />
       <WorkProcess />
+      <AIOperationalAgents />
       {/* <Projects /> */}
       {/* <Pricing /> */}
       {/* <Faq /> */}
