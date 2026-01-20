@@ -22,10 +22,18 @@ export default function AIOperationalAgents() {
 
   return (
     <section className="ai-agents-section section-padding-2">
+      {/* Background teal glow patches */}
+      <div className="ai-agents-bg">
+        <span className="ai-glow ai-glow-1" />
+        <span className="ai-glow ai-glow-2" />
+        <span className="ai-glow ai-glow-3" />
+      </div>
+
       <div className="container">
         <div className="section-title text-center">
           <h2>
-            AI OPERATIONAL AGENTS: <span className="text-neon">YOUR 24/7 TEAM</span>
+            AI OPERATIONAL AGENTS:{" "}
+            <span className="text-neon">YOUR 24/7 TEAM</span>
           </h2>
           <p style={{ maxWidth: "850px", margin: "0 auto" }}>
             Any Industry. Every Workflow. No Lead Left Behind.
@@ -55,7 +63,8 @@ export default function AIOperationalAgents() {
         <div className="ai-agents-cta">
           <div className="ai-agents-cta-box">
             <h3 className="ai-agents-cta-heading">
-              WE PRIME THE LEAD. <span className="text-neon">YOU CLOSE THE DEAL.</span>
+              WE PRIME THE LEAD.{" "}
+              <span className="text-neon">YOU CLOSE THE DEAL.</span>
             </h3>
 
             <p className="ai-agents-cta-sub">
@@ -70,13 +79,85 @@ export default function AIOperationalAgents() {
         </div>
       </div>
 
-      {/* Inline CSS so you don’t need to edit legacy.css */}
       <style>{`
         .ai-agents-section {
           position: relative;
           padding-top: 80px;
           padding-bottom: 80px;
           background: transparent;
+          overflow: hidden;
+        }
+
+        /* Background glow layer */
+        .ai-agents-bg {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .ai-glow {
+          position: absolute;
+          width: 420px;
+          height: 420px;
+          border-radius: 50%;
+          filter: blur(70px);
+          opacity: 0.7; /* 70% opacity */
+          animation: aiGlowFloat 9s ease-in-out infinite;
+        }
+
+        /* More centered placement */
+        .ai-glow-1 {
+          top: 10%;
+          left: 8%;
+          background: radial-gradient(
+            circle,
+            rgba(3, 220, 176, 1),
+            transparent 62%
+          );
+        }
+
+        .ai-glow-2 {
+          bottom: 10%;
+          right: 8%;
+          background: radial-gradient(
+            circle,
+            rgba(0, 236, 193, 0.95),
+            transparent 62%
+          );
+          animation-delay: 1.5s;
+        }
+
+        .ai-glow-3 {
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 360px;
+          height: 360px;
+          background: radial-gradient(
+            circle,
+            rgba(3, 220, 176, 0.9),
+            transparent 62%
+          );
+          animation-delay: 3s;
+        }
+
+        @keyframes aiGlowFloat {
+          0% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          50% {
+            transform: translate(35px, -25px) scale(1.08);
+          }
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
+        }
+
+        /* Content above bg */
+        .ai-agents-section .container {
+          position: relative;
+          z-index: 2;
         }
 
         .ai-agents-description {
@@ -131,17 +212,18 @@ export default function AIOperationalAgents() {
           justify-content: center;
         }
 
+        /* CTA BOX -> GRAY ONLY */
         .ai-agents-cta-box {
           width: 100%;
           max-width: 1050px;
           padding: 35px 35px;
           border-radius: 22px;
-          background: linear-gradient(135deg, #00ecc1 0%, #006e5d 55%, #004e43 100%);
-          border: 1px solid rgba(3, 220, 177, 0.85);
-          box-shadow:
-            0 10px 40px rgba(0, 255, 26, 0.25),
-            0 0 20px rgba(0, 143, 114, 0.55);
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.10);
+          box-shadow: 0 10px 45px rgba(0, 0, 0, 0.35);
           text-align: center;
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
         }
 
         .ai-agents-cta-heading {
@@ -158,25 +240,102 @@ export default function AIOperationalAgents() {
           margin-bottom: 22px;
         }
 
+        /* Tablet */
         @media (max-width: 991px) {
-          .ai-agents-cta-heading {
-            font-size: 24px;
-          }
           .ai-agents-description p {
             font-size: 16px;
           }
+
+          .ai-agents-cta-heading {
+            font-size: 24px;
+          }
+
+          .ai-agents-section .section-title h2 {
+            font-size: 38px !important;
+            line-height: 1.15 !important;
+          }
+
+          .ai-agents-section .section-title p {
+            font-size: 16px !important;
+            line-height: 1.6 !important;
+          }
         }
 
+        /* Mobile */
         @media (max-width: 575px) {
           .ai-agents-section {
             padding-top: 60px;
             padding-bottom: 60px;
           }
-          .ai-agents-cta-box {
-            padding: 26px 18px;
+
+          .ai-agents-section .section-title h2 {
+            font-size: 28px !important;
+            line-height: 1.2 !important;
+            margin-bottom: 12px !important;
           }
+
+          .ai-agents-section .section-title p {
+            font-size: 14px !important;
+            line-height: 1.6 !important;
+            padding: 0 10px;
+          }
+
+          .ai-agents-description p {
+            font-size: 14px;
+            line-height: 1.65;
+            padding: 0 10px;
+          }
+
+          .ai-agent-box {
+            padding: 20px;
+            border-radius: 16px;
+          }
+
+          .ai-agent-title {
+            font-size: 16px;
+          }
+
+          .ai-agent-desc {
+            font-size: 14px;
+          }
+
+          .ai-agents-cta-box {
+            padding: 24px 16px;
+            border-radius: 18px;
+          }
+
           .ai-agents-cta-heading {
-            font-size: 22px;
+            font-size: 18px;
+            line-height: 1.25;
+          }
+
+          .ai-agents-cta-sub {
+            font-size: 14px;
+            margin-bottom: 18px;
+          }
+
+          /* Keep glow visible on mobile */
+          .ai-glow {
+            width: 320px;
+            height: 320px;
+            filter: blur(65px);
+            opacity: 0.7;
+          }
+
+          .ai-glow-1 {
+            top: 6%;
+            left: 5%;
+          }
+
+          .ai-glow-2 {
+            bottom: 6%;
+            right: 5%;
+          }
+
+          .ai-glow-3 {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
           }
         }
       `}</style>
