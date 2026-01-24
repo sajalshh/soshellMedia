@@ -14,7 +14,7 @@ export default function Showcase() {
     const fetchProjects = async () => {
       setLoading(true);
       try {
-        const response = await api.get("/portfolio");
+        const response = await api.get("/showcase");
         let fetchedProjects = response.data.data;
 
         if (fetchedProjects.length > 0 && fetchedProjects.length < 10) {

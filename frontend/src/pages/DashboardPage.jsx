@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 // ✅ ALL components are now correctly imported
 import ManageTeam from "../components/dashboard/ManageTeam";
 import ManageHero from "../components/dashboard/homepage/ManageHero";
+import ManageShowcase from "../components/dashboard/ManageShowcase";
 import ManageAboutTabs from "../components/dashboard/homepage/ManageAboutTabs";
 import ManageServiceCards from "../components/dashboard/homepage/ManageServiceCards";
 import ManageProjects from "../components/dashboard/homepage/ManageProjects";
@@ -17,7 +18,6 @@ import ManageServices from "../components/dashboard/ManageServices";
 import ManageCaseStudies from "../components/dashboard/ManageCaseStudies";
 import ManageWorkProcess from "../components/dashboard/ManageWorkProcess";
 import ManagePricing from "../components/dashboard/ManagePricing";
-
 
 const DashboardPage = () => {
   const { logout } = useAuth();
@@ -36,40 +36,53 @@ const DashboardPage = () => {
     switch (activeTab) {
       case "hero":
         return <ManageHero />;
+
       case "showcase":
         return <ManageShowcase />;
+
       case "aboutTabs":
         return (
           <>
-            {" "}
-            <ManageAboutVideo /> <ManageAboutTabs />{" "}
+            <ManageAboutVideo />
+            <ManageAboutTabs />
           </>
         );
+
       case "workProcess":
         return <ManageWorkProcess />;
+
       case "serviceCards":
         return <ManageServiceCards />;
+
       case "projects":
         return <ManageProjects />;
+
       case "pricing":
         return <ManagePricing />;
+
       case "servicesPage":
         return <ManageServices />;
+
       case "team":
         return <ManageTeam />;
+
       case "blog":
         return <ManageBlog />;
+
       case "caseStudies":
         return <ManageCaseStudies />;
+
       case "portfolio":
         return (
           <>
-            {" "}
-            <ManagePortfolioCategories /> <ManagePortfolio />{" "}
+            <ManagePortfolioCategories />
+            <ManagePortfolio />
           </>
         );
+
       case "seo":
         return <ManageSeo />;
+
       default:
         return <ManageHero />;
     }
@@ -95,6 +108,7 @@ const DashboardPage = () => {
                 <li className="nav-item">
                   <h6 className="nav-link disabled text-muted">Homepage</h6>
                 </li>
+
                 <li className="nav-item">
                   <a
                     href="#hero"
@@ -109,6 +123,18 @@ const DashboardPage = () => {
 
                 <li className="nav-item">
                   <a
+                    href="#showcase"
+                    className={`nav-link ${
+                      activeTab === "showcase" ? "active" : ""
+                    }`}
+                    onClick={() => setActiveTab("showcase")}
+                  >
+                    Showcase Videos
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a
                     href="#aboutTabs"
                     className={`nav-link ${
                       activeTab === "aboutTabs" ? "active" : ""
@@ -118,6 +144,7 @@ const DashboardPage = () => {
                     'We Understand' Tabs
                   </a>
                 </li>
+
                 <li className="nav-item">
                   <a
                     href="#workProcess"
@@ -129,6 +156,7 @@ const DashboardPage = () => {
                     Work Process Steps
                   </a>
                 </li>
+
                 <li className="nav-item">
                   <a
                     href="#serviceCards"
@@ -140,6 +168,7 @@ const DashboardPage = () => {
                     Service Cards
                   </a>
                 </li>
+
                 <li className="nav-item">
                   <a
                     href="#projects"
@@ -151,6 +180,7 @@ const DashboardPage = () => {
                     Projects
                   </a>
                 </li>
+
                 <li className="nav-item">
                   <a
                     href="#pricing"
@@ -170,6 +200,7 @@ const DashboardPage = () => {
                     Content Pages
                   </h6>
                 </li>
+
                 <li className="nav-item">
                   <a
                     href="#servicesPage"
@@ -181,6 +212,7 @@ const DashboardPage = () => {
                     Services Page
                   </a>
                 </li>
+
                 <li className="nav-item">
                   <a
                     href="#team"
@@ -192,6 +224,7 @@ const DashboardPage = () => {
                     Team Members
                   </a>
                 </li>
+
                 <li className="nav-item">
                   <a
                     href="#blog"
@@ -203,6 +236,7 @@ const DashboardPage = () => {
                     Blog Posts
                   </a>
                 </li>
+
                 <li className="nav-item">
                   <a
                     href="#caseStudies"
@@ -214,6 +248,7 @@ const DashboardPage = () => {
                     Case Studies
                   </a>
                 </li>
+
                 <li className="nav-item">
                   <a
                     href="#portfolio"
@@ -233,6 +268,7 @@ const DashboardPage = () => {
                     Global Settings
                   </h6>
                 </li>
+
                 <li className="nav-item">
                   <a
                     href="#seo"
