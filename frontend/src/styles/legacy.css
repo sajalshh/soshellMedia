@@ -3229,3 +3229,31 @@ Responsive Styles for Showcase.jsx
 }
 
 
+/* ================================
+   Service Page - Teal Content Box
+================================ */
+
+/* This is the gray box (content side) */
+.service-box-items .service-content {
+  background: rgba(3, 220, 176, 0.12) !important; /* light teal glass */
+  border: 1px solid rgba(3, 220, 176, 0.35) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Optional: make text readable on teal */
+.service-box-items .service-content h3 {
+  color: #ffffff !important;
+}
+
+.service-box-items .service-content p {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Optional: link button color */
+.service-box-items .service-content .link-btn {
+  color: #03dcb0 !important;
+}
+.service-box-items .service-content .link-btn:hover {
+  color: #ffffff !important;
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import { MessageCircle } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function WhatsAppFloat() {
   const phoneNumber = "16478970671";
@@ -14,10 +14,10 @@ export default function WhatsAppFloat() {
       href={whatsappLink}
       target="_blank"
       rel="noreferrer"
-      className="tw-fixed tw-bottom-6 tw-right-6 tw-z-[9999] tw-w-14 tw-h-14 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-shadow-lg tw-bg-[#20ba9c] hover:tw-scale-105 tw-transition"
+      className="tw-fixed tw-bottom-6 tw-right-6 tw-z-[9999] tw-w-14 tw-h-14 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-shadow-lg tw-bg-[#25D366] hover:tw-scale-105 tw-transition"
       aria-label="Chat on WhatsApp"
     >
-      <MessageCircle className="tw-text-white" size={26} />
+      <FaWhatsapp className="tw-text-white" size={28} />
     </a>
   );
 }
