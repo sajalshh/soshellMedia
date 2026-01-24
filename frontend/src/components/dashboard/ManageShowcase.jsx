@@ -20,6 +20,9 @@ const ManageShowcase = () => {
 
   const [isDragging, setIsDragging] = useState(false);
 
+  // ✅ NEW: show a nice UI error instead of browser "not focusable"
+  const [fileError, setFileError] = useState("");
+
   const privateApi = usePrivateApi();
   const fileInputRef = useRef(null);
 
@@ -50,17 +53,20 @@ const ManageShowcase = () => {
 
     const allowedTypes = ["video/mp4", "video/webm"];
     if (!allowedTypes.includes(file.type)) {
-      alert("Only MP4 or WebM video files are allowed!");
+      setFileError("Only MP4 or WebM video files are allowed!");
+      setVideoFile(null);
       return;
     }
 
     // Optional: client-side size check (100MB)
     const maxSize = 100 * 1024 * 1024;
     if (file.size > maxSize) {
-      alert("Video too large. Max allowed is 100MB.");
+      setFileError("Video too large. Max allowed is 100MB.");
+      setVideoFile(null);
       return;
     }
 
+    setFileError("");
     setVideoFile(file);
   };
 
@@ -101,6 +107,7 @@ const ManageShowcase = () => {
       isActive: true,
     });
     setVideoFile(null);
+    setFileError("");
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -110,9 +117,9 @@ const ManageShowcase = () => {
   const handleSave = async (e) => {
     e.preventDefault();
 
-    // If creating new item, file is required
+    // ✅ Required validation done in JS (not HTML required attribute)
     if (!isEditing && !videoFile) {
-      alert("Please upload a video first.");
+      setFileError("Please upload a video first.");
       return;
     }
 
@@ -162,6 +169,7 @@ const ManageShowcase = () => {
       isActive: item.isActive ?? true,
     });
     setVideoFile(null);
+    setFileError("");
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -269,18 +277,22 @@ const ManageShowcase = () => {
                 )}
               </div>
 
+              {/* ❌ IMPORTANT FIX: NO "required" on hidden input */}
               <input
                 ref={fileInputRef}
                 type="file"
                 className="d-none"
                 onChange={handleFileChange}
                 accept="video/mp4, video/webm"
-                required={!isEditing}
                 disabled={isUploading}
               />
 
+              {fileError && (
+                <small className="text-danger d-block mt-2">{fileError}</small>
+              )}
+
               {isEditing && (
-                <small className="text-muted">
+                <small className="text-muted d-block mt-1">
                   Leave empty to keep current video
                 </small>
               )}
