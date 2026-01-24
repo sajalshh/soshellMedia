@@ -12,7 +12,7 @@ export default function AboutPage() {
   useEffect(() => {
     const fetchAboutPageContent = async () => {
       try {
-        const response = await api.get("/content/about");
+        const response = await api.get("/about");
         setPageData(response.data);
       } catch (err) {
         console.error("Failed to fetch about page content:", err);
@@ -52,9 +52,17 @@ export default function AboutPage() {
 
             <Fade direction="up" delay={300} triggerOnce>
               <h2>
-                <span className="about">About </span>{" "}
-                <b className="media-name">Soshell Media</b>
+                <span className="about">
+                  {pageData?.headingPrefix || "About"}{" "}
+                </span>{" "}
+                <b className="media-name">
+                  {pageData?.headingHighlight || "Soshell Media"}
+                </b>
               </h2>
+
+              {pageData?.subHeading && (
+                <p className="mt-2">{pageData.subHeading}</p>
+              )}
             </Fade>
           </div>
         </div>
@@ -67,16 +75,14 @@ export default function AboutPage() {
             <div className="col-lg-10">
               <div className="about-content text-center">
                 <Fade direction="up" triggerOnce>
-                  {pageData?.pageContent?.paragraphs?.map(
-                    (paragraph, index) => (
-                      <p
-                        key={index}
-                        className={`fs-5 ${index > 0 ? "mt-4" : ""}`}
-                      >
-                        {paragraph}
-                      </p>
-                    ),
-                  )}
+                  {pageData?.paragraphs?.map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className={`fs-5 ${index > 0 ? "mt-4" : ""}`}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
                 </Fade>
               </div>
             </div>
@@ -84,7 +90,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Counter1/>
+      <Counter1 />
       {/* Team Section */}
       <section className="team-section fix section-padding section-bg">
         <div className="container">

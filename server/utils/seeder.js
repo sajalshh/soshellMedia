@@ -49,6 +49,9 @@ const stats = [
 ];
 
 const aboutContent = {
+  headingPrefix: "About",
+  headingHighlight: "Soshell Media",
+  subHeading: "",
   paragraphs: [
     "At Soshell Media, we’re more than just a creative agency we’re a team of thinkers, makers, and storytellers with an unshakable commitment to doing meaningful work. Our foundation is built on clarity of purpose, discipline in execution, and boldness in creativity.",
     "We believe that great brands aren’t built overnight. They’re shaped through relentless focus, intentional choices, and the courage to stand out especially when it’s easier to blend in.",

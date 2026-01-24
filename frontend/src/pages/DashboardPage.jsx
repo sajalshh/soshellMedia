@@ -19,6 +19,9 @@ import ManageCaseStudies from "../components/dashboard/ManageCaseStudies";
 import ManageWorkProcess from "../components/dashboard/ManageWorkProcess";
 import ManagePricing from "../components/dashboard/ManagePricing";
 
+// ✅ NEW IMPORT
+import ManageAboutPage from "../components/dashboard/ManageAboutPage";
+
 const DashboardPage = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
@@ -62,6 +65,10 @@ const DashboardPage = () => {
 
       case "servicesPage":
         return <ManageServices />;
+
+      // ✅ NEW TAB RENDER
+      case "aboutPage":
+        return <ManageAboutPage />;
 
       case "team":
         return <ManageTeam />;
@@ -210,6 +217,19 @@ const DashboardPage = () => {
                     onClick={() => setActiveTab("servicesPage")}
                   >
                     Services Page
+                  </a>
+                </li>
+
+                {/* ✅ NEW ABOUT PAGE TAB */}
+                <li className="nav-item">
+                  <a
+                    href="#aboutPage"
+                    className={`nav-link ${
+                      activeTab === "aboutPage" ? "active" : ""
+                    }`}
+                    onClick={() => setActiveTab("aboutPage")}
+                  >
+                    About Page
                   </a>
                 </li>
 
