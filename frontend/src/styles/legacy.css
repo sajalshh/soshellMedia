@@ -3181,12 +3181,13 @@ Responsive Styles for Showcase.jsx
   position: relative;
   z-index: 2;
 }
+
 .glow-teal-border {
   position: relative;
   border-radius: 16px;
   padding: 3px;
   background: linear-gradient(135deg, #00fff0, #00b7ff, #00ffd5);
-  
+
   /* OUTER GLOW */
   box-shadow: 
     0 0 12px rgba(0, 255, 240, 0.6),
@@ -3256,4 +3257,59 @@ Responsive Styles for Showcase.jsx
 }
 .service-box-items .service-content .link-btn:hover {
   color: #ffffff !important;
+}
+
+
+/* =========================
+   Sticky Cards - Mobile Fix
+========================= */
+@media (max-width: 575px) {
+  /* Make card layout vertical */
+  .sticky-card .card-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* Ensure image container is normal flow */
+  .sticky-card .card-image-container {
+    width: 100%;
+    position: relative;
+    margin-bottom: 8px;
+  }
+
+  /* Image should not push text */
+  .sticky-card .card-image {
+    width: 100%;
+    height: 220px; /* adjust if needed */
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+  }
+
+  /* Remove any negative margin / absolute effects */
+  .sticky-card .card-text {
+    position: relative;
+    padding-top: 16px;
+    text-align: left;
+  }
+
+  /* Title spacing */
+  .sticky-card .card-text h2 {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    font-size: 26px;
+    line-height: 1.2;
+  }
+
+  /* Bullets spacing */
+  .sticky-card .card-bullets {
+    margin-top: 1px;
+  }
+
+  /* Explore button spacing */
+  .sticky-card .explore-button {
+    margin-top: 18px;
+    display: inline-block;
+  }
 }
