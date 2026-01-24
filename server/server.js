@@ -14,6 +14,7 @@ require("./config/cloudinary"); // This runs the cloudinary.config() method
 
 // Import routes
 const contentRoutes = require("./routes/contentRoutes");
+const contactRoutes = require("./routes/contactRoutes");
 const authRoutes = require("./routes/authRoutes");
 const homepageRoutes = require("./routes/homepageRoutes");
 const blogRoutes = require("./routes/blogRoutes");
@@ -61,6 +62,7 @@ app.use("/api/work-process", require("./routes/workProcessRoutes"));
 app.use("/api/pricing", require("./routes/pricingRoutes"));
 app.use("/api/showcase", showcaseRoutes);
 app.use("/api/about", aboutRoutes);
+app.use("/api/contact", contactRoutes);
 // Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
