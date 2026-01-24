@@ -86,7 +86,7 @@ export default function StickyCardScroller() {
         <h2 className="wow fadeInUp" data-wow-delay=".3s">
           One <b>System</b> <br />
           <strong className="we-build">
-            Multiple <b>Content</b> Outcomes
+            Total <b>market Authority</b>
           </strong>
         </h2>
       </div>
