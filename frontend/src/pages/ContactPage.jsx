@@ -111,7 +111,7 @@ export default function ContactPage() {
       <SeoHelmet pageUrl="/contact" />
 
       <section
-        className="contact-section fix section-padding bg-cover"
+        className="contact-section fix section-padding bg-cover contact-page"
         style={{ backgroundImage: "url('assets/img/contact-bg.jpg')" }}
       >
         <div className="container">
@@ -124,13 +124,14 @@ export default function ContactPage() {
               viewport={{ once: true }}
             >
               <div className="section-title">
-                <h2>
-                  Got Something you're <b>Building?</b>
-                  <br />
-                  <span>
-                    Questions, ideas or half baked plans...
-                    <br />
-                    <b>We're all ears</b>
+                <h2 className="contact-heading">
+                  <span className="contact-heading-line">
+                    Got Something you're <b>Building?</b>
+                  </span>
+
+                  <span className="contact-subheading">
+                    Questions, Ideas Or Half Baked Plans...{" "}
+                    <b>We're All Ears</b>
                   </span>
                 </h2>
 
