@@ -12,7 +12,7 @@ export default function AboutPage() {
   useEffect(() => {
     const fetchAboutPageContent = async () => {
       try {
-        const response = await api.get("/about");
+        const response = await api.get("/content/about");
         setPageData(response.data);
       } catch (err) {
         console.error("Failed to fetch about page content:", err);
@@ -53,15 +53,15 @@ export default function AboutPage() {
             <Fade direction="up" delay={300} triggerOnce>
               <h2>
                 <span className="about">
-                  {pageData?.headingPrefix || "About"}{" "}
+                  {pageData?.pageContent?.headingPrefix || "About"}{" "}
                 </span>{" "}
                 <b className="media-name">
-                  {pageData?.headingHighlight || "Soshell Media"}
+                  {pageData?.pageContent?.headingHighlight || "Soshell Media"}
                 </b>
               </h2>
 
-              {pageData?.subHeading && (
-                <p className="mt-2">{pageData.subHeading}</p>
+              {pageData?.pageContent?.subHeading && (
+                <p className="mt-2">{pageData.pageContent.subHeading}</p>
               )}
             </Fade>
           </div>
@@ -75,14 +75,16 @@ export default function AboutPage() {
             <div className="col-lg-10">
               <div className="about-content text-center">
                 <Fade direction="up" triggerOnce>
-                  {pageData?.paragraphs?.map((paragraph, index) => (
-                    <p
-                      key={index}
-                      className={`fs-5 ${index > 0 ? "mt-4" : ""}`}
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
+                  {pageData?.pageContent?.paragraphs?.map(
+                    (paragraph, index) => (
+                      <p
+                        key={index}
+                        className={`fs-5 ${index > 0 ? "mt-4" : ""}`}
+                      >
+                        {paragraph}
+                      </p>
+                    ),
+                  )}
                 </Fade>
               </div>
             </div>
