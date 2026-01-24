@@ -49,10 +49,11 @@ export default function About() {
           <Fade direction="up" delay={300} triggerOnce>
             <h2>
               <div className="the-real">
-                Ideas Don't <span className="text-neon struggles">Scale</span>
+                Scale Your
+                <span className="text-neon struggles"> Presence</span>
               </div>
               <div>
-                <span className="text-neon">Consistency</span> Does
+                Without the <span className="text-neon">Effort</span>
               </div>
             </h2>
           </Fade>
