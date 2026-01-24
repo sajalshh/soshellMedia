@@ -44,14 +44,12 @@ export default function About() {
       <div className="container">
         {/* ================= TOP TITLE ================= */}
         <div className="section-title ml-200 text-center the-real">
-          <Fade direction="up" triggerOnce>
-          </Fade>
+          <Fade direction="up" triggerOnce></Fade>
 
           <Fade direction="up" delay={300} triggerOnce>
             <h2>
               <div className="the-real">
-                Ideas Don't{" "}
-                <span className="text-neon struggles">Scale</span>
+                Ideas Don't <span className="text-neon struggles">Scale</span>
               </div>
               <div>
                 <span className="text-neon">Consistency</span> Does
@@ -77,9 +75,9 @@ export default function About() {
                 {[
                   "No time to shoot consistently",
                   "Don’t know what to say on camera",
-                  "Posting feels random and exhausting",
                   "Agencies demand too much involvement",
                   "Content stops when business gets busy",
+                  "Leads go cold because you're too busy to follow up",
                 ].map((item, index) => (
                   <li
                     key={index}
