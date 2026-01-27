@@ -11,7 +11,7 @@ const navLinks = [
   { path: "/project", label: "Portfolio" },
   { path: "/blog", label: "Blog" },
   { path: "/casestudies", label: "Case Studies" },
-  { path: "/pricing", label: "Price" },
+  { path: "/pricing", label: "Pricing" },
 ];
 
 // --- Desktop Navigation ---

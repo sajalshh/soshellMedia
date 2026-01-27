@@ -42,7 +42,7 @@ export default function Showcase() {
           <Fade direction="up" triggerOnce></Fade>
           <Fade direction="up" delay={200} triggerOnce>
             <h2>
-              Thousands of Founders are Scaling with<b>AI Twins.</b>
+              Thousands of Founders are Scaling with <b>AI Twins.</b>
             </h2>
           </Fade>
         </div>
