@@ -39,7 +39,6 @@ export default function Hero() {
         setContent(response.data.data);
       } catch (error) {
         console.error("Failed to fetch hero content:", error);
-        // fallback
         setContent({
           headingLine1: "You *Grow* Your Business",
           headingLine2: "Your *AI Twin* Handles The *Content*",
@@ -54,6 +53,7 @@ export default function Hero() {
     };
     fetchHeroContent();
   }, []);
+
   useEffect(() => {
     if (!content?.videoUrl) return;
 
@@ -68,7 +68,6 @@ export default function Hero() {
       document.head.removeChild(link);
     };
   }, [content?.videoUrl]);
-
 
   useEffect(() => {
     const handleScroll = () => {
@@ -107,8 +106,12 @@ export default function Hero() {
         <div className="row">
           <div className="col-lg-12">
             <div className="hero-content hero-glow-wrapper">
-              {/* ===== HERO HEADING (FIXED 2 LINES) ===== */}
-              <h1 className="hero-heading wow img-custom-anim-left">
+              {/* ===== UPDATED HEADING ===== */}
+              {/* Removed 'wow' and 'img-custom-anim-left' classes */}
+              <h1
+                className="hero-heading"
+                style={{ pointerEvents: "none" }} // Prevents mouse hover detection
+              >
                 <span className="hero-line hero-line-1">
                   {parseNeonText(content.headingLine1)}
                 </span>
@@ -117,6 +120,7 @@ export default function Hero() {
                   {parseNeonText(content.headingLine2)}
                 </span>
               </h1>
+              {/* =========================== */}
 
               <p className="sub">{content.subheading}</p>
 
@@ -136,7 +140,6 @@ export default function Hero() {
 
       <Counter1 />
 
-      {/* ===== BACKGROUND VIDEO ===== */}
       <div
         className="hero-video-bg"
         ref={containerRef}
