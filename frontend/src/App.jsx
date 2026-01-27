@@ -3,36 +3,36 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import usePageViews from "./hooks/usePageViews";
 
-// Your existing page imports
+/* ================= PUBLIC PAGES ================= */
+
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import PricingPage from "./pages/PricingPage";
-import NotFoundPage from "./pages/NotFoundPage";
 import ContactPage from "./pages/ContactPage";
 import ServicePage from "./pages/ServicePage";
 import TeamPage from "./pages/TeamPage";
-import ProjectDetailsPage from "./pages/ProjectDetailsPage";
-
 import ProjectPage from "./pages/ProjectPage";
-import LoginPage from "./pages/LoginPage";
+import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 import BlogPage from "./pages/BlogPage";
-import FaqPage from "./pages/FaqPage";
 import NewsDetailsPage from "./pages/NewsDetailsPage";
-import ManageBlog from "./components/dashboard/ManageBlog";
-import BlogPostEditor from "./components/dashboard/BlogPostEditor";
-import AdminBlogEditor from "./components/dashboard/AdminBlogEditor";
-import ManageSeo from "./components/dashboard/ManageSeo";
-import RegisterPage from "./pages/RegisterPage"; 
+import FaqPage from "./pages/FaqPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import ServiceDetailsPage from "./pages/ServiceDetailsPage";
 import AppointmentPage from "./pages/AppointmentPage";
-import ManageCaseStudies from "./components/dashboard/ManageCaseStudies";
-import AdminCaseStudyEditor from "./components/dashboard/AdminCaseStudyEditor";
 import CaseStudiesPage from "./pages/CaseStudiesPage";
 import CaseStudyDetailsPage from "./pages/CaseStudyDetailsPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
-// 1. Import the new components for the dashboard
+/* ================= DASHBOARD ================= */
+
 import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ManageBlog from "./components/dashboard/ManageBlog";
+import ManageSeo from "./components/dashboard/ManageSeo";
+import ManageCaseStudies from "./components/dashboard/ManageCaseStudies";
+import AdminBlogEditor from "./components/dashboard/AdminBlogEditor";
+import AdminCaseStudyEditor from "./components/dashboard/AdminCaseStudyEditor";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,64 +44,52 @@ export default function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  return (
-    <>
-      {!isLoading && (
-        <Routes>
-          {/* ============================================= */}
-          {/* === YOUR PUBLIC ROUTES (No changes here) === */}
-          {/* ============================================= */}
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path="about" element={<AboutPage />} />
-            <Route path="contact" element={<ContactPage />} />
-            <Route path="pricing" element={<PricingPage />} />
-            <Route path="service" element={<ServicePage />} />
-            <Route path="team" element={<TeamPage />} />
-            <Route path="project" element={<ProjectPage />} />
-            <Route
-              path="project-details/:projectId"
-              element={<ProjectDetailsPage />}
-            />
-            <Route path="faq" element={<FaqPage />} />
-            <Route path="login" element={<LoginPage />} />
-            <Route path="register" element={<RegisterPage />} />
-            <Route
-              path="service-details/:slug"
-              element={<ServiceDetailsPage />}
-            />
-            <Route path="blog" element={<BlogPage />} />
-            <Route path="blog-details/:slug" element={<NewsDetailsPage />} />
-            <Route path="casestudies" element={<CaseStudiesPage />} />
-            <Route
-              path="casestudy-details/:slug"
-              element={<CaseStudyDetailsPage />}
-            />
-            <Route path="appointment" element={<AppointmentPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
+  if (isLoading) return null;
 
-          {/* ====================================================== */}
-          {/* === 2. ADD THE PRIVATE DASHBOARD ROUTE SECTION HERE === */}
-          {/* ====================================================== */}
-          <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/dashboard/blog" element={<ManageBlog />} />
-            <Route path="/dashboard/seo" element={<ManageSeo />} />
-            <Route path="/adminblog" element={<AdminBlogEditor />} />
-            <Route path="/adminblog/edit/:id" element={<AdminBlogEditor />} />
-            <Route
-              path="/dashboard/casestudies"
-              element={<ManageCaseStudies />}
-            />
-            <Route path="/admincasestudy" element={<AdminCaseStudyEditor />} />
-            <Route
-              path="/admincasestudy/edit/:id"
-              element={<AdminCaseStudyEditor />}
-            />
-          </Route>
-        </Routes>
-      )}
-    </>
+  return (
+    <Routes>
+      {/* ================= PUBLIC ROUTES ================= */}
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="pricing" element={<PricingPage />} />
+        <Route path="contact" element={<ContactPage />} />
+        <Route path="service" element={<ServicePage />} />
+        <Route path="service-details/:slug" element={<ServiceDetailsPage />} />
+        <Route path="team" element={<TeamPage />} />
+        <Route path="project" element={<ProjectPage />} />
+        <Route
+          path="project-details/:projectId"
+          element={<ProjectDetailsPage />}
+        />
+        <Route path="blog" element={<BlogPage />} />
+        <Route path="blog-details/:slug" element={<NewsDetailsPage />} />
+        <Route path="casestudies" element={<CaseStudiesPage />} />
+        <Route
+          path="casestudy-details/:slug"
+          element={<CaseStudyDetailsPage />}
+        />
+        <Route path="faq" element={<FaqPage />} />
+        <Route path="appointment" element={<AppointmentPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+
+      {/* ================= PROTECTED DASHBOARD ROUTES ================= */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/dashboard/blog" element={<ManageBlog />} />
+        <Route path="/dashboard/seo" element={<ManageSeo />} />
+        <Route path="/dashboard/casestudies" element={<ManageCaseStudies />} />
+        <Route path="/adminblog" element={<AdminBlogEditor />} />
+        <Route path="/adminblog/edit/:id" element={<AdminBlogEditor />} />
+        <Route path="/admincasestudy" element={<AdminCaseStudyEditor />} />
+        <Route
+          path="/admincasestudy/edit/:id"
+          element={<AdminCaseStudyEditor />}
+        />
+      </Route>
+    </Routes>
   );
 }

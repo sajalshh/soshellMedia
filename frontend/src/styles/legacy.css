@@ -3394,3 +3394,92 @@ select:-webkit-autofill:focus {
     transparent 60%
   );
 }
+
+
+/* Increased Card Spacing and Width */
+.custom-pricing-card {
+  background: #151518 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 50px 35px !important; /* Larger padding like the screenshot */
+  border-radius: 24px !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.highlighted-card {
+  border: 2px solid var(--tp-theme-primary) !important;
+  box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1);
+}
+
+.plan-name {
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  color: var(--tp-theme-primary) !important;
+  margin-bottom: 8px !important;
+}
+
+.plan-description {
+  color: #a0a0a0 !important;
+  font-size: 15px !important;
+  margin-bottom: 15px !important;
+}
+
+.plan-price {
+  font-size: 52px !important;
+  font-weight: 800 !important;
+  color: #fff !important;
+  margin-bottom: 30px !important;
+}
+
+/* Feature List Alignment Fix */
+.pricing-feature-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 0 30px 0 !important;
+}
+
+.feature-item {
+  display: flex !important;
+  align-items: flex-start !important; /* Forces tick to stay at the top of the text block */
+  gap: 15px !important; /* Space between icon and text */
+  margin-bottom: 16px !important; /* Space between rows */
+}
+
+.feature-icon {
+  flex-shrink: 0 !important;
+  margin-top: 4px !important; /* Micro-adjustment to center with the first line of text */
+  display: flex;
+  align-items: center;
+}
+
+.feature-text {
+  font-size: 16px !important;
+  color: #ffffff !important;
+  line-height: 1.4 !important;
+  font-weight: 400 !important;
+}
+
+/* Most Popular Badge */
+.popular-badge {
+  position: absolute;
+  top: 20px;
+  right: -40px;
+  width: 160px;
+  background: var(--tp-theme-primary);
+  transform: rotate(45deg);
+  text-align: center;
+  padding: 6px 0;
+  z-index: 1;
+}
+
+.popular-badge span {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #000;
+  letter-spacing: 0.5px;
+}
