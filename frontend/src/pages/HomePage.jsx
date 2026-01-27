@@ -24,7 +24,7 @@ export default function HomePage() {
       <WorkProcess />
       <AIOperationalAgents />
       {/* <Projects /> */}
-      {/* <Pricing /> */}
+      <Pricing />
       {/* <Faq /> */}
       <Message />
     </>

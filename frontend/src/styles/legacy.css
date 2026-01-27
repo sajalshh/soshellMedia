@@ -3385,3 +3385,12 @@ select:-webkit-autofill:focus {
     padding-top: 140px !important;
   }
 }
+
+
+.message-section {
+  background: radial-gradient(
+    ellipse at bottom,
+    rgba(3, 220, 176, 0.08),
+    transparent 60%
+  );
+}

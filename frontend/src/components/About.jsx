@@ -49,11 +49,13 @@ export default function About() {
           <Fade direction="up" delay={300} triggerOnce>
             <h2>
               <div className="the-real">
-                Scale Your
-                <span className="text-neon struggles"> Presence</span>
+                Clone
+                <span className="text-neon struggles"> Yourself. </span>
+                Be Where <span className="text-neon struggles"> you</span>{" "}
+                Matter.
               </div>
               <div>
-                Without the <span className="text-neon">Effort</span>
+                <span className="text-neon">Automate</span> The Rest
               </div>
             </h2>
           </Fade>

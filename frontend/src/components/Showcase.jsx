@@ -98,7 +98,7 @@ export default function Showcase() {
         {/* Button Center Bottom */}
         <div className="tw-flex tw-justify-center tw-mt-10">
           <Link to="/project" className="theme-btn">
-            Check Our Portfolio
+            SEE THE WINNING RESULTS
           </Link>
         </div>
       </div>
