@@ -26,7 +26,7 @@ const serviceRoutes = require("./routes/serviceRoutes");
 const caseStudyRoutes = require("./routes/caseStudyRoutes");
 const showcaseRoutes = require("./routes/showcaseRoutes");
 const aboutRoutes = require("./routes/aboutRoutes");
-
+const aiRoutes = require("./routes/aiRoutes");
 // Connect to Database
 connectDB();
 
@@ -63,6 +63,7 @@ app.use("/api/pricing", require("./routes/pricingRoutes"));
 app.use("/api/showcase", showcaseRoutes);
 app.use("/api/about", aboutRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/ai-call", aiRoutes);
 // Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

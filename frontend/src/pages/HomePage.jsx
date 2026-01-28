@@ -12,6 +12,7 @@ import WorkProcess from "../components/WorkProcess";
 import Showcase from "../components/Showcase";
 import SeoHelmet from "../components/SeoHelmet";
 import AIOperationalAgents from "../components/AIOperationalAgents";
+import AiTestCall from "../components/AiTestCall";
 
 export default function HomePage() {
   return (
@@ -20,6 +21,7 @@ export default function HomePage() {
       <Hero />
       <Showcase />
       <About />
+      <AiTestCall />
       <StickyCardScroller />
       <WorkProcess />
       <AIOperationalAgents />

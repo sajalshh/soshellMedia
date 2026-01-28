@@ -18,6 +18,7 @@ import ManageServices from "../components/dashboard/ManageServices";
 import ManageCaseStudies from "../components/dashboard/ManageCaseStudies";
 import ManageWorkProcess from "../components/dashboard/ManageWorkProcess";
 import ManagePricing from "../components/dashboard/ManagePricing";
+import ManageAiCalls from "../components/dashboard/ManageAiCalls";
 
 // ✅ NEW IMPORT
 import ManageAboutPage from "../components/dashboard/ManageAboutPage";
@@ -54,6 +55,9 @@ const DashboardPage = () => {
       case "workProcess":
         return <ManageWorkProcess />;
 
+      case "aiCalls":
+        return <ManageAiCalls />;
+        
       case "serviceCards":
         return <ManageServiceCards />;
 
@@ -125,6 +129,21 @@ const DashboardPage = () => {
                     onClick={() => setActiveTab("hero")}
                   >
                     Hero Section
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <h6 className="nav-link disabled text-muted">AI Agent</h6>
+                </li>
+
+                <li className="nav-item">
+                  <a
+                    href="#aiCalls"
+                    className={`nav-link ${
+                      activeTab === "aiCalls" ? "active" : ""
+                    }`}
+                    onClick={() => setActiveTab("aiCalls")}
+                  >
+                    Call Logs
                   </a>
                 </li>
 
