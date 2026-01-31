@@ -3483,3 +3483,36 @@ select:-webkit-autofill:focus {
   color: #000;
   letter-spacing: 0.5px;
 }
+
+
+.outline-btn {
+  background: transparent;
+  border: 1px solid var(--tp-theme-primary);
+  color: var(--tp-theme-primary);
+}
+
+.outline-btn:hover {
+  background: var(--tp-theme-primary);
+  color: #000;
+}
+
+
+/* ============================================
+   HERO CTA BUTTONS – MOBILE CENTER FIX
+============================================ */
+@media (max-width: 767px) {
+  .hero-button {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;   
+    justify-content: center !important;
+    gap: 16px !important;             
+    width: 100% !important;
+  }
+
+  .hero-button .theme-btn {
+    width: 100% !important;
+    max-width: 320px !important;     
+    text-align: center !important;
+  }
+}
