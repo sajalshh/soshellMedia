@@ -66,7 +66,7 @@ export default function AiTestCall() {
                     className="theme-btn"
                     style={{ cursor: "pointer" }}
                   >
-                    Test 24/7 AI Receptionist
+                    Call my 24/7 AI Assistant
                     <i className="fa-sharp fa-regular fa-phone tw-ml-2"></i>
                   </button>
                 </div>

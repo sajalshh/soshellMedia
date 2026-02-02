@@ -166,7 +166,7 @@ export default function Hero() {
                     onClick={() => setIsAiModalOpen(true)}
                     className="theme-btn hero-contact-btn hero-secondary-btn"
                   >
-                    Test 24/7 AI Receptionist
+                    Test 24/7 AI Assistant
                     <i className="fa-sharp fa-regular fa-phone tw-ml-2"></i>
                   </button>
                 </div>
