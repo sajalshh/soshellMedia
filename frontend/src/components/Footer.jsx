@@ -192,7 +192,6 @@ export default function Footer() {
             <p className="tw-text-white/60 tw-text-sm tw-text-center md:tw-text-left">
               Soshell Media © {new Date().getFullYear()}. All Rights Reserved.
             </p>
-
             <div className="tw-flex tw-items-center tw-gap-5 tw-text-sm">
               <Link
                 to="/privacy"
