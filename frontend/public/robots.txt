@@ -1,4 +1,10 @@
-User-agent: *
+User-agent: Google-NotebookLM
 Allow: /
 
+User-agent: Google-Extended
+Allow: /
+
+User-agent: *
+Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Sitemap: https://soshellmedia.co/sitemap.xml
