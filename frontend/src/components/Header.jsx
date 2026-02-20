@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Menu, X } from "lucide-react";
+import { Mail, Menu, X, ArrowRight } from "lucide-react";
 
-// --- Navigation Links Data (used for both mobile and desktop) ---
+// --- Navigation Links Data ---
 const navLinks = [
   { path: "/", label: "Home" },
   { path: "/about", label: "About Us" },
@@ -21,18 +21,21 @@ const DesktopNav = () => {
     <nav className="tw-hidden lg:tw-flex">
       <ul className="tw-flex tw-items-center tw-gap-8">
         {navLinks.map((link) => (
-          <li key={link.path} className="tw-relative">
+          <li key={link.path} className="tw-relative tw-group">
             <Link
               to={link.path}
-              className="tw-font-medium tw-text-white hover:tw-text-[var(--tp-theme-primary)] tw-transition-colors"
+              className={`tw-font-medium tw-transition-colors tw-duration-300 ${
+                location.pathname === link.path
+                  ? "tw-text-[var(--tp-theme-primary)]"
+                  : "tw-text-white hover:tw-text-[var(--tp-theme-primary)]"
+              }`}
             >
               {link.label}
             </Link>
-
             {/* Active link underline animation */}
             {location.pathname === link.path && (
               <motion.span
-                className="tw-absolute -tw-bottom-2 tw-left-0 tw-right-0 tw-h-0.5 tw-bg-[var(--tp-theme-primary)]"
+                className="tw-absolute -tw-bottom-2 tw-left-0 tw-right-0 tw-h-[2px] tw-bg-[var(--tp-theme-primary)] tw-rounded-full"
                 layoutId="underline"
               />
             )}
@@ -43,43 +46,78 @@ const DesktopNav = () => {
   );
 };
 
-// --- Mobile Navigation (Full-Screen Overlay) ---
+// --- Mobile Navigation (Modern Glassmorphism Drawer) ---
 const MobileNav = ({ closeMenu }) => {
+  const location = useLocation();
+
   return (
     <motion.div
-      className="tw-fixed tw-inset-0 tw-bg-black/90 tw-backdrop-blur-lg tw-z-[9999] lg:tw-hidden"
-      initial={{ opacity: 0, y: "-100%" }}
-      animate={{ opacity: 1, y: "0%" }}
-      exit={{ opacity: 0, y: "-100%" }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className="tw-fixed tw-inset-0 tw-bg-[#0a0a0c]/80 tw-backdrop-blur-xl tw-z-[9997] lg:tw-hidden tw-flex tw-flex-col"
+      initial={{ opacity: 0, x: "100%" }}
+      animate={{ opacity: 1, x: "0%" }}
+      exit={{ opacity: 0, x: "100%" }}
+      transition={{ type: "spring", damping: 25, stiffness: 200 }}
     >
-      <div className="tw-container tw-h-full tw-flex tw-flex-col tw-justify-center">
-        <nav>
+      <div className="tw-flex-1 tw-overflow-y-auto tw-pt-24 tw-px-6 tw-pb-8 tw-flex tw-flex-col">
+        <nav className="tw-flex-1">
           <motion.ul
-            className="tw-text-center"
-            variants={{ visible: { transition: { staggerChildren: 0.07 } } }}
+            className="tw-flex tw-flex-col tw-gap-2"
+            variants={{
+              visible: {
+                transition: { staggerChildren: 0.05, delayChildren: 0.1 },
+              },
+              hidden: {
+                transition: { staggerChildren: 0.03, staggerDirection: -1 },
+              },
+            }}
             initial="hidden"
             animate="visible"
+            exit="hidden"
           >
-            {navLinks.map((link) => (
-              <motion.li
-                key={link.path}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-              >
-                <Link
-                  to={link.path}
-                  onClick={closeMenu}
-                  className="tw-block tw-py-4 tw-text-3xl tw-font-semibold tw-text-white hover:tw-text-[var(--tp-theme-primary)]"
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.path;
+              return (
+                <motion.li
+                  key={link.path}
+                  variants={{
+                    hidden: { opacity: 0, x: 20 },
+                    visible: { opacity: 1, x: 0 },
+                  }}
                 >
-                  {link.label}
-                </Link>
-              </motion.li>
-            ))}
+                  <Link
+                    to={link.path}
+                    onClick={closeMenu}
+                    className={`tw-flex tw-items-center tw-justify-between tw-py-4 tw-px-4 tw-rounded-xl tw-text-xl tw-font-semibold tw-transition-all ${
+                      isActive
+                        ? "tw-bg-[var(--tp-theme-primary)]/10 tw-text-[var(--tp-theme-primary)]"
+                        : "tw-text-white hover:tw-bg-white/5"
+                    }`}
+                  >
+                    {link.label}
+                    {isActive && <ArrowRight size={20} />}
+                  </Link>
+                </motion.li>
+              );
+            })}
           </motion.ul>
         </nav>
+
+        {/* Mobile CTA - Crucial for conversions */}
+        <motion.div
+          className="tw-mt-8 tw-pt-8 tw-border-t tw-border-white/10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <Link
+            to="/appointment"
+            onClick={closeMenu}
+            className="tw-w-full tw-py-4 tw-bg-[var(--tp-theme-primary)] tw-text-black tw-rounded-full tw-font-bold tw-flex tw-items-center tw-justify-center tw-gap-2 hover:tw-scale-[1.02] tw-transition-transform"
+          >
+            <Mail size={18} />
+            <span>Book Appointment</span>
+          </Link>
+        </motion.div>
       </div>
     </motion.div>
   );
@@ -92,10 +130,22 @@ export default function Header() {
 
   // Detect scroll for sticky header
   useEffect(() => {
-    const handleScroll = () => setIsSticky(window.scrollY > 100);
+    const handleScroll = () => setIsSticky(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -104,19 +154,19 @@ export default function Header() {
       <header
         className={`tw-fixed tw-top-0 tw-left-0 tw-w-full tw-z-[9998] tw-transition-all tw-duration-300 ${
           isSticky
-            ? "tw-py-4 tw-bg-black/50 tw-backdrop-blur-lg tw-shadow-lg"
-            : "tw-py-6 tw-bg-black/30 lg:tw-bg-transparent"
+            ? "tw-py-3 lg:tw-py-4 tw-bg-[#0f0f11]/80 tw-backdrop-blur-md tw-shadow-[0_4px_30px_rgba(0,0,0,0.5)] tw-border-b tw-border-white/5"
+            : "tw-py-4 lg:tw-py-6 tw-bg-transparent"
         }`}
       >
         <div className="container-fluid">
           <div className="tw-flex tw-items-center tw-justify-between">
             {/* --- Logo --- */}
-            <div className="logo">
-              <Link to="/" className="header-logo">
+            <div className="logo tw-relative tw-z-[10000]">
+              <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
                 <img
                   src="/assets/img/logo/header.png"
-                  alt="header-logo"
-                  style={{ width: "184px", height: "auto" }}
+                  alt="Soshell Media"
+                  className="tw-w-[130px] sm:tw-w-[150px] lg:tw-w-[184px] tw-h-auto tw-transition-all"
                 />
               </Link>
             </div>
@@ -137,21 +187,21 @@ export default function Header() {
                 <span>Book Appointment</span>
               </Link>
 
-              {/* Hamburger Button */}
+              {/* Hamburger Button (Modernized) */}
               <button
                 onClick={toggleMobileMenu}
-                className="tw-z-[10000] tw-text-white lg:tw-hidden"
+                className="tw-relative tw-z-[10000] tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-bg-white/5 tw-border tw-border-white/10 tw-text-white lg:tw-hidden hover:tw-bg-white/10 tw-transition-colors"
                 aria-label="Toggle menu"
               >
                 <AnimatePresence initial={false} mode="wait">
                   <motion.div
                     key={isMobileMenuOpen ? "x" : "menu"}
-                    initial={{ rotate: -45, opacity: 0 }}
+                    initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 45, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
                   >
-                    {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                    {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
                   </motion.div>
                 </AnimatePresence>
               </button>
@@ -160,7 +210,7 @@ export default function Header() {
         </div>
       </header>
 
-      {/* --- Mobile Menu --- */}
+      {/* --- Mobile Menu Overlay --- */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <MobileNav closeMenu={() => setIsMobileMenuOpen(false)} />

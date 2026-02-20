@@ -66,18 +66,22 @@ export default function Hero() {
     fetchHeroContent();
   }, []);
 
-  /* ---------- Preload Video ---------- */
+  /* ---------- UPDATED: Preload Video (Desktop Only) ---------- */
   useEffect(() => {
     if (!content?.videoUrl) return;
 
-    const link = document.createElement("link");
-    link.rel = "preload";
-    link.as = "video";
-    link.href = content.videoUrl;
-    link.type = "video/mp4";
-    document.head.appendChild(link);
+    // Only aggressively preload the video if the user is on a desktop/tablet
+    // Mobile users will save their bandwidth for critical CSS/JS first.
+    if (window.innerWidth > 768) {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "video";
+      link.href = content.videoUrl;
+      link.type = "video/mp4";
+      document.head.appendChild(link);
 
-    return () => document.head.removeChild(link);
+      return () => document.head.removeChild(link);
+    }
   }, [content?.videoUrl]);
 
   /* ---------- Scroll Scale Effect ---------- */
@@ -135,7 +139,8 @@ export default function Hero() {
       {/* ================= HERO ================= */}
       <section
         className="hero-secton hero-1 bg-cover"
-        style={{ backgroundImage: "url('/assets/img/hero/hero-bg-3.png')" }}
+        // UPDATED: Assuming you will convert this background image to WebP too!
+        style={{ backgroundImage: "url('/assets/img/hero/hero-bg-3.webp')" }}
       >
         <div className="container">
           <div className="row">
@@ -196,8 +201,10 @@ export default function Hero() {
               loop
               muted
               playsInline
-              preload="auto"
-              poster="/assets/img/hero/hero-bg-3.png"
+              // UPDATED: "metadata" prevents downloading the whole video before the page loads
+              preload="metadata"
+              // UPDATED: Changed .png to .webp for a massive speed boost on the initial load
+              poster="/assets/img/hero/hero-bg-3.webp"
               onCanPlayThrough={() => setVideoReady(true)}
               style={{
                 objectFit: "cover",

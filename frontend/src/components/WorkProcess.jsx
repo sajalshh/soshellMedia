@@ -2,30 +2,40 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import api from "../api/axiosConfig";
 
-// --- ProcessStep component (UPDATED: smaller image + teal border) ---
-const ProcessStep = ({ imageUrl, title, description, scale }) => (
-  <div className="tw-text-center tw-flex tw-flex-col tw-items-center">
-    <motion.div
-      className="tw-relative tw-mb-6 tw-w-32 tw-h-32 lg:tw-w-36 lg:tw-h-36 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-overflow-hidden"
-      style={{
-        scale,
-        border: "3px solid var(--tp-theme-primary)",
-        boxShadow: "0 0 18px rgba(0, 255, 204, 0.35)",
-      }}
-    >
-      <img
-        src={imageUrl}
-        alt={title}
-        className="tw-w-full tw-h-full tw-object-cover"
-      />
-    </motion.div>
+// --- ProcessStep component (UPDATED: Cloudinary optimization + Lazy Loading) ---
+const ProcessStep = ({ imageUrl, title, description, scale }) => {
+  // Intercept Cloudinary URLs to enforce modern formats, dynamic compression, and a sensible max width
+  const optimizedImageUrl =
+    imageUrl && imageUrl.includes("/image/upload/")
+      ? imageUrl.replace("/image/upload/", "/image/upload/f_auto,q_auto,w_400/")
+      : imageUrl;
 
-    <div className="tw-bg-[#151518] tw-relative tw-p-4 tw-rounded-lg tw-w-full tw-max-w-[220px]">
-      <h3 className="tw-text-xl tw-font-bold tw-text-white mb-2">{title}</h3>
-      <p className="tw-text-[#CDCDCD] tw-text-sm">{description}</p>
+  return (
+    <div className="tw-text-center tw-flex tw-flex-col tw-items-center">
+      <motion.div
+        className="tw-relative tw-mb-6 tw-w-32 tw-h-32 lg:tw-w-36 lg:tw-h-36 tw-rounded-full tw-flex tw-items-center tw-justify-center tw-overflow-hidden"
+        style={{
+          scale,
+          border: "3px solid var(--tp-theme-primary)",
+          boxShadow: "0 0 18px rgba(0, 255, 204, 0.35)",
+        }}
+      >
+        <img
+          src={optimizedImageUrl}
+          alt={title}
+          loading="lazy"
+          decoding="async"
+          className="tw-w-full tw-h-full tw-object-cover"
+        />
+      </motion.div>
+
+      <div className="tw-bg-[#151518] tw-relative tw-p-4 tw-rounded-lg tw-w-full tw-max-w-[220px]">
+        <h3 className="tw-text-xl tw-font-bold tw-text-white mb-2">{title}</h3>
+        <p className="tw-text-[#CDCDCD] tw-text-sm">{description}</p>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // --- AnimatedWorkProcess component ---
 const AnimatedWorkProcess = ({ processData }) => {

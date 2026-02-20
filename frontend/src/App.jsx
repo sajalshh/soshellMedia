@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import usePageViews from "./hooks/usePageViews";
 
 /* ================= PUBLIC PAGES ================= */
-
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import PricingPage from "./pages/PricingPage";
@@ -25,7 +24,6 @@ import CaseStudyDetailsPage from "./pages/CaseStudyDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 /* ================= DASHBOARD ================= */
-
 import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ManageBlog from "./components/dashboard/ManageBlog";
@@ -35,16 +33,8 @@ import AdminBlogEditor from "./components/dashboard/AdminBlogEditor";
 import AdminCaseStudyEditor from "./components/dashboard/AdminCaseStudyEditor";
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
+  // The 2-second setTimeout block was removed from here.
   usePageViews();
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) return null;
 
   return (
     <Routes>
