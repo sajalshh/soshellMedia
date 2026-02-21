@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import api from "../api/axiosConfig";
-
+import starIcon from "../assets/img/star.png";
 /* ================= FALLBACK DATA ================= */
 
 const fallbackMonthly = [
@@ -98,7 +98,7 @@ export default function PricingPage() {
           <div className="tw-flex tw-flex-col tw-items-center tw-text-center tw-gap-8">
             <div className="section-title">
               <h6 className="tw-justify-center">
-                <img src="/assets/img/star.png" alt="" /> popular package
+                <img src={starIcon} alt="star icon" /> popular package
               </h6>
               <h2>
                 Competitive package <br />

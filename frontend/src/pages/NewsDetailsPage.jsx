@@ -96,7 +96,12 @@ export default function BlogDetailsPage() {
             <div className="news-details-wrapper">
               <div className="news-details-items">
                 <div className="news-details-thumb">
-                  <img src={imageUrl} alt={altText} />
+                  <img
+                    src={imageUrl}
+                    alt={altText}
+                    loading="eager"
+                    decoding="async"
+                  />
                 </div>
                 <div className="news-details-content">
                   {/* Blog Title in H1 */}

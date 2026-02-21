@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
-
+import patternBg from "../assets/img/service/Pattern.png";
 // Reusable Accordion Item Component
 const AccordionItem = ({ id, title, content, isOpen, onClick }) => (
   <div className="accordion-item wow fadeInUp">
@@ -74,7 +74,7 @@ export default function FaqPage() {
       {/* FAQ Banner Section */}
       <section
         className="faq-banner bg-cover"
-        style={{ backgroundImage: "url('assets/img/service/Pattern.png')" }}
+        style={{ backgroundImage: `url(${patternBg})` }}
       >
         <div className="container">
           {/* ... Banner content from faq.html ... */}

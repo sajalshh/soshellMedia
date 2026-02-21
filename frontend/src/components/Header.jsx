@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Menu, X, ArrowRight } from "lucide-react";
+import headerLogo from "../../src/assets/img/logo/header.png"
 
 // --- Navigation Links Data ---
 const navLinks = [
@@ -164,7 +165,7 @@ export default function Header() {
             <div className="logo tw-relative tw-z-[10000]">
               <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
                 <img
-                  src="/assets/img/logo/header.png"
+                  src={headerLogo}
                   alt="Soshell Media"
                   className="tw-w-[130px] sm:tw-w-[150px] lg:tw-w-[184px] tw-h-auto tw-transition-all"
                 />

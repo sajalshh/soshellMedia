@@ -5,6 +5,7 @@ import NotFoundPage from "./NotFoundPage";
 import Sidebar from "../components/Sidebar";
 import SeoHelmet from "../components/SeoHelmet";
 
+
 export default function CaseStudyDetailsPage() {
   const { slug } = useParams();
   const [study, setStudy] = useState(null);

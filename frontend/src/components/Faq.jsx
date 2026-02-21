@@ -3,6 +3,8 @@ import React, { useState } from "react";
 // Import the images from their new location
 import faqImage1 from "../assets/faq/faq1.png";
 import faqImage2 from "../assets/faq/faq2.png";
+import colorBg from "../assets/img/faq/color-bg.png";
+import starIcon from "../assets/img/star.png";
 
 export default function Faq() {
   const [openItem, setOpenItem] = useState("faq1");
@@ -15,7 +17,7 @@ export default function Faq() {
     <section className="faq-section fix section-padding">
       <div className="color-bg">
         {/* Make sure this image path is correct if it's also in assets */}
-        <img src="/assets/img/faq/color-bg.png" alt="img" />
+        <img src={colorBg} alt="background glow" />
       </div>
       <div className="container">
         <div className="faq-wrapper">
@@ -53,7 +55,7 @@ export default function Faq() {
               <div className="faq-content">
                 <div className="section-title">
                   <h6 className="faqs">
-                    <img src="/assets/img/star.png" alt="img" /> FAQs
+                    <img src={starIcon} alt="star" /> FAQs
                   </h6>
                   <h2>
                     Got Questions? <br></br>

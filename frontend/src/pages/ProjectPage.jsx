@@ -156,6 +156,7 @@ export default function ProjectPage() {
                                 loop
                                 playsInline
                                 muted={!isUnmuted}
+                                preload="metadata"
                                 className="tw-w-full tw-h-full tw-object-cover tw-aspect-[9/16]"
                               />
 

@@ -2,12 +2,12 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-
+import star3Icon from "../assets/img/star-3.png";
 const SidebarWidget = ({ title, children }) => (
   <div className="single-sidebar-widget">
     <div className="wid-title">
       <h3>
-        <img src="/assets/img/star-3.png" alt="img" />
+        <img src={star3Icon} alt="star" />
         {title}
       </h3>
     </div>

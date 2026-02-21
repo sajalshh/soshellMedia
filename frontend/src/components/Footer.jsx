@@ -8,7 +8,7 @@ import {
   Linkedin,
   Twitter,
 } from "lucide-react";
-
+import footerLogo from "../../src/assets/img/logo/logo.png";
 // Same links as Navbar
 const navLinks = [
   { path: "/", label: "Home" },
@@ -41,7 +41,7 @@ export default function Footer() {
               <div className="footer-content">
                 <Link to="/" className="tw-inline-block">
                   <img
-                    src="/assets/img/logo/logo.png"
+                    src={footerLogo}
                     alt="Soshell Media"
                     style={{ width: "164px", height: "62px" }}
                   />

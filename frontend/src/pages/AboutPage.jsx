@@ -3,7 +3,8 @@ import { Fade } from "react-awesome-reveal";
 import api from "../api/axiosConfig";
 import SeoHelmet from "../components/SeoHelmet";
 import Counter1 from "../components/counter1";
-
+import breadcrumbBg from "../assets/img/breadcrumb-bg.jpg";
+import starIcon from "../assets/img/star.png";
 export default function AboutPage() {
   const [pageData, setPageData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -44,7 +45,7 @@ export default function AboutPage() {
       {/* Breadcrumb Section */}
       <div
         className="breadcrumb-wrapper bg-cover"
-        style={{ backgroundImage: "url('/assets/img/breadcrumb-bg.jpg')" }}
+        style={{ backgroundImage: `url(${breadcrumbBg})` }}
       >
         <div className="container">
           <div className="section-title text-center mx-auto">
@@ -99,7 +100,7 @@ export default function AboutPage() {
           <div className="section-title text-center mx-auto custom-section-title">
             <Fade direction="up" triggerOnce>
               <h6>
-                <img src="/assets/img/star.png" alt="img" /> dedicated member
+                <img src={starIcon} alt="star" /> dedicated member
               </h6>
             </Fade>
 
@@ -116,7 +117,12 @@ export default function AboutPage() {
                 <Fade direction="up" delay={200 * (index + 1)} triggerOnce>
                   <div className="team-box-items">
                     <div className="team-image">
-                      <img src={member.imgSrc} alt={member.name} />
+                      <img
+                        src={member.imgSrc}
+                        alt={member.name}
+                        loading="lazy"
+                        decoding="async"
+                      />
                     </div>
 
                     <div className="team-content">

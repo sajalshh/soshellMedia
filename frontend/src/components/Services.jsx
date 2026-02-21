@@ -1,4 +1,9 @@
 import React from "react";
+import starIcon from "../../src/assets/img/star.png";
+import serviceImg1 from "../../src/assets/img/service/01.jpg";
+import serviceImg2 from "../../src/assets/img/service/02.jpg";
+import serviceImg3 from "../../src/assets/img/service/03.jpg";
+import serviceImg4 from "../../src/assets/img/service/04.jpg";
 
 export default function Services() {
   return (
@@ -6,7 +11,7 @@ export default function Services() {
       <div className="container">
         <div className="section-title text-center mx-auto">
           <h6 className="wow fadeInUp">
-            <img src="/assets/img/star.png" alt="img" />
+            <img src={starIcon} alt="star" />
             Our Services
           </h6>
           <h2 className="wow fadeInUp" data-wow-delay=".3s">
@@ -20,7 +25,7 @@ export default function Services() {
           <div className="col-xl-6 wow fadeInUp" data-wow-delay=".2s">
             <div className="service-box-items">
               <div className="service-image">
-                <img src="/assets/img/service/01.jpg" alt="img" />
+                <img src={serviceImg1} alt="Video Marketing" />
               </div>
               <div className="service-content">
                 <h3>Video Marketing</h3>
@@ -35,7 +40,7 @@ export default function Services() {
           <div className="col-xl-6 wow fadeInUp" data-wow-delay=".4s">
             <div className="service-box-items">
               <div className="service-image">
-                <img src="/assets/img/service/02.jpg" alt="img" />
+                <img src={serviceImg2} alt="Ads and SEO" />
               </div>
               <div className="service-content">
                 <h3>Ads & SEO</h3>
@@ -50,7 +55,7 @@ export default function Services() {
           <div className="col-xl-6 wow fadeInUp" data-wow-delay=".6s">
             <div className="service-box-items">
               <div className="service-image">
-                <img src="/assets/img/service/03.jpg" alt="img" />
+                <img src={serviceImg3} alt="Website Development" />
               </div>
               <div className="service-content">
                 <h3>Website Development</h3>
@@ -65,7 +70,7 @@ export default function Services() {
           <div className="col-xl-6 wow fadeInUp" data-wow-delay=".8s">
             <div className="service-box-items mb-0">
               <div className="service-image">
-                <img src="/assets/img/service/04.jpg" alt="img" />
+                <img src={serviceImg4} alt="Custom AI Solutions" />
               </div>
               <div className="service-content">
                 <h3>Custom artificial solutions</h3>

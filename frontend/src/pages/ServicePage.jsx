@@ -4,6 +4,9 @@ import { Fade } from "react-awesome-reveal";
 import SeoHelmet from "../components/SeoHelmet";
 import api from "../api/axiosConfig";
 import Pricing from "../components/Pricing";
+import breadcrumbBg from "../assets/img/breadcrumb-bg.jpg";
+import starIcon from "../assets/img/star.png";
+import servicePattern from "../assets/img/service/Pattern.png";
 
 export default function ServicePage() {
   const [pageContent, setPageContent] = useState(null);
@@ -38,13 +41,13 @@ export default function ServicePage() {
       {/* Breadcrumb Section */}
       <div
         className="breadcrumb-wrapper bg-cover"
-        style={{ backgroundImage: "url('/assets/img/breadcrumb-bg.jpg')" }}
+        style={{ backgroundImage: `url(${breadcrumbBg})` }}
       >
         <div className="container">
           <div className="page-heading">
             <Fade direction="up" triggerOnce>
               <h6>
-                <img src="/assets/img/star.png" alt="img" /> our services
+                <img src={starIcon} alt="img" /> our services
               </h6>
             </Fade>
             <Fade direction="up" delay={300} triggerOnce>
@@ -72,13 +75,13 @@ export default function ServicePage() {
       {/* Service Section */}
       <section
         className="service-section style-padding fix section-padding bg-cover pt-0"
-        style={{ backgroundImage: "url('/assets/img/service/Pattern.png')" }}
+        style={{ backgroundImage: `url(${servicePattern})` }}
       >
         <div className="container">
           <div className="section-title text-center">
             <Fade direction="up" triggerOnce>
               <h6>
-                <img src="/assets/img/star.png" alt="img" /> popular services
+                <img src={starIcon} alt="img" /> popular services
               </h6>
             </Fade>
             <Fade direction="up" delay={300} triggerOnce>
@@ -108,7 +111,12 @@ export default function ServicePage() {
               >
                 <div className="service-box-items">
                   <div className="service-image">
-                    <img src={service.image} alt={service.title} />
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </div>
                   <div className="service-content">
                     <h3>{service.title}</h3>

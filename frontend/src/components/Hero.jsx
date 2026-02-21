@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import api from "../api/axiosConfig";
 import "../styles/legacy.css";
 import Counter1 from "../components/counter1";
-
+import heroBg from "../../src/assets/img/hero/hero-bg-3.png";
 /* ---------- Helper ---------- */
 const parseNeonText = (text) => {
   if (!text) return "";
@@ -140,7 +140,7 @@ export default function Hero() {
       <section
         className="hero-secton hero-1 bg-cover"
         // UPDATED: Assuming you will convert this background image to WebP too!
-        style={{ backgroundImage: "url('/assets/img/hero/hero-bg-3.webp')" }}
+        style={{ backgroundImage: `url(${heroBg})` }}
       >
         <div className="container">
           <div className="row">
@@ -204,7 +204,7 @@ export default function Hero() {
               // UPDATED: "metadata" prevents downloading the whole video before the page loads
               preload="metadata"
               // UPDATED: Changed .png to .webp for a massive speed boost on the initial load
-              poster="/assets/img/hero/hero-bg-3.webp"
+              poster={heroBg}
               onCanPlayThrough={() => setVideoReady(true)}
               style={{
                 objectFit: "cover",

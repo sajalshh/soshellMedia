@@ -3,6 +3,7 @@ import SeoHelmet from "../components/SeoHelmet";
 import { motion } from "framer-motion";
 import { Mail, Phone, Send } from "lucide-react";
 import api from "../api/axiosConfig";
+import contactBg from "../assets/img/contact-bg.jpg";
 
 // --- A reusable component for the modern form inputs with floating labels ---
 const FloatingLabelInput = ({
@@ -112,7 +113,7 @@ export default function ContactPage() {
 
       <section
         className="contact-section fix section-padding bg-cover contact-page"
-        style={{ backgroundImage: "url('assets/img/contact-bg.jpg')" }}
+        style={{ backgroundImage: `url(${contactBg})` }}
       >
         <div className="container">
           <div className="tw-grid tw-grid-cols-1 lg:tw-grid-cols-2 tw-gap-16 tw-items-center">

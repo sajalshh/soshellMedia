@@ -2,14 +2,29 @@ import React from "react";
 import { motion } from "framer-motion";
 
 export default function Card({ card, style }) {
+  // Intercept Cloudinary URLs to enforce WebP/AVIF format, auto-quality, and a max width of 800px
+  const optimizedImageUrl =
+    card.image && card.image.includes("/image/upload/")
+      ? card.image.replace(
+          "/image/upload/",
+          "/image/upload/f_auto,q_auto,w_800/",
+        )
+      : card.image;
+
   return (
     <motion.div className="sticky-card" style={style}>
       <div className="card-inner">
         {/* LEFT: Image with floating box */}
         <div className="card-image-container">
-          <img src={card.image} alt="visual" className="card-image" />
+          {/* CRITICAL FIX: Use the optimized URL and defer loading */}
+          <img
+            src={optimizedImageUrl}
+            alt={card.title || "visual"}
+            loading="lazy"
+            decoding="async"
+            className="card-image"
+          />
 
-          {/* The entire floating box below is wrapped in comments and has not been removed. */}
           {/*
             <div className="floating-box">
               <div className="icon">⏱</div>
@@ -35,8 +50,7 @@ export default function Card({ card, style }) {
           )}
           <a href="/Service" className="explore-button">
             Explore More
-          </a>{" "}
-          {/* Replace link */}
+          </a>
         </div>
       </div>
     </motion.div>

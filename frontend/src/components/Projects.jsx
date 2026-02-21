@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import api from "../api/axiosConfig";
+import lineShapeBg from "../../src/assets/img/project/line-shape.png";
+import colorBg from "../../src/assets/img/project/color-bg.png";
+import hasIcon from "../../src/assets/img/has.png";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
@@ -28,17 +31,17 @@ export default function Projects() {
   return (
     <section
       className="project-section fix section-padding section-bg bg-cover"
-      style={{ backgroundImage: "url('/assets/img/project/line-shape.png')" }}
+      style={{ backgroundImage: `url(${lineShapeBg})` }}
     >
       <div className="color-bg">
-        <img src="/assets/img/project/color-bg.png" alt="img" />
+        <img src={colorBg} alt="glow background" />
       </div>
       <div className="project-wrapper">
         <h2
           className="project-title text-center wow fadeInUp"
           data-wow-delay=".3s"
         >
-          Selected <br /> <img src="/assets/img/has.png" alt="img" />{" "}
+          Selected <br /> <img src={hasIcon} alt="icon" />{" "}
           <span className="text-neon">Projects</span>
         </h2>
 
@@ -55,6 +58,8 @@ export default function Projects() {
                   <img
                     src={project.image}
                     alt={project.title.replace(/\|/g, " ")}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>
@@ -72,7 +77,6 @@ export default function Projects() {
                 >
                   <span>{project.date}</span>
                   <h3>
-                   
                     <a
                       href={project.projectLink}
                       dangerouslySetInnerHTML={{
@@ -89,7 +93,6 @@ export default function Projects() {
               </div>
             );
 
-           
             return isEven ? (
               <React.Fragment key={project._id}>
                 {imageBlock}

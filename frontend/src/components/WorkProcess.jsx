@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import api from "../api/axiosConfig";
+import workProcessBg from "../../src/assets/img/work-process-bg.jpg";
 
 // --- ProcessStep component (UPDATED: Cloudinary optimization + Lazy Loading) ---
 const ProcessStep = ({ imageUrl, title, description, scale }) => {
@@ -69,7 +70,7 @@ const AnimatedWorkProcess = ({ processData }) => {
     <section
       ref={targetRef}
       className="work-process-section teal-patch-bg fix section-padding-2 bg-cover"
-      style={{ backgroundImage: "url('assets/img/work-process-bg.jpg')" }}
+      style={{ backgroundImage: `url(${workProcessBg})` }}
     >
       <div className="container">
         <div className="section-title text-center">

@@ -5,6 +5,8 @@ import { useParams, Link } from "react-router-dom";
 import { allProjects } from "../data";
 import NotFoundPage from "./NotFoundPage";
 import SeoHelmet from "../components/SeoHelmet";
+import breadcrumbBg from "../assets/img/breadcrumb-bg.jpg";
+import starIcon from "../assets/img/star.png";
 
 export default function ProjectDetailsPage() {
   const { projectId } = useParams();
@@ -24,7 +26,7 @@ export default function ProjectDetailsPage() {
       {/* Breadcrumb Section */}
       <div
         className="breadcrumb-wrapper bg-cover"
-        style={{ backgroundImage: "url('/assets/img/breadcrumb-bg.jpg')" }}
+        style={{ backgroundImage: `url(${breadcrumbBg})` }}
       >
         <div className="container">
           <div className="page-heading">
@@ -55,9 +57,13 @@ export default function ProjectDetailsPage() {
                     nullam odio metus netus velit platea adipiscing.
                   </p>
                   <div className="details-image">
-                    <img src={project.imgSrc} alt={project.title} />
+                    <img
+                      src={project.imgSrc}
+                      alt={project.title}
+                      loading="eager"
+                      decoding="async"
+                    />
                   </div>
-                  {/* ... Rest of the project details content ... */}
                 </div>
               </div>
             </div>

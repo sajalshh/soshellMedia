@@ -5,7 +5,7 @@ import { useParams, Link } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
 import { FaCheckCircle } from "react-icons/fa";
 import api from "../api/axiosConfig";
-
+import starIcon from "../assets/img/star.png";
 import SeoHelmet from "../components/SeoHelmet";
 import NotFoundPage from "./NotFoundPage";
 
@@ -71,7 +71,7 @@ export default function ServiceDetailsPage() {
                   <div className="section-title">
                     <Fade direction="up" triggerOnce>
                       <h6>
-                        <img src="/assets/img/star.png" alt="star" />
+                        <img src={starIcon} alt="star" />
                         {service.title}
                       </h6>
                     </Fade>
