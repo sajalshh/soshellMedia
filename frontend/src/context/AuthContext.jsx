@@ -45,6 +45,12 @@ export const AuthProvider = ({ children }) => {
     const response = await api.post("/auth/login", { identifier, password });
     const accessToken = response.data.accessToken;
     localStorage.setItem("accessToken", accessToken);
+
+    // Fetch profile before setting auth so user is ready before navigate
+    const profileRes = await privateApi.get("/auth/me", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    setUser(profileRes.data.data);
     setAuth({ accessToken });
     return response;
   };
