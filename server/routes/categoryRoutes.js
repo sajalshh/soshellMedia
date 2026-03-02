@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { protect, authorize } = require("../middleware/authMiddleware");
+const { protect, checkPermission } = require("../middleware/authMiddleware");
 const PortfolioCategory = require("../models/PortfolioCategory");
 
 router.get("/", async (req, res) => {
@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", protect, authorize("client"), async (req, res) => {
+router.post("/", protect, checkPermission("portfolio", "create"), async (req, res) => {
   try {
     const newCategory = await PortfolioCategory.create(req.body);
     res.status(201).json({ success: true, data: newCategory });
@@ -21,7 +21,7 @@ router.post("/", protect, authorize("client"), async (req, res) => {
   }
 });
 
-router.put("/:id", protect, authorize("client"), async (req, res) => {
+router.put("/:id", protect, checkPermission("portfolio", "update"), async (req, res) => {
   try {
     const category = await PortfolioCategory.findByIdAndUpdate(
       req.params.id,
@@ -42,7 +42,7 @@ router.put("/:id", protect, authorize("client"), async (req, res) => {
   }
 });
 
-router.delete("/:id", protect, authorize("client"), async (req, res) => {
+router.delete("/:id", protect, checkPermission("portfolio", "delete"), async (req, res) => {
   const PortfolioItem = require("../models/PortfolioItem");
   const itemsInCategory = await PortfolioItem.countDocuments({
     category: req.params.id,

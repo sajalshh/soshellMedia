@@ -1,29 +1,45 @@
-// server/models/User.js
-
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({
-  // ... email and password fields remain the same
-  email: {
-    type: String,
-    required: [true, "Please add an email"],
-    unique: true,
-    match: [
-      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-      "aadi@aadi.com",
-    ],
+const UserSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: [true, "Please add a username"],
+      unique: true,
+      trim: true,
+      minlength: 3,
+      maxlength: 30,
+    },
+    email: {
+      type: String,
+      required: [true, "Please add an email"],
+      unique: true,
+      match: [
+        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+        "Please add a valid email",
+      ],
+    },
+    password: {
+      type: String,
+      required: [true, "Please add a password"],
+      minlength: 6,
+      select: false,
+    },
+    role: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role",
+      required: true,
+    },
+    isSuperAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
   },
-  password: {
-    type: String,
-    required: [true, "Sajal1234"],
-    minlength: 6,
-    select: false,
-  },
-  role: {
-    type: String,
-    enum: ["client", "user"], // Defines possible roles
-    default: "user",
-  },
-});
+  { timestamps: true },
+);
 
 module.exports = mongoose.model("User", UserSchema);

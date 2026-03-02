@@ -27,8 +27,12 @@ const caseStudyRoutes = require("./routes/caseStudyRoutes");
 const showcaseRoutes = require("./routes/showcaseRoutes");
 const aboutRoutes = require("./routes/aboutRoutes");
 const aiRoutes = require("./routes/aiRoutes");
+const adminUserRoutes = require("./routes/adminUserRoutes");
+const adminRoleRoutes = require("./routes/adminRoleRoutes");
+const seedSystemRoles = require("./utils/seedRoles");
+
 // Connect to Database
-connectDB();
+connectDB().then(() => seedSystemRoles());
 
 const app = express();
 
@@ -64,6 +68,8 @@ app.use("/api/showcase", showcaseRoutes);
 app.use("/api/about", aboutRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/ai-call", aiRoutes);
+app.use("/api/admin/users", adminUserRoutes);
+app.use("/api/admin/roles", adminRoleRoutes);
 // Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

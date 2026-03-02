@@ -3,7 +3,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { protect, authorize } = require("../middleware/authMiddleware");
+const { protect, checkPermission } = require("../middleware/authMiddleware");
 const SeoData = require("../models/SeoData");
 
 // @desc    Get SEO data for a specific page URL
@@ -40,7 +40,7 @@ router.get("/", async (req, res) => {
 // @desc    Get all SEO data entries (for the dashboard)
 // @route   GET /api/seo/all
 // @access  Private (Client)
-router.get("/all", protect, authorize("client"), async (req, res) => {
+router.get("/all", protect, checkPermission("seo", "view"), async (req, res) => {
   try {
     const allSeoData = await SeoData.find();
     res.status(200).json({ success: true, data: allSeoData });
@@ -53,7 +53,7 @@ router.get("/all", protect, authorize("client"), async (req, res) => {
 // @route   PUT /api/seo/:id
 // @access  Private (Client)
 // server/routes/seoRoutes.js (PUT /api/seo/:id)
-router.put("/:id", protect, authorize("client"), async (req, res) => {
+router.put("/:id", protect, checkPermission("seo", "update"), async (req, res) => {
   try {
     const updateBody = { ...req.body };
 

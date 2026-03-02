@@ -3,7 +3,7 @@
 const express = require("express");
 const router = express.Router();
 const upload = require("../middleware/uploadMiddleware");
-const { protect, authorize } = require("../middleware/authMiddleware");
+const { protect, checkPermission } = require("../middleware/authMiddleware");
 const cloudinary = require("../config/cloudinary");
 
 // Import the updated model from Step 1
@@ -66,7 +66,7 @@ const uploadFields = upload.fields([
 // @desc    Update service page content
 // @route   PUT /api/services/content
 // @access  Private (Client)
-router.put("/content", protect, authorize("client"), async (req, res) => {
+router.put("/content", protect, checkPermission("servicesPage", "update"), async (req, res) => {
   try {
     const content = await ServicePageContent.findOneAndUpdate({}, req.body, {
       new: true,
@@ -84,7 +84,7 @@ router.put("/content", protect, authorize("client"), async (req, res) => {
 router.post(
   "/cards",
   protect,
-  authorize("client"),
+  checkPermission("servicesPage", "create"),
   uploadFields, // UPDATED: Use the new middleware for two files
   async (req, res) => {
     try {
@@ -142,7 +142,7 @@ router.post(
 router.put(
   "/cards/:id",
   protect,
-  authorize("client"),
+  checkPermission("servicesPage", "update"),
   uploadFields, // UPDATED: Use the new middleware for two files
   async (req, res) => {
     try {
@@ -200,7 +200,7 @@ router.put(
 // @desc    Delete a service card
 // @route   DELETE /api/services/cards/:id
 // @access  Private (Client)
-router.delete("/cards/:id", protect, authorize("client"), async (req, res) => {
+router.delete("/cards/:id", protect, checkPermission("servicesPage", "delete"), async (req, res) => {
   try {
     const service = await Service.findById(req.params.id);
     if (!service) {

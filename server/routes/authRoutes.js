@@ -1,83 +1,79 @@
-// server/routes/authRoutes.js
-
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-// Utility to generate tokens and set cookies
 const sendTokenResponse = (user, statusCode, res) => {
-  // Create access token
   const accessToken = jwt.sign(
-    { id: user._id, role: user.role },
+    { id: user._id, isSuperAdmin: user.isSuperAdmin },
     process.env.JWT_ACCESS_SECRET,
-    {
-      expiresIn: process.env.JWT_ACCESS_EXPIRES_IN,
-    },
+    { expiresIn: process.env.JWT_ACCESS_EXPIRES_IN },
   );
 
-  // Create refresh token
   const refreshToken = jwt.sign(
     { id: user._id },
     process.env.JWT_REFRESH_SECRET,
-    {
-      expiresIn: process.env.JWT_REFRESH_EXPIRES_IN,
-    },
+    { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN },
   );
 
-  // Set refresh token in a secure, httpOnly cookie
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: false, // ❗ Must be false for localhost (otherwise browser blocks it)
-    sameSite: "Lax", // ❗ 'Strict' blocks cross-origin refresh; use 'Lax' for local dev
-    path: "/api/auth/refresh", // Optional: restrict to just refresh route
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Lax",
+    path: "/api/auth/refresh",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
-  res.status(statusCode).json({
-    success: true,
-    accessToken,
-  });
+  res.status(statusCode).json({ success: true, accessToken });
 };
 
-// @desc    Register a new user
-// @route   POST /api/auth/register
-router.post("/register", async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    // Hash password before saving
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    // For the first user, we can assign the 'client' role directly
-    const isFirstUser = (await User.countDocuments({})) === 0;
-    const role = isFirstUser ? "client" : "user";
-
-    const user = await User.create({
-      email,
-      password: hashedPassword,
-      role,
-    });
-
-    sendTokenResponse(user, 201, res);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error during registration" });
-  }
-});
-
-// @desc    Login user
+// @desc    Login user (accepts email or username)
 // @route   POST /api/auth/login
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { identifier, password } = req.body;
   try {
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({
+      $or: [{ email: identifier }, { username: identifier }],
+    })
+      .select("+password")
+      .populate("role", "name permissions");
+
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
+
+    if (!user.isActive) {
+      return res.status(403).json({ message: "Account is deactivated" });
+    }
+
     sendTokenResponse(user, 200, res);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+// @desc    Get current user profile with role + permissions
+// @route   GET /api/auth/me
+router.get("/me", protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id)
+      .select("-password")
+      .populate("role", "name description permissions");
+
+    res.status(200).json({
+      success: true,
+      data: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        isSuperAdmin: user.isSuperAdmin,
+        role: user.role,
+      },
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
@@ -102,19 +98,23 @@ router.get("/refresh", async (req, res) => {
       return res.status(401).json({ message: "User not found" });
     }
 
-    // Issue a new access token
     const accessToken = jwt.sign(
-      { id: user._id, role: user.role },
+      { id: user._id, isSuperAdmin: user.isSuperAdmin },
       process.env.JWT_ACCESS_SECRET,
-      {
-        expiresIn: process.env.JWT_ACCESS_EXPIRES_IN,
-      },
+      { expiresIn: process.env.JWT_ACCESS_EXPIRES_IN },
     );
 
     res.status(200).json({ success: true, accessToken });
   } catch (error) {
     return res.status(403).json({ message: "Invalid refresh token" });
   }
+});
+
+// @desc    Logout - clear refresh token cookie
+// @route   POST /api/auth/logout
+router.post("/logout", (req, res) => {
+  res.clearCookie("refreshToken", { path: "/api/auth/refresh" });
+  res.status(200).json({ success: true, message: "Logged out" });
 });
 
 module.exports = router;

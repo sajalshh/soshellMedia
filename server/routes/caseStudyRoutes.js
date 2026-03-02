@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 const slugify = require("slugify");
 
-const { protect, authorize } = require("../middleware/authMiddleware");
+const { protect, checkPermission } = require("../middleware/authMiddleware");
 const upload = require("../middleware/uploadMiddleware");
 const cloudinary = require("../config/cloudinary");
 const CaseStudy = require("../models/CaseStudy");
@@ -36,7 +36,7 @@ router.get("/:slug", async (req, res) => {
 
 // @desc    Get a single case study by its ID (for editing)
 // @route   GET /api/casestudies/id/:id
-router.get("/id/:id", protect, authorize("client"), async (req, res) => {
+router.get("/id/:id", protect, checkPermission("caseStudies", "view"), async (req, res) => {
   try {
     const study = await CaseStudy.findById(req.params.id);
     if (!study) {
@@ -54,7 +54,7 @@ router.get("/id/:id", protect, authorize("client"), async (req, res) => {
 router.post(
   "/",
   protect,
-  authorize("client"),
+  checkPermission("caseStudies", "create"),
   upload.single("featuredImage"),
   async (req, res) => {
     try {
@@ -120,7 +120,7 @@ router.post(
 router.post(
   "/upload-image",
   protect,
-  authorize("client"),
+  checkPermission("caseStudies", "create"),
   upload.single("file"),
   async (req, res) => {
     try {
@@ -148,7 +148,7 @@ router.post(
 router.put(
   "/:id",
   protect,
-  authorize("client"),
+  checkPermission("caseStudies", "update"),
   upload.single("featuredImage"),
   async (req, res) => {
     try {
@@ -211,7 +211,7 @@ router.put(
 // @desc    Delete a case study
 // @route   DELETE /api/casestudies/:id
 // @access  Private (Client)
-router.delete("/:id", protect, authorize("client"), async (req, res) => {
+router.delete("/:id", protect, checkPermission("caseStudies", "delete"), async (req, res) => {
   try {
     const study = await CaseStudy.findById(req.params.id);
     if (!study) {

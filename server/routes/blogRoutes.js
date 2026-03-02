@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 const slugify = require("slugify");
 
-const { protect, authorize } = require("../middleware/authMiddleware");
+const { protect, checkPermission } = require("../middleware/authMiddleware");
 // ✅ 1. The upload middleware is imported
 const upload = require("../middleware/uploadMiddleware");
 const cloudinary = require("../config/cloudinary");
@@ -41,7 +41,7 @@ router.get("/:slug", async (req, res) => {
 router.post(
   "/",
   protect,
-  authorize("client"),
+  checkPermission("blog", "create"),
   upload.single("featuredImage"),
   async (req, res) => {
     try {
@@ -111,7 +111,7 @@ router.post(
 router.post(
   "/upload-image",
   protect,
-  authorize("client"),
+  checkPermission("blog", "create"),
   upload.single("file"), // TinyMCE's default field name is 'file'
   async (req, res) => {
     try {
@@ -143,8 +143,7 @@ router.post(
 router.put(
   "/:id",
   protect,
-  authorize("client"),
-  // ✅ 3. The middleware is also correctly placed here for updates
+  checkPermission("blog", "update"),
   upload.single("featuredImage"),
   async (req, res) => {
     try {
@@ -209,7 +208,7 @@ router.put(
 // @desc    Delete a blog post
 // @route   DELETE /api/blog/:id
 // @access  Private (Client)
-router.delete("/:id", protect, authorize("client"), async (req, res) => {
+router.delete("/:id", protect, checkPermission("blog", "delete"), async (req, res) => {
   try {
     const post = await BlogPost.findById(req.params.id);
     if (!post) {
@@ -224,7 +223,7 @@ router.delete("/:id", protect, authorize("client"), async (req, res) => {
 
 // @desc    Get a single blog post by its ID (for editing)
 // @route   GET /api/blog/id/:id
-router.get("/id/:id", protect, authorize("client"), async (req, res) => {
+router.get("/id/:id", protect, checkPermission("blog", "view"), async (req, res) => {
   try {
     const post = await BlogPost.findById(req.params.id);
     if (!post) {

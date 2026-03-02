@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
 
-const { protect, authorize } = require("../middleware/authMiddleware");
+const { protect, checkPermission } = require("../middleware/authMiddleware");
 const ShowcaseItem = require("../models/ShowcaseItem");
 
 // --- STORAGE ---
@@ -63,7 +63,7 @@ router.get("/", async (req, res) => {
 router.post(
   "/",
   protect,
-  authorize("client"),
+  checkPermission("showcase", "create"),
   uploadVideo.single("videoFile"),
   async (req, res) => {
     try {
@@ -96,7 +96,7 @@ router.post(
 router.put(
   "/:id",
   protect,
-  authorize("client"),
+  checkPermission("showcase", "update"),
   uploadVideo.single("videoFile"),
   async (req, res) => {
     try {
@@ -134,7 +134,7 @@ router.put(
 );
 
 // --- DELETE (ADMIN) ---
-router.delete("/:id", protect, authorize("client"), async (req, res) => {
+router.delete("/:id", protect, checkPermission("showcase", "delete"), async (req, res) => {
   try {
     const item = await ShowcaseItem.findById(req.params.id);
 

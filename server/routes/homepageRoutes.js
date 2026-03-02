@@ -8,7 +8,7 @@ const router = express.Router();
 const upload = require("../middleware/uploadMiddleware");
 const cloudinary = require("../config/cloudinary");
 
-const { protect, authorize } = require("../middleware/authMiddleware");
+const { protect, checkPermission } = require("../middleware/authMiddleware");
 const HeroContent = require("../models/HeroContent");
 const AboutTab = require("../models/AboutTab");
 const ServiceCard = require("../models/ServiceCard");
@@ -74,7 +74,7 @@ router.get("/hero", async (req, res) => {
 router.put(
   "/hero",
   protect,
-  authorize("client"),
+  checkPermission("hero", "update"),
   uploadVideo.single("heroVideo"), // <--- THIS WAS MISSING!
   async (req, res) => {
     try {
@@ -122,7 +122,7 @@ router.get("/about-tabs", async (req, res) => {
 router.put(
   "/about-tabs/:id",
   protect,
-  authorize("client"),
+  checkPermission("aboutTabs", "update"),
   async (req, res) => {
     try {
       const updatedTab = await AboutTab.findByIdAndUpdate(
@@ -151,7 +151,7 @@ router.get("/about-section", async (req, res) => {
 
 // @desc    Update About Section content (Video Upload)
 // @route   PUT /api/homepage/about-section
-router.put("/about-section", protect, authorize("client"), uploadVideo.single("aboutVideo"), async (req, res) => {
+router.put("/about-section", protect, checkPermission("aboutTabs", "update"), uploadVideo.single("aboutVideo"), async (req, res) => {
   try {
     let updateData = { ...req.body };
 
@@ -189,7 +189,7 @@ router.get("/service-cards", async (req, res) => {
 router.put(
   "/service-cards/:id",
   protect,
-  authorize("client"),
+  checkPermission("serviceCards", "update"),
   upload.single("image"),
   async (req, res) => {
     try {
@@ -233,7 +233,7 @@ router.get("/projects", async (req, res) => {
 router.post(
   "/projects",
   protect,
-  authorize("client"),
+  checkPermission("projects", "create"),
   upload.single("image"),
   async (req, res) => {
     try {
@@ -266,7 +266,7 @@ router.post(
 router.put(
   "/projects/:id",
   protect,
-  authorize("client"),
+  checkPermission("projects", "update"),
   upload.single("image"),
   async (req, res) => {
     try {
@@ -298,7 +298,7 @@ router.put(
 router.delete(
   "/projects/:id",
   protect,
-  authorize("client"),
+  checkPermission("projects", "delete"),
   async (req, res) => {
     try {
       const project = await Project.findById(req.params.id);

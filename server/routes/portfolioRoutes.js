@@ -3,7 +3,7 @@ const router = express.Router();
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer"); // Import Multer
-const { protect, authorize } = require("../middleware/authMiddleware");
+const { protect, checkPermission } = require("../middleware/authMiddleware");
 const PortfolioItem = require("../models/PortfolioItem");
 
 // --- 1. SETUP SMART STORAGE (Same as homepageRoutes) ---
@@ -63,7 +63,7 @@ router.get("/", async (req, res) => {
 router.post(
   "/",
   protect,
-  authorize("client"),
+  checkPermission("portfolio", "create"),
   uploadVideo.single("videoFile"),
   async (req, res) => {
     try {
@@ -103,7 +103,7 @@ router.post(
 router.put(
   "/:id",
   protect,
-  authorize("client"),
+  checkPermission("portfolio", "update"),
   uploadVideo.single("videoFile"),
   async (req, res) => {
     try {
@@ -141,7 +141,7 @@ router.put(
 );
 
 // Delete Item
-router.delete("/:id", protect, authorize("client"), async (req, res) => {
+router.delete("/:id", protect, checkPermission("portfolio", "delete"), async (req, res) => {
   try {
     const item = await PortfolioItem.findById(req.params.id);
     if (!item) {

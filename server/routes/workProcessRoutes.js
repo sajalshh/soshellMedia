@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const upload = require("../middleware/uploadMiddleware");
-const { protect, authorize } = require("../middleware/authMiddleware");
+const { protect, checkPermission } = require("../middleware/authMiddleware");
 const cloudinary = require("../config/cloudinary");
 const WorkProcessStep = require("../models/WorkProcessStep");
 
@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
 router.post(
   "/",
   protect,
-  authorize("client"),
+  checkPermission("workProcess", "create"),
   upload.single("image"),
   async (req, res) => {
     try {
@@ -56,7 +56,7 @@ router.post(
 router.put(
   "/:id",
   protect,
-  authorize("client"),
+  checkPermission("workProcess", "update"),
   upload.single("image"),
   async (req, res) => {
     try {
@@ -89,7 +89,7 @@ router.put(
 // @desc    Delete a work process step
 // @route   DELETE /api/work-process/:id
 // @access  Private (Admin)
-router.delete("/:id", protect, authorize("client"), async (req, res) => {
+router.delete("/:id", protect, checkPermission("workProcess", "delete"), async (req, res) => {
   try {
     const step = await WorkProcessStep.findById(req.params.id);
     if (!step) {

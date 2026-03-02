@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { protect, authorize } = require("../middleware/authMiddleware");
+const { protect, checkPermission } = require("../middleware/authMiddleware");
 const PricingPlan = require("../models/PricingPlan");
 
 // --- PUBLIC ROUTE ---
@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
 // @desc    Create a new pricing plan
 // @route   POST /api/pricing
 // @access  Private (Admin)
-router.post("/", protect, authorize("client"), async (req, res) => {
+router.post("/", protect, checkPermission("pricing", "create"), async (req, res) => {
   try {
     const { features, ...otherData } = req.body;
     const newPlan = await PricingPlan.create({
@@ -40,7 +40,7 @@ router.post("/", protect, authorize("client"), async (req, res) => {
 // @desc    Update a pricing plan
 // @route   PUT /api/pricing/:id
 // @access  Private (Admin)
-router.put("/:id", protect, authorize("client"), async (req, res) => {
+router.put("/:id", protect, checkPermission("pricing", "update"), async (req, res) => {
   try {
     const { features, ...otherData } = req.body;
     const updateData = {
@@ -66,7 +66,7 @@ router.put("/:id", protect, authorize("client"), async (req, res) => {
 // @desc    Delete a pricing plan
 // @route   DELETE /api/pricing/:id
 // @access  Private (Admin)
-router.delete("/:id", protect, authorize("client"), async (req, res) => {
+router.delete("/:id", protect, checkPermission("pricing", "delete"), async (req, res) => {
   try {
     const plan = await PricingPlan.findById(req.params.id);
     if (!plan) {

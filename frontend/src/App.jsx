@@ -16,7 +16,6 @@ import BlogPage from "./pages/BlogPage";
 import NewsDetailsPage from "./pages/NewsDetailsPage";
 import FaqPage from "./pages/FaqPage";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
 import ServiceDetailsPage from "./pages/ServiceDetailsPage";
 import AppointmentPage from "./pages/AppointmentPage";
 import CaseStudiesPage from "./pages/CaseStudiesPage";
@@ -62,7 +61,6 @@ export default function App() {
         <Route path="faq" element={<FaqPage />} />
         <Route path="appointment" element={<AppointmentPage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route path="register" element={<RegisterPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
 

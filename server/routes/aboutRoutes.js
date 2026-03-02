@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const AboutPage = require("../models/AboutPage");
+const { protect, checkPermission } = require("../middleware/authMiddleware");
 
 // GET About Page Content
 router.get("/", async (req, res) => {
@@ -16,7 +17,7 @@ router.get("/", async (req, res) => {
 });
 
 // UPDATE About Page Content
-router.put("/", async (req, res) => {
+router.put("/", protect, checkPermission("aboutPage", "update"), async (req, res) => {
   try {
     const { headingPrefix, headingHighlight, subHeading, paragraphs } =
       req.body;
