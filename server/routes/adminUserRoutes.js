@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
       email,
       password: hashedPassword,
       role: roleId,
-      isSuperAdmin: false,
+      isSuperAdmin: role.name === "SuperAdmin",
     });
 
     const populatedUser = await User.findById(user._id)
@@ -98,6 +98,7 @@ router.put("/:id", async (req, res) => {
           .json({ message: "Cannot assign SuperAdmin role" });
       }
       updateData.role = roleId;
+      updateData.isSuperAdmin = role.name === "SuperAdmin";
     }
 
     if (password) {

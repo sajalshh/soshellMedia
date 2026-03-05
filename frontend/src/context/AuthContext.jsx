@@ -80,7 +80,8 @@ export const AuthProvider = ({ children }) => {
   const isAdmin = useCallback(() => {
     if (!user) return false;
     if (user.isSuperAdmin) return true;
-    return user.role?.name === "Admin";
+    const roleName = user.role?.name;
+    return roleName === "Admin" || roleName === "SuperAdmin";
   }, [user]);
 
   return (

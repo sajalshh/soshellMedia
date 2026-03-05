@@ -62,7 +62,7 @@ exports.requireAdmin = (req, res, next) => {
   }
 
   const roleName = req.user.role?.name;
-  if (roleName === "Admin") {
+  if (roleName === "Admin" || roleName === "SuperAdmin") {
     return next();
   }
 
