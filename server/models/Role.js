@@ -18,6 +18,8 @@ const FEATURES = [
   "aiCalls",
   "users",
   "roles",
+  "attendance", // NEW
+  "tasks", // NEW
 ];
 
 const ACTIONS = ["view", "create", "update", "delete"];

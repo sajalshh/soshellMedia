@@ -30,6 +30,8 @@ const aiRoutes = require("./routes/aiRoutes");
 const adminUserRoutes = require("./routes/adminUserRoutes");
 const adminRoleRoutes = require("./routes/adminRoleRoutes");
 const seedSystemRoles = require("./utils/seedRoles");
+const attendanceRoutes = require("./routes/attendanceRoutes");
+const taskRoutes = require("./routes/taskRoutes");
 
 // Connect to Database
 connectDB().then(() => seedSystemRoles());
@@ -70,6 +72,8 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/ai-call", aiRoutes);
 app.use("/api/admin/users", adminUserRoutes);
 app.use("/api/admin/roles", adminRoleRoutes);
+app.use("/api/attendance", attendanceRoutes);
+app.use("/api/tasks", taskRoutes);
 // Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -20,6 +20,9 @@ import ManageAiCalls from "../components/dashboard/ManageAiCalls";
 import ManageAboutPage from "../components/dashboard/ManageAboutPage";
 import ManageUsers from "../components/dashboard/ManageUsers";
 import ManageRoles from "../components/dashboard/ManageRoles";
+import ManageAttendance from "../components/dashboard/ManageAttendance"; // NEW
+import ManageTasks from "../components/dashboard/ManageTasks"; // NEW
+import EmployeeDashboard from "../components/dashboard/EmployeeDashboard"; // NEW
 
 const DashboardPage = () => {
   const [activeTab, setActiveTab] = useState("hero");
@@ -70,6 +73,12 @@ const DashboardPage = () => {
         return <ManageUsers />;
       case "roles":
         return <ManageRoles />;
+      case "attendance": // NEW
+        return <ManageAttendance />;
+      case "tasks": // NEW
+        return <ManageTasks />;
+      case "myDashboard": // NEW
+        return <EmployeeDashboard />;
       default:
         return <ManageHero />;
     }

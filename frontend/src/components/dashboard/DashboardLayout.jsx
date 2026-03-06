@@ -21,6 +21,9 @@ const TAB_TITLES = {
   aiCalls: "AI Call Logs",
   users: "User Management",
   roles: "Role Management",
+  attendance: "Attendance Overview", // NEW
+  tasks: "Task Management", // NEW
+  myDashboard: "My Dashboard", // NEW
 };
 
 const DashboardLayout = ({ activeTab, onTabChange, children }) => {

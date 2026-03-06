@@ -45,8 +45,10 @@ const DashboardSidebar = ({
           {sidebarSections.map((section) => {
             if (section.adminOnly && !isAdmin()) return null;
 
-            const visibleItems = section.items.filter((item) =>
-              hasPermission(item.feature, "view"),
+            const visibleItems = section.items.filter(
+              (item) =>
+                hasPermission(item.feature, "view") &&
+                (!item.adminOnly || isAdmin()),
             );
             if (visibleItems.length === 0) return null;
 

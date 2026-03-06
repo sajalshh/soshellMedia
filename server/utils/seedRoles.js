@@ -49,6 +49,21 @@ async function seedSystemRoles() {
       { upsert: true, new: true },
     );
 
+    // Employee role: can only view their own attendance and tasks
+    await Role.findOneAndUpdate(
+      { name: "Employee" },
+      {
+        name: "Employee",
+        description: "Standard employee access",
+        permissions: [
+          { feature: "attendance", actions: ["view"] },
+          { feature: "tasks", actions: ["view"] },
+        ],
+        isSystem: true,
+      },
+      { upsert: true, new: true },
+    );
+
     console.log("System roles seeded.");
   } catch (error) {
     console.error("Error seeding roles:", error);
