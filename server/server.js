@@ -30,20 +30,35 @@ const aiRoutes = require("./routes/aiRoutes");
 const adminUserRoutes = require("./routes/adminUserRoutes");
 const adminRoleRoutes = require("./routes/adminRoleRoutes");
 const seedSystemRoles = require("./utils/seedRoles");
+const seedOwner = require("./utils/seedOwner");
 const attendanceRoutes = require("./routes/attendanceRoutes");
 const taskRoutes = require("./routes/taskRoutes");
+const mediaProjectRoutes = require("./routes/mediaProjectRoutes");
 
 // Connect to Database
-connectDB().then(() => seedSystemRoles());
+connectDB().then(async () => {
+  await seedSystemRoles();
+  await seedOwner();
+});
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+const allowedOrigins = (process.env.CORS_ORIGIN || "")
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. server-to-server, curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      callback(new Error(`CORS: origin '${origin}' not allowed`));
+    },
     credentials: true,
   }),
 );
@@ -74,6 +89,7 @@ app.use("/api/admin/users", adminUserRoutes);
 app.use("/api/admin/roles", adminRoleRoutes);
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/tasks", taskRoutes);
+app.use("/api/media-projects", mediaProjectRoutes);
 // Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

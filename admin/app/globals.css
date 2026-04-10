@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+:root {
+  /* Backgrounds — match frontend darks */
+  --bg: #0d0d0f;
+  --surface: #151518;
+  --surface-2: #1a1a1d;
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.07);
+  --border-hover: rgba(255, 255, 255, 0.13);
+
+  /* Text */
+  --text: #e0e0e0;
+  --text-muted: #a0a0a0;
+
+  /* Accent — frontend primary cyan */
+  --accent: #00ffcc;
+  --accent-hover: #00e6b8;
+  --accent-muted: rgba(0, 255, 204, 0.08);
+  --accent-text: #000000; /* text on accent background */
+
+  /* Secondary coral */
+  --secondary: #ff7d6b;
+
+  /* Semantic */
+  --danger: #ff6b6b;
+  --danger-bg: rgba(255, 107, 107, 0.1);
+  --danger-border: rgba(255, 107, 107, 0.25);
+  --success: #34c759;
+  --success-bg: rgba(52, 199, 89, 0.1);
+  --warning: #ffc107;
+  --warning-bg: rgba(255, 193, 7, 0.1);
+  --info: #60a5fa;
+  --info-bg: rgba(96, 165, 250, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 204, 0.3);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Input base reset */
+input,
+textarea,
+select {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  transition: border-color 0.15s ease;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent) !important;
+  outline: none;
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+select option {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* Hover utilities — CSS-only, safe to use in server components */
+.tr-hover:hover {
+  background: var(--surface-2) !important;
+}
+
+.card-hover:hover {
+  border-color: rgba(0, 255, 204, 0.25) !important;
+  background: var(--surface-2) !important;
+}
+
+.link-hover:hover {
+  color: var(--accent) !important;
+}
