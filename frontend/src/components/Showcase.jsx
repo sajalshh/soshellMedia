@@ -15,7 +15,12 @@ export default function Showcase() {
       setLoading(true);
       try {
         const response = await api.get("/showcase");
-        let fetchedProjects = response.data.data;
+        let fetchedProjects = response.data?.data;
+
+        if (!Array.isArray(fetchedProjects)) {
+          setProjects([]);
+          return;
+        }
 
         if (fetchedProjects.length > 0 && fetchedProjects.length < 10) {
           const originalProjects = [...fetchedProjects];

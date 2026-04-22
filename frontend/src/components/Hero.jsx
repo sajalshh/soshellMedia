@@ -128,7 +128,7 @@ export default function Hero() {
     }
   };
 
-  if (loading) {
+  if (loading || !content) {
     return (
       <section className="hero-secton hero-1" style={{ minHeight: "100vh" }} />
     );
