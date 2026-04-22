@@ -185,7 +185,8 @@ export default function WorkProcess() {
     const fetchSteps = async () => {
       try {
         const response = await api.get("/work-process");
-        setProcessData(response.data.data);
+        const data = response.data?.data;
+        setProcessData(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Failed to fetch work process steps:", error);
       } finally {

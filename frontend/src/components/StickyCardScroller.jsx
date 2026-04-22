@@ -66,7 +66,8 @@ export default function StickyCardScroller() {
     const fetchServiceCards = async () => {
       try {
         const response = await api.get("/homepage/service-cards");
-        setCardData(response.data.data);
+        const data = response.data?.data;
+        setCardData(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Failed to fetch service cards:", error);
       } finally {
