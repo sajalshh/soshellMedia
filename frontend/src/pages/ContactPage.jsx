@@ -175,12 +175,20 @@ export default function ContactPage() {
                     <h3 className="tw-text-white tw-font-semibold tw-text-xl">
                       Call Us
                     </h3>
-                    <a
-                      href="tel:+16478970671"
-                      className="tw-text-gray-400 hover:tw-text-[var(--tp-theme-primary)]"
-                    >
-                      +1 (647) 897-0671
-                    </a>
+                    <div className="tw-flex tw-flex-col tw-gap-1">
+                      <a
+                        href="tel:+16478970671"
+                        className="tw-text-gray-400 hover:tw-text-[var(--tp-theme-primary)]"
+                      >
+                        +1 (647) 897-0671
+                      </a>
+                      <a
+                        href="tel:+917011303937"
+                        className="tw-text-gray-400 hover:tw-text-[var(--tp-theme-primary)]"
+                      >
+                        +91 7011303937
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>

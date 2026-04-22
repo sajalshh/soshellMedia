@@ -4,7 +4,7 @@ module.exports = {
       name: "soshell-admin",
       script: "node_modules/.bin/next",
       args: "start",
-      cwd: "/var/www/admin",
+      cwd: "/home/ubuntu/soshellMedia/admin",
       instances: 1,
       exec_mode: "fork",
       env: {

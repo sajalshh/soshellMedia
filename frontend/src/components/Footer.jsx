@@ -151,10 +151,23 @@ export default function Footer() {
                     className="tw-text-[var(--tp-theme-primary)]"
                   />
                   <a
-                    href="tel:+10000000000"
+                    href="tel:+16478970671"
                     className="tw-text-white/70 hover:tw-text-[var(--tp-theme-primary)] tw-transition"
                   >
                     +1 (647) 897-0671
+                  </a>
+                </div>
+
+                <div className="tw-flex tw-items-center tw-gap-3">
+                  <Phone
+                    size={18}
+                    className="tw-text-[var(--tp-theme-primary)]"
+                  />
+                  <a
+                    href="tel:+917011303937"
+                    className="tw-text-white/70 hover:tw-text-[var(--tp-theme-primary)] tw-transition"
+                  >
+                    +91 7011303937
                   </a>
                 </div>
 
