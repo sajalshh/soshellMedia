@@ -19,7 +19,7 @@ export default function ProjectPage() {
   const [allProjects, setAllProjects] = useState([]);
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = useState("");
   const [loading, setLoading] = useState(true);
 
   const [activeVideoId, setActiveVideoId] = useState(null);
@@ -33,9 +33,17 @@ export default function ProjectPage() {
           api.get("/categories"),
         ]);
 
-        setAllProjects(projectsResponse.data.data);
-        setFilteredProjects(projectsResponse.data.data);
-        setCategories(categoriesResponse.data.data);
+        const projects = projectsResponse.data.data.filter(p => p.category?.name !== "All");
+        const cats = categoriesResponse.data.data.filter(c => c.name !== "All");
+        setAllProjects(projects);
+        setCategories(cats);
+        if (cats.length > 0) {
+          const first = cats[0].name;
+          setActiveFilter(first);
+          setFilteredProjects(projects.filter(p => p.category?.name === first));
+        } else {
+          setFilteredProjects(projects);
+        }
       } catch (error) {
         console.error("Failed to fetch portfolio data:", error);
       } finally {
@@ -47,7 +55,7 @@ export default function ProjectPage() {
   }, []);
 
   useEffect(() => {
-    if (activeFilter === "All") {
+    if (!activeFilter) {
       setFilteredProjects(allProjects);
     } else {
       const newProjects = allProjects.filter(
@@ -92,7 +100,7 @@ export default function ProjectPage() {
           {/* Filter Bar */}
           <div className="tw-flex tw-justify-center tw-mb-12">
             <ul className="tw-flex tw-flex-wrap tw-gap-4 md:tw-gap-8">
-              {["All", ...categories.map((c) => c.name)].map((filter) => (
+              {categories.map((c) => c.name).map((filter) => (
                 <li key={filter} className="nav-item">
                   <a
                     href="#"
