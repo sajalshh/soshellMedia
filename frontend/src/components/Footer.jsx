@@ -22,10 +22,10 @@ const navLinks = [
 
 // Footer services
 const serviceLinks = [
-  { path: "/service", label: "AI Avatar" },
-  { path: "/service", label: "Video Editing" },
-  { path: "/service", label: "SEO & Optimization" },
-  { path: "/service", label: "Performance Marketing" },
+  { path: "/service-details/videography", label: "Videography" },
+  { path: "/service-details/post-production", label: "Video Editing" },
+  { path: "/service-details/seo", label: "SEO & Optimization" },
+  { path: "/service-details/ad-campaigns", label: "Performance Marketing" },
   { path: "/service", label: "AI Calling Agents" },
 ];
 
@@ -53,7 +53,7 @@ export default function Footer() {
                   that look premium and perform better.
                 </p>
 
-                {/* Social Icons */}
+                {/* Social Icons - disabled for now
                 <div className="tw-mt-5 tw-flex tw-items-center tw-gap-3">
                   <a
                     href="#"
@@ -79,6 +79,7 @@ export default function Footer() {
                     <Twitter size={18} className="tw-text-white" />
                   </a>
                 </div>
+                */}
               </div>
             </div>
           </div>
