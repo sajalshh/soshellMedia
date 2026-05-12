@@ -22,11 +22,12 @@ const navLinks = [
 
 // Footer services
 const serviceLinks = [
-  { path: "/service-details/videography", label: "Videography" },
-  { path: "/service-details/post-production", label: "Video Editing" },
+  { path: "/service-details/AISystems", label: "AI Systems" },
+  { path: "/service-details/video-editing", label: "Video Editing" },
+  { path: "/service-details/content-production", label: "Content Production" },
+  { path: "/service-details/performance-marketing", label: "Performance Marketing" },
   { path: "/service-details/seo", label: "SEO & Optimization" },
-  { path: "/service-details/ad-campaigns", label: "Performance Marketing" },
-  { path: "/service", label: "AI Calling Agents" },
+  { path: "/service-details/web-and-app-development", label: "Web & App Development" },
 ];
 
 export default function Footer() {
