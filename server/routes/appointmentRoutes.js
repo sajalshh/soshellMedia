@@ -5,6 +5,88 @@ const router = express.Router();
 const Appointment = require("../models/Appointment");
 const { calendar } = require("../config/googleClient");
 const { format } = require("date-fns");
+const sendEmail = require("../services/emailService");
+const appointmentAdminTemplate = require("../templates/appointmentAdminTemplate");
+const appointmentCustomerTemplate = require("../templates/appointmentCustomerTemplate");
+
+// Runs AFTER the user has already gotten their success response.
+// Creates the Google Calendar event and sends notification emails.
+// Any failure here is logged only — it must never affect the user's booking,
+// which is already saved in the database.
+async function processBookingInBackground(
+  appointment,
+  { name, email, phone, purpose, date, time },
+) {
+  // --- Google Calendar event ---
+  try {
+    const dateString = date; // e.g. "2025-08-27"
+    const startDateTimeString = `${dateString}T${time}:00`; // "2025-08-27T11:00:00"
+
+    // Calculate the end time by adding one hour
+    const [hour, minute] = time.split(":").map(Number);
+    const endDateTimeString = `${dateString}T${String(hour + 1).padStart(
+      2,
+      "0",
+    )}:${String(minute).padStart(2, "0")}:00`;
+
+    const event = {
+      summary: `Meeting with ${name}`,
+      description: `Purpose: ${purpose}\nPhone: ${phone}\nEmail: ${email}`,
+      start: {
+        dateTime: startDateTimeString,
+        timeZone: "America/Toronto",
+      },
+      end: {
+        dateTime: endDateTimeString,
+        timeZone: "America/Toronto",
+      },
+      attendees: [{ email: email }],
+    };
+
+    const calendarResponse = await calendar.events.insert({
+      calendarId: "primary",
+      resource: event,
+    });
+
+    appointment.googleEventId = calendarResponse.data.id;
+    await appointment.save();
+
+    console.log("SUCCESS: Calendar event created with correct time zone.");
+  } catch (calendarError) {
+    console.error(
+      "Background: calendar event failed:",
+      calendarError.response
+        ? calendarError.response.data.error
+        : calendarError.message,
+    );
+  }
+
+  // --- Notification emails ---
+  try {
+    // Email to ADMIN
+    await sendEmail({
+      to: process.env.ADMIN_EMAIL,
+      subject: `📅 New Appointment - ${name} (${date} ${time})`,
+      html: appointmentAdminTemplate({
+        name,
+        email,
+        phone,
+        purpose,
+        date,
+        time,
+      }),
+    });
+
+    // Confirmation email to CUSTOMER
+    await sendEmail({
+      to: email,
+      subject: "✅ Your appointment is confirmed - Soshell Media",
+      html: appointmentCustomerTemplate({ name, date, time }),
+    });
+  } catch (emailError) {
+    console.error("Background: sending emails failed:", emailError.message);
+  }
+}
 
 // GET route for fetching booked slots
 router.get("/:date", async (req, res) => {
@@ -38,47 +120,23 @@ router.post("/book", async (req, res) => {
       time,
     });
 
-    // --- 2. Create Google Calendar event ---
-
-    // THIS IS THE FIX: We build a simple date-time string WITHOUT UTC conversion.
-    // This creates a string like "2025-08-27"
-    const dateString = date; 
-
-    // This creates a string like "2025-08-27T11:00:00"
-     const startDateTimeString = `${dateString}T${time}:00`;
-
-    // Calculate the end time by adding one hour
-    const [hour, minute] = time.split(":").map(Number);
-    const endDateTimeString = `${dateString}T${String(hour + 1).padStart(
-      2,
-      "0",
-    )}:${String(minute).padStart(2, "0")}:00`;
-
-    const event = {
-      summary: `Meeting with ${name}`,
-      description: `Purpose: ${purpose}\nPhone: ${phone}\nEmail: ${email}`,
-      start: {
-        dateTime: startDateTimeString, // Send the "local" time string
-        timeZone: "America/Toronto", // Tell Google what time zone it's in
-      },
-      end: {
-        dateTime: endDateTimeString,
-        timeZone: "America/Toronto",
-      },
-      attendees: [{ email: email }],
-    };
-
-    const calendarResponse = await calendar.events.insert({
-      calendarId: "primary",
-      resource: event,
-    });
-
-    newAppointment.googleEventId = calendarResponse.data.id;
-    await newAppointment.save();
-
-    console.log("SUCCESS: Calendar event created with correct time zone.");
-
+    // --- 2. Respond to the user IMMEDIATELY (fast UX) ---
+    // The slot is already reserved in the DB above. The Google Calendar event
+    // and notification emails are slow (external APIs), so we run them in the
+    // background AFTER responding, instead of making the user wait for them.
     res.status(201).json({ success: true, data: newAppointment });
+
+    // --- 3. Background work (calendar event + emails) — not awaited by client ---
+    processBookingInBackground(newAppointment, {
+      name,
+      email,
+      phone,
+      purpose,
+      date,
+      time,
+    }).catch((bgError) => {
+      console.error("Background booking task failed:", bgError.message);
+    });
   } catch (error) {
     console.error(
       "Booking Error:",
@@ -86,7 +144,7 @@ router.post("/book", async (req, res) => {
     );
     res
       .status(500)
-      .json({ success: false, message: "Failed to create calendar event." });
+      .json({ success: false, message: "Failed to book appointment." });
   }
 });
 
