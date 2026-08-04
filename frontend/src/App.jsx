@@ -9,6 +9,7 @@ import AboutPage from "./pages/AboutPage";
 import PricingPage from "./pages/PricingPage";
 import ContactPage from "./pages/ContactPage";
 import ServicePage from "./pages/ServicePage";
+import DevelopmentPage from "./pages/DevelopmentPage";
 import TeamPage from "./pages/TeamPage";
 import ProjectPage from "./pages/ProjectPage";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage";
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="pricing" element={<PricingPage />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="service" element={<ServicePage />} />
+        <Route path="development" element={<DevelopmentPage />} />
         <Route path="service-details/:slug" element={<ServiceDetailsPage />} />
         <Route path="team" element={<TeamPage />} />
         <Route path="project" element={<ProjectPage />} />

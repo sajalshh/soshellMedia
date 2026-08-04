@@ -256,7 +256,7 @@ export default function ManageTasks() {
 
       {/* ── Task Cards ── */}
       {loading ? (
-        <p style={{ color: "#888" }}>Loading...</p>
+        <p style={{ color: "#888" }}></p>
       ) : tasks.length === 0 ? (
         <div
           className="dashboard-card"

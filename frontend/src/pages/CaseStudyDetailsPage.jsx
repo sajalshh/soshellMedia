@@ -5,7 +5,6 @@ import NotFoundPage from "./NotFoundPage";
 import Sidebar from "../components/Sidebar";
 import SeoHelmet from "../components/SeoHelmet";
 
-
 export default function CaseStudyDetailsPage() {
   const { slug } = useParams();
   const [study, setStudy] = useState(null);
@@ -62,7 +61,7 @@ export default function CaseStudyDetailsPage() {
   }, [study]);
 
   if (loading) {
-    return <div className="section-padding">Loading...</div>;
+    return <div className="section-padding"></div>;
   }
 
   if (!study) {

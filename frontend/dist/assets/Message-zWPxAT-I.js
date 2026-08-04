@@ -1,9 +1,4 @@
-import{c as o,r as w,j as t,m as e,L as l}from"./index-DkU6K7kE.js";import{u as c,a}from"./use-transform-BlRe_nMd.js";/**
- * @license lucide-react v0.545.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */const p=[["path",{d:"M7 7h10v10",key:"1tivn9"}],["path",{d:"M7 17 17 7",key:"1vkiza"}]],m=o("arrow-up-right",p);function u(){const n=w.useRef(null),{scrollYProgress:s}=c({target:n,offset:["start end","end start"]}),r=a(s,[0,1],[40,-40]),i=a(s,[0,1],[1,1.15]);return t.jsxs("section",{ref:n,className:`
+import{r as o,u as w,c as a,j as t,m as e,L as l,d as c}from"./index-B8fdSeAb.js";function x(){const n=o.useRef(null),{scrollYProgress:s}=w({target:n,offset:["start end","end start"]}),r=a(s,[0,1],[40,-40]),i=a(s,[0,1],[1,1.15]);return t.jsxs("section",{ref:n,className:`
         message-section
         tw-relative
         tw-overflow-hidden
@@ -42,8 +37,8 @@ import{c as o,r as w,j as t,m as e,L as l}from"./index-DkU6K7kE.js";import{u as 
               tw-transition-all
               tw-duration-300
               hover:tw-shadow-[0_0_30px_rgba(0,255,204,0.8)]
-            `,children:[t.jsx("span",{className:"tw-text-sm",children:"Let’s talk"}),t.jsx(m,{size:18,className:`
+            `,children:[t.jsx("span",{className:"tw-text-sm",children:"Let’s talk"}),t.jsx(c,{size:18,className:`
                 tw-transition-transform
                 group-hover:tw-translate-x-1
                 group-hover:-tw-translate-y-1
-              `})]})})]})]})}export{u as default};
+              `})]})})]})]})}export{x as default};

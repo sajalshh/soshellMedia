@@ -1,0 +1,23 @@
+/* Shared styles for the /development page + its dashboard editor */
+
+.dev-thumb-shimmer {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    #151518 30%,
+    #1f1f24 45%,
+    #151518 60%
+  );
+  background-size: 200% 100%;
+  animation: devShimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes devShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

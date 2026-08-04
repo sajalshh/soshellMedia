@@ -31,14 +31,17 @@ const adminUserRoutes = require("./routes/adminUserRoutes");
 const adminRoleRoutes = require("./routes/adminRoleRoutes");
 const seedSystemRoles = require("./utils/seedRoles");
 const seedOwner = require("./utils/seedOwner");
+const seedDevelopmentPage = require("./utils/seedDevelopmentPage");
 const attendanceRoutes = require("./routes/attendanceRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 const mediaProjectRoutes = require("./routes/mediaProjectRoutes");
+const developmentRoutes = require("./routes/developmentRoutes");
 
 // Connect to Database
 connectDB().then(async () => {
   await seedSystemRoles();
   await seedOwner();
+  await seedDevelopmentPage();
 });
 
 const app = express();
@@ -90,6 +93,7 @@ app.use("/api/admin/roles", adminRoleRoutes);
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/media-projects", mediaProjectRoutes);
+app.use("/api/development", developmentRoutes);
 // Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -330,11 +330,7 @@ const ManageShowcase = () => {
               className="btn btn-primary"
               disabled={isUploading}
             >
-              {isUploading
-                ? "Uploading..."
-                : isEditing
-                ? "Update Video"
-                : "Add Video"}
+              {isUploading ? "Up" : isEditing ? "Update Video" : "Add Video"}
             </button>
 
             {isEditing && !isUploading && (

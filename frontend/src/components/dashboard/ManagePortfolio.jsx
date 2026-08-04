@@ -240,11 +240,7 @@ const ManagePortfolio = () => {
             className="btn btn-primary"
             disabled={isUploading} // Prevent double clicks
           >
-            {isUploading
-              ? "Uploading..."
-              : isEditing
-              ? "Update Item"
-              : "Add Item"}
+            {isUploading ? "Up" : isEditing ? "Update Item" : "Add Item"}
           </button>
           {isEditing && !isUploading && (
             <button

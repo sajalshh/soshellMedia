@@ -13,6 +13,7 @@ import ManageAboutVideo from "../components/dashboard/homepage/ManageAboutVideo"
 import ManagePortfolio from "../components/dashboard/ManagePortfolio";
 import ManagePortfolioCategories from "../components/dashboard/ManagePortfolioCategories";
 import ManageServices from "../components/dashboard/ManageServices";
+import ManageDevelopmentPage from "../components/dashboard/ManageDevelopmentPage";
 import ManageCaseStudies from "../components/dashboard/ManageCaseStudies";
 import ManageWorkProcess from "../components/dashboard/ManageWorkProcess";
 import ManagePricing from "../components/dashboard/ManagePricing";
@@ -50,6 +51,8 @@ const DashboardPage = () => {
         return <ManagePricing />;
       case "servicesPage":
         return <ManageServices />;
+      case "developmentPage":
+        return <ManageDevelopmentPage />;
       case "aboutPage":
         return <ManageAboutPage />;
       case "team":

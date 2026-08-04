@@ -35,7 +35,7 @@ export default function ServiceDetailsPage() {
   }, [slug]);
 
   if (loading) {
-    return <div className="section-padding">Loading...</div>;
+    return <div className="section-padding"></div>;
   }
 
   if (error || !service) {

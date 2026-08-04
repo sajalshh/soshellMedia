@@ -195,9 +195,10 @@ export default function ManageAttendance() {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan="7" style={{ textAlign: "center", padding: 24 }}>
-                  Loading...
-                </td>
+                <td
+                  colSpan="7"
+                  style={{ textAlign: "center", padding: 24 }}
+                ></td>
               </tr>
             ) : records.length === 0 ? (
               <tr>

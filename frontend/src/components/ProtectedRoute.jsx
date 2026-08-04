@@ -12,7 +12,7 @@ const ProtectedRoute = ({ requiredPermission }) => {
         style={{ height: "100vh", background: "#0d0d0f" }}
       >
         <div className="spinner-border text-light" role="status">
-          <span className="visually-hidden">Loading...</span>
+          <span className="visually-hidden"></span>
         </div>
       </div>
     );

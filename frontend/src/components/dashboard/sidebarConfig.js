@@ -18,6 +18,7 @@ import {
   Shield,
   Clock,
   CheckSquare,
+  Code2,
 } from "lucide-react";
 
 export const sidebarSections = [
@@ -76,6 +77,12 @@ export const sidebarSections = [
         label: "Services Page",
         icon: Briefcase,
         feature: "servicesPage",
+      },
+      {
+        key: "developmentPage",
+        label: "Development Page",
+        icon: Code2,
+        feature: "development",
       },
       {
         key: "aboutPage",

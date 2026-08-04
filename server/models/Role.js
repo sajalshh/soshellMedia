@@ -21,6 +21,7 @@ const FEATURES = [
   "attendance",
   "tasks",
   "mediaProjects",
+  "development",
 ];
 
 const ACTIONS = ["view", "create", "update", "delete"];

@@ -188,7 +188,7 @@ export default function EmployeeDashboard() {
             </h5>
 
             {attendanceLoading ? (
-              <p style={{ color: "#888" }}>Loading...</p>
+              <p style={{ color: "#888" }}></p>
             ) : (
               <>
                 {/* Stats Row */}

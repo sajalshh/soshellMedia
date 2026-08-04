@@ -27,7 +27,7 @@ export default function AboutPage() {
   }, []);
 
   if (loading) {
-    return <div className="section-padding text-center">Loading...</div>;
+    return <div className="section-padding text-center"></div>;
   }
 
   if (error) {

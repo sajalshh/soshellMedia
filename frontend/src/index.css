@@ -8,6 +8,7 @@
 
 /* --- YOUR CUSTOM REACT-SPECIFIC STYLES --- */
 @import "./styles/legacy.css";
+@import "./styles/dev.css";
 
 @tailwind base;
 @tailwind components;

@@ -9,6 +9,7 @@ const navLinks = [
   { path: "/", label: "Home" },
   { path: "/about", label: "About Us" },
   { path: "/service", label: "Services" },
+  { path: "/development", label: "Development" },
   { path: "/project", label: "Portfolio" },
   { path: "/blog", label: "Blog" },
   { path: "/casestudies", label: "Case Studies" },
@@ -19,13 +20,13 @@ const navLinks = [
 const DesktopNav = () => {
   const location = useLocation();
   return (
-    <nav className="tw-hidden lg:tw-flex">
-      <ul className="tw-flex tw-items-center tw-gap-8">
+    <nav className="tw-hidden xl:tw-flex">
+      <ul className="tw-flex tw-items-center tw-gap-5 2xl:tw-gap-7">
         {navLinks.map((link) => (
           <li key={link.path} className="tw-relative tw-group">
             <Link
               to={link.path}
-              className={`tw-font-medium tw-transition-colors tw-duration-300 ${
+              className={`tw-whitespace-nowrap tw-text-[15px] 2xl:tw-text-base tw-font-medium tw-transition-colors tw-duration-300 ${
                 location.pathname === link.path
                   ? "tw-text-[var(--tp-theme-primary)]"
                   : "tw-text-white hover:tw-text-[var(--tp-theme-primary)]"
@@ -53,7 +54,7 @@ const MobileNav = ({ closeMenu }) => {
 
   return (
     <motion.div
-      className="tw-fixed tw-inset-0 tw-bg-[#0a0a0c]/80 tw-backdrop-blur-xl tw-z-[9997] lg:tw-hidden tw-flex tw-flex-col"
+      className="tw-fixed tw-inset-0 tw-bg-[#0a0a0c]/80 tw-backdrop-blur-xl tw-z-[9997] xl:tw-hidden tw-flex tw-flex-col"
       initial={{ opacity: 0, x: "100%" }}
       animate={{ opacity: 1, x: "0%" }}
       exit={{ opacity: 0, x: "100%" }}
@@ -182,7 +183,7 @@ export default function Header() {
               {/* Hidden on Mobile */}
               <Link
                 to="/appointment"
-                className="theme-btn contact-btn !tw-hidden lg:!tw-inline-flex lg:tw-items-center lg:tw-gap-2.5"
+                className="theme-btn contact-btn !tw-hidden xl:!tw-inline-flex xl:tw-items-center xl:tw-gap-2.5"
               >
                 <Mail size={18} />
                 <span>Book Appointment</span>
@@ -191,7 +192,7 @@ export default function Header() {
               {/* Hamburger Button (Modernized) */}
               <button
                 onClick={toggleMobileMenu}
-                className="tw-relative tw-z-[10000] tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-bg-white/5 tw-border tw-border-white/10 tw-text-white lg:tw-hidden hover:tw-bg-white/10 tw-transition-colors"
+                className="tw-relative tw-z-[10000] tw-w-10 tw-h-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-bg-white/5 tw-border tw-border-white/10 tw-text-white xl:tw-hidden hover:tw-bg-white/10 tw-transition-colors"
                 aria-label="Toggle menu"
               >
                 <AnimatePresence initial={false} mode="wait">
