@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Menu, X, ArrowRight } from "lucide-react";
-import headerLogo from "../../src/assets/img/logo/header.png"
+import { HEADER_LOGO as headerLogo } from "../brand";
 
 // --- Navigation Links Data ---
 const navLinks = [

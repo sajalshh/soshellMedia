@@ -8,7 +8,7 @@ import {
   Linkedin,
   Twitter,
 } from "lucide-react";
-import footerLogo from "../../src/assets/img/logo/logo.png";
+import { FOOTER_LOGO as footerLogo } from "../brand";
 // Same links as Navbar
 const navLinks = [
   { path: "/", label: "Home" },
