@@ -8,7 +8,7 @@ import {
   Linkedin,
   Twitter,
 } from "lucide-react";
-import { FOOTER_LOGO as footerLogo } from "../brand";
+import { FOOTER_LOGO as footerLogo, isLetAiHandle } from "../brand";
 // Same links as Navbar
 const navLinks = [
   { path: "/", label: "Home" },
@@ -44,7 +44,11 @@ export default function Footer() {
                   <img
                     src={footerLogo}
                     alt="Soshell Media"
-                    style={{ width: "164px", height: "62px" }}
+                    style={
+                      isLetAiHandle
+                        ? { width: "auto", height: "110px" }
+                        : { width: "164px", height: "62px" }
+                    }
                   />
                 </Link>
 

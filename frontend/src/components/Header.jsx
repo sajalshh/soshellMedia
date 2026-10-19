@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Menu, X, ArrowRight } from "lucide-react";
-import { HEADER_LOGO as headerLogo } from "../brand";
+import { HEADER_LOGO as headerLogo, isLetAiHandle } from "../brand";
 
 // --- Navigation Links Data ---
 const navLinks = [
@@ -168,7 +168,11 @@ export default function Header() {
                 <img
                   src={headerLogo}
                   alt="Soshell Media"
-                  className="tw-w-[130px] sm:tw-w-[150px] lg:tw-w-[184px] tw-h-auto tw-transition-all"
+                  className={
+                    isLetAiHandle
+                      ? "tw-h-[57px] sm:tw-h-[65px] lg:tw-h-[80px] tw-w-auto tw-transition-all"
+                      : "tw-w-[130px] sm:tw-w-[150px] lg:tw-w-[184px] tw-h-auto tw-transition-all"
+                  }
                 />
               </Link>
             </div>
