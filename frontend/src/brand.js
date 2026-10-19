@@ -7,3 +7,9 @@ const isLetAiHandle = window.location.hostname.includes("letaihandle");
 
 export const HEADER_LOGO = isLetAiHandle ? "/letaihandle-logo.svg" : headerLogo;
 export const FOOTER_LOGO = isLetAiHandle ? "/letaihandle-logo.svg" : footerLogo;
+
+if (isLetAiHandle) {
+  const favicon = document.querySelector('link[rel="icon"]');
+  favicon?.setAttribute("type", "image/png");
+  favicon?.setAttribute("href", "/letaihandle-favicon.png");
+}

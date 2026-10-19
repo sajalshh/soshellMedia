@@ -1,4 +1,4 @@
-import{r as o,u as w,c as a,j as t,m as e,L as l,d as c}from"./index-DUA-cd2q.js";function x(){const n=o.useRef(null),{scrollYProgress:s}=w({target:n,offset:["start end","end start"]}),r=a(s,[0,1],[40,-40]),i=a(s,[0,1],[1,1.15]);return t.jsxs("section",{ref:n,className:`
+import{r as o,u as w,c as a,j as t,m as e,L as l,d as c}from"./index-BCc4nIQj.js";function x(){const n=o.useRef(null),{scrollYProgress:s}=w({target:n,offset:["start end","end start"]}),r=a(s,[0,1],[40,-40]),i=a(s,[0,1],[1,1.15]);return t.jsxs("section",{ref:n,className:`
         message-section
         tw-relative
         tw-overflow-hidden
